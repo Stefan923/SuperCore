@@ -22,11 +22,12 @@ public class CommandAdminChat extends AbstractCommand implements MessageUtils {
         Player senderPlayer = (Player) sender;
         User user = instance.getUser(senderPlayer);
 
+        FileConfiguration settings = instance.getSettingsManager().getConfig();
         FileConfiguration languageConfig = instance.getLanguageManager().getConfig();
 
         long now = System.currentTimeMillis();
         if (user.getAdminChatCooldown() > now) {
-            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.AdminChat.Cooldown")));
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.AdminChat.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.AdminChat")))));
             return ReturnType.FAILURE;
         }
 

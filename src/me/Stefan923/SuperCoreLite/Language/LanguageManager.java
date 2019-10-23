@@ -23,10 +23,10 @@ public class LanguageManager {
         cfile = new File(p.getDataFolder(), "language.yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         config.options().header("SuperCore Lite by Stefan923.\n");
-        config.addDefault("Command.AdminChat.Cooldown", "&7&l(&3&l!&7&l) &fYou must wait &b5 seconds &fto use the command again!");
+        config.addDefault("Command.AdminChat.Cooldown", "&7&l(&3&l!&7&l) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.addDefault("Command.AdminChat.Format", "&3[&bSTAFF&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.addDefault("Command.AdminChat.Repeated Message", "&7&l(&3&l!&7&l) &fYou can not write &cthe same message&f!");
-        config.addDefault("Command.DonorChat.Cooldown", "&7&l(&3&l!&7&l) &fYou must wait &b5 seconds &fto use the command again!");
+        config.addDefault("Command.DonorChat.Cooldown", "&7&l(&3&l!&7&l) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.addDefault("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.addDefault("Command.DonorChat.Repeated Message", "&7&l(&3&l!&7&l) &fYou can not write &cthe same message&f!");
         config.options().copyDefaults(true);

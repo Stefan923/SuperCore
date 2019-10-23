@@ -26,6 +26,8 @@ public class SettingsManager {
         config.options().header("SuperCore Lite by Stefan923\n");
         config.addDefault("Enabled Commands.AdminChat", true);
         config.addDefault("Enabled Commands.DonorChat", true);
+        config.addDefault("Command Cooldowns.AdminChat", 5);
+        config.addDefault("Command Cooldowns.DonorChat", 10);
         config.options().copyDefaults(true);
         save();
     }
@@ -37,6 +39,8 @@ public class SettingsManager {
     public void resetConfig() {
         config.set("Enabled Commands.AdminChat", true);
         config.set("Enabled Commands.DonorChat", true);
+        config.set("Command Cooldowns.AdminChat", 5);
+        config.set("Command Cooldowns.DonorChat", 10);
         save();
     }
 
