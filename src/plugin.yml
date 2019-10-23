@@ -1,0 +1,34 @@
+name: SuperCoreLite
+version: 0.0.0
+main: me.Stefan923.SuperCoreLite.Main
+description: Provides a core set of commands and server utilities.
+softdepend: [PlaceholderAPI]
+authors: [Stefan923]
+
+commands:
+  core:
+    description: Infos about this plugin.
+    aliases: [corelite, supercore, supercorelite, score, scorelite]
+  adminchat:
+    description: Special chat for admins.
+    aliases: [superadminchat, sadminchat, achat, superachat, sachat, ac, superac, sac]
+  donorchat:
+    description: Special chat for donors.
+    aliases: [superdonorchat, sdonorchat, dchat, superdchat, sdchat, dc, superdc, sdc]
+
+permissions:
+  supercore.admin:
+    description: Acces to powerfull commands, like /core reload.
+    default: op
+  supercore.adminchat.send:
+    description: Use adminchat command.
+    default: op
+  supercore.adminchat.receive:
+    description: Receive messages on adminchat.
+    default: op
+  supercore.donorchat.send:
+    description: Use donorchat command.
+    default: op
+  supercore.donorchat.receive:
+    description: Receive messages on donorchat.
+    default: op
