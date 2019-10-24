@@ -40,6 +40,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             plugin.getCommand("donorchat").setExecutor(this);
             addCommand(new CommandDonorChat());
         }
+        if (settings.getBoolean("Enabled Commands.HelpOp")) {
+            plugin.getCommand("helpop").setExecutor(this);
+            addCommand(new CommandDonorChat());
+        }
         addCommand(new CommandReload(commandCore));
 
         for (AbstractCommand abstractCommand : commands) {

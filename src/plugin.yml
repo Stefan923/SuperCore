@@ -1,5 +1,5 @@
 name: SuperCoreLite
-version: 0.0.0
+version: 0.0.2
 main: me.Stefan923.SuperCoreLite.Main
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -15,6 +15,9 @@ commands:
   donorchat:
     description: Special chat for donors.
     aliases: [superdonorchat, sdonorchat, dchat, superdchat, sdchat, dc, superdc, sdc]
+  helpop:
+    description: Special chat to request help.
+    aliases: [superhelpop, shelpop, superreport, sreport, report]
 
 permissions:
   supercore.admin:
@@ -31,4 +34,10 @@ permissions:
     default: op
   supercore.donorchat.receive:
     description: Receive messages on donorchat.
+    default: op
+  supercore.helpop.send:
+    description: Use helpop command.
+    default: op
+  supercore.helpop.receive:
+    description: Receive messages on helpop.
     default: op
