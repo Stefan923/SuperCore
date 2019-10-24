@@ -27,7 +27,7 @@ public class CommandDonorChat extends AbstractCommand implements MessageUtils {
 
         long now = System.currentTimeMillis();
         if (user.getDonorChatCooldown() > now) {
-            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.DonorChat.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.AdminChat")))));
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.AdminChat")))));
             return ReturnType.FAILURE;
         }
 
@@ -38,7 +38,7 @@ public class CommandDonorChat extends AbstractCommand implements MessageUtils {
         String message = stringBuilder.toString();
 
         if (user.getDonorChatLastMessage().equalsIgnoreCase(message)) {
-            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.DonorChat.Repeated Message")));
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Repeated Message")));
             return ReturnType.FAILURE;
         }
 

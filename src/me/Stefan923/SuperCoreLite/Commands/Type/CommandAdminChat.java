@@ -27,7 +27,7 @@ public class CommandAdminChat extends AbstractCommand implements MessageUtils {
 
         long now = System.currentTimeMillis();
         if (user.getAdminChatCooldown() > now) {
-            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.AdminChat.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.AdminChat")))));
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.AdminChat")))));
             return ReturnType.FAILURE;
         }
 
@@ -38,7 +38,7 @@ public class CommandAdminChat extends AbstractCommand implements MessageUtils {
         String message = stringBuilder.toString();
 
         if (user.getAdminChatLastMessage().equalsIgnoreCase(message)) {
-            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.AdminChat.Repeated Message")));
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Repeated Message")));
             return ReturnType.FAILURE;
         }
 
