@@ -28,6 +28,8 @@ public class LanguageManager {
         config.addDefault("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.addDefault("Command.HelpOp.Format", "&4&k|&cHelpOp&4&k|&r &7%playername%: &f%message%");
         config.addDefault("General.Repeated Message", "&7&l(&3&l!&7&l) &fYou can not write &cthe same message&f!");
+        config.addDefault("On Join.Join Message", "&7&l(&3&l!&7&l) &a%playername% &fjoined the game!");
+        config.addDefault("On Quit.Quit Message", "&7&l(&3&l!&7&l) &c%playername% &fleft the game!");
         config.options().copyDefaults(true);
         save();
     }

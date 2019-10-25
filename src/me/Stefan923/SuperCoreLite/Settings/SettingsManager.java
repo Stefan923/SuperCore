@@ -30,6 +30,8 @@ public class SettingsManager {
         config.addDefault("Command Cooldowns.AdminChat", 5);
         config.addDefault("Command Cooldowns.DonorChat", 10);
         config.addDefault("Command Cooldowns.HelpOp", 10);
+        config.addDefault("On Join.Enable Join Message", true);
+        config.addDefault("On Join.Enable Quit Message", true);
         config.options().copyDefaults(true);
         save();
     }
