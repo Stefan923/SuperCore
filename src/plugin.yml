@@ -1,5 +1,5 @@
 name: SuperCoreLite
-version: 0.0.3
+version: 0.0.4
 main: me.Stefan923.SuperCoreLite.Main
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -18,6 +18,9 @@ commands:
   helpop:
     description: Special chat to request help.
     aliases: [superhelpop, shelpop, superreport, sreport, report]
+  list:
+    description: Shows list of online players.
+    aliases: [superlist, slist, who, superwho, swho]
 
 permissions:
   supercore.admin:
@@ -41,3 +44,9 @@ permissions:
   supercore.helpop.receive:
     description: Receive messages on helpop.
     default: op
+  supercore.list:
+    description: Use list command.
+    default: op
+  supercore.list.default:
+    description: Appear on online list as default player.
+    default: true

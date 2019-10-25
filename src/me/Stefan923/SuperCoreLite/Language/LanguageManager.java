@@ -8,6 +8,7 @@ import org.bukkit.plugin.Plugin;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 public class LanguageManager {
 
@@ -27,6 +28,9 @@ public class LanguageManager {
         config.addDefault("Command.Cooldown", "&7(&3!&7) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.addDefault("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.addDefault("Command.HelpOp.Format", "&4&k|&cHelpOp&4&k|&r &7%playername%: &f%message%");
+        config.addDefault("Command.List.Format", Arrays.asList("&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r", "&7(&3!&7) &fThere are &b%list_size_supercore.list.default% &fplayers online!", " &7- &fAdmins (&3%list_size_supercore.list.admin%&f): %list_supercore.list.admin%", " &7- &fDonors (&3%list_size_supercore.list.donor%&f): %list_supercore.list.donor%", "&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r"));
+        config.addDefault("Command.List.Name Color", "&b");
+        config.addDefault("Command.List.Separator", "&f, ");
         config.addDefault("General.Repeated Message", "&7(&3!&7) &fYou can not write &cthe same message&f!");
         config.addDefault("On Join.Join Message", "&7(&3!&7) &a%playername% &fjoined the game!");
         config.addDefault("On Quit.Quit Message", "&7(&3!&7) &c%playername% &fleft the game!");
@@ -39,12 +43,16 @@ public class LanguageManager {
     }
 
     public void reset() {
-        config.set("Command.AdminChat.Cooldown", "&7&l(&3&l!&7&l) &fYou must wait &b5 seconds &fto use the command again!");
         config.set("Command.AdminChat.Format", "&3[&bSTAFF&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
-        config.set("Command.AdminChat.Repeated Message", "&7&l(&3&l!&7&l) &fYou can not write &cthe same message&f!");
-        config.set("Command.DonorChat.Cooldown", "&7&l(&3&l!&7&l) &fYou must wait &b5 seconds &fto use the command again!");
+        config.set("Command.Cooldown", "&7(&3!&7) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.set("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
-        config.set("Command.DonorChat.Repeated Message", "&7&l(&3&l!&7&l) &fYou can not write &cthe same message&f!");
+        config.set("Command.HelpOp.Format", "&4&k|&cHelpOp&4&k|&r &7%playername%: &f%message%");
+        config.set("Command.List.Format", Arrays.asList("&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r", "&7(&3!&7) &fThere are &b%list_size_supercore.list.default% &fplayers online!", " &7- &fAdmins (&3%list_size_supercore.list.admin%&f): %list_supercore.list.admin%", " &7- &fAdmins (&3%list_size_supercore.list.donor%&f): %list_supercore.list.donor%", "&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r"));
+        config.set("Command.List.Name Color", "&b");
+        config.set("Command.List.Separator", "&f, ");
+        config.set("General.Repeated Message", "&7(&3!&7) &fYou can not write &cthe same message&f!");
+        config.set("On Join.Join Message", "&7(&3!&7) &a%playername% &fjoined the game!");
+        config.set("On Quit.Quit Message", "&7(&3!&7) &c%playername% &fleft the game!");
         save();
     }
 

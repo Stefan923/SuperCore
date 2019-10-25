@@ -1,9 +1,6 @@
 package me.Stefan923.SuperCoreLite.Commands;
 
-import me.Stefan923.SuperCoreLite.Commands.Type.CommandAdminChat;
-import me.Stefan923.SuperCoreLite.Commands.Type.CommandCore;
-import me.Stefan923.SuperCoreLite.Commands.Type.CommandDonorChat;
-import me.Stefan923.SuperCoreLite.Commands.Type.CommandReload;
+import me.Stefan923.SuperCoreLite.Commands.Type.*;
 import me.Stefan923.SuperCoreLite.Main;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import org.bukkit.command.Command;
@@ -43,6 +40,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         if (settings.getBoolean("Enabled Commands.HelpOp")) {
             plugin.getCommand("helpop").setExecutor(this);
             addCommand(new CommandDonorChat());
+        }
+        if (settings.getBoolean("Enabled Commands.List")) {
+            plugin.getCommand("list").setExecutor(this);
+            addCommand(new CommandList());
         }
         addCommand(new CommandReload(commandCore));
 

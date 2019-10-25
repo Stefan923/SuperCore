@@ -69,5 +69,4 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
         return "A special chat to request help.";
     }
 
-
 }

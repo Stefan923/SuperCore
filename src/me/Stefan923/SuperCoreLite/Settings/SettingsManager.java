@@ -27,9 +27,11 @@ public class SettingsManager {
         config.addDefault("Enabled Commands.AdminChat", true);
         config.addDefault("Enabled Commands.DonorChat", true);
         config.addDefault("Enabled Commands.HelpOp", true);
+        config.addDefault("Enabled Commands.List", true);
         config.addDefault("Command Cooldowns.AdminChat", 5);
         config.addDefault("Command Cooldowns.DonorChat", 10);
         config.addDefault("Command Cooldowns.HelpOp", 10);
+        config.addDefault("Command.List.Group Permissions", Arrays.asList("supercore.list.default", "supercore.list.admin", "supercore.list.donor"));
         config.addDefault("On Join.Enable Join Message", true);
         config.addDefault("On Join.Enable Quit Message", true);
         config.options().copyDefaults(true);
