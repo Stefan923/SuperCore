@@ -94,7 +94,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             }
             return;
         }
-        sender.sendMessage("&8「&3SuperCore&8」 &cYou have no permission!");
+        sender.sendMessage(formatAll("&8「&3SuperCore&8」 &cYou have no permission!"));
     }
 
     public List<AbstractCommand> getCommands() {
