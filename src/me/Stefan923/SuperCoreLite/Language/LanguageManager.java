@@ -24,12 +24,12 @@ public class LanguageManager {
         config = YamlConfiguration.loadConfiguration(cfile);
         config.options().header("SuperCore Lite by Stefan923.\n");
         config.addDefault("Command.AdminChat.Format", "&3[&bSTAFF&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
-        config.addDefault("Command.Cooldown", "&7&l(&3&l!&7&l) &fYou must wait &b%cooldown% seconds &fto use the command again!");
+        config.addDefault("Command.Cooldown", "&7(&3!&7) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.addDefault("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.addDefault("Command.HelpOp.Format", "&4&k|&cHelpOp&4&k|&r &7%playername%: &f%message%");
-        config.addDefault("General.Repeated Message", "&7&l(&3&l!&7&l) &fYou can not write &cthe same message&f!");
-        config.addDefault("On Join.Join Message", "&7&l(&3&l!&7&l) &a%playername% &fjoined the game!");
-        config.addDefault("On Quit.Quit Message", "&7&l(&3&l!&7&l) &c%playername% &fleft the game!");
+        config.addDefault("General.Repeated Message", "&7(&3!&7) &fYou can not write &cthe same message&f!");
+        config.addDefault("On Join.Join Message", "&7(&3!&7) &a%playername% &fjoined the game!");
+        config.addDefault("On Quit.Quit Message", "&7(&3!&7) &c%playername% &fleft the game!");
         config.options().copyDefaults(true);
         save();
     }

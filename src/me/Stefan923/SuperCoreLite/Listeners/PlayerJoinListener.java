@@ -24,7 +24,7 @@ public class PlayerJoinListener implements Listener, MessageUtils {
         instance.addUser(player);
 
         if (config.getBoolean("On Join.Enable Join Message"))
-            Bukkit.broadcastMessage(formatAll(language.getString("On Join.Join Message").replace("%playername%", playerName)));
+            event.setJoinMessage(formatAll(language.getString("On Join.Join Message").replace("%playername%", playerName)));
     }
 
 }

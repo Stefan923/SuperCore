@@ -23,7 +23,7 @@ public class PlayerQuitListener implements Listener, MessageUtils {
         instance.removeUser(playerName);
 
         if (config.getBoolean("On Quit.Enable Quit Message"))
-            Bukkit.broadcastMessage(formatAll(language.getString("On Quit.Quit Message").replace("%playername%", playerName)));
+            event.setQuitMessage(formatAll(language.getString("On Quit.Quit Message").replace("%playername%", playerName)));
     }
 
 }
