@@ -29,6 +29,9 @@ public class Main extends JavaPlugin implements MessageUtils {
         instance = this;
 
         settingsManager = SettingsManager.getInstance();
+        settingsManager.setup(this);
+
+        languageManagers = new HashMap<>();
         for (String fileName : settingsManager.getConfig().getStringList("Languages.Available Languages")) {
             LanguageManager languageManager = new LanguageManager();
             fileName = fileName.toLowerCase();
@@ -37,8 +40,6 @@ public class Main extends JavaPlugin implements MessageUtils {
         }
 
         users = new HashMap<>();
-
-        settingsManager.setup(this);
 
         sendLogger("&8&l> &7&m------ &8&l( &3&lSuperCore Lite &b&lby Stefan923 &8&l) &7&m------ &8&l<");
         sendLogger("&b   Plugin has been initialized.");
@@ -78,8 +79,13 @@ public class Main extends JavaPlugin implements MessageUtils {
     }
 
     public void reloadLanguageManagers() {
-        for (LanguageManager languageManager : languageManagers.values())
-            languageManager.reload();
+        languageManagers.clear();
+        for (String fileName : settingsManager.getConfig().getStringList("Languages.Available Languages")) {
+            LanguageManager languageManager = new LanguageManager();
+            fileName = fileName.toLowerCase();
+            languageManager.setup(this, fileName);
+            languageManagers.put(fileName, languageManager);
+        }
     }
 
     public HashMap<String, User> getUsers() {
@@ -106,7 +112,7 @@ public class Main extends JavaPlugin implements MessageUtils {
     public void onDisable() {
         users.clear();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.kickPlayer("SuperCore has been reloaded.");
+            player.kickPlayer(formatAll("&8「&3SuperCore&8」 &cPlugin has been disabled."));
         }
     }
 

@@ -24,7 +24,7 @@ public class PlayerJoinListener implements Listener, MessageUtils {
 
         event.setJoinMessage("");
 
-        if (settings.getBoolean("On Quit.Enable Quit Message")) {
+        if (settings.getBoolean("On Join.Enable Join Message")) {
             FileConfiguration languageConfig;
             for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
                 languageConfig = instance.getLanguageManager(instance.getUser(onlinePlayer).getLanguage()).getConfig();

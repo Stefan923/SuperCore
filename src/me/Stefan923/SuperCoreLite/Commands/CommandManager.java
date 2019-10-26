@@ -43,7 +43,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         }
         if (settings.getBoolean("Enabled Commands.Language")) {
             plugin.getCommand("language").setExecutor(this);
-            addCommand(new CommandList());
+            addCommand(new CommandLanguage());
         }
         if (settings.getBoolean("Enabled Commands.List")) {
             plugin.getCommand("list").setExecutor(this);
