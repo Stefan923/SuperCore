@@ -108,6 +108,10 @@ public interface MessageUtils {
         player.sendMessage(sb.toString() + message);
     }
 
+    default String capitalizeFirstLetter(String string) {
+        return string.substring(0, 1).toUpperCase() + string.substring(1);
+    }
+
     default String replacePlaceholders(Player player, String string) {
         return PlaceholderAPI.setPlaceholders(player, string);
     }
