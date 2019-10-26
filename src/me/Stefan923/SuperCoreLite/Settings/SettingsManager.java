@@ -37,6 +37,12 @@ public class SettingsManager {
         config.addDefault("Command.List.Group Permissions", Arrays.asList("supercore.list.default", "supercore.list.admin", "supercore.list.donor"));
         config.addDefault("On Join.Enable Join Message", true);
         config.addDefault("On Quit.Enable Quit Message", true);
+        config.addDefault("Storage.MySQL.Enable", false);
+        config.addDefault("Storage.MySQL.IP Adress", "127.0.0.1");
+        config.addDefault("Storage.MySQL.Port", 3306);
+        config.addDefault("Storage.MySQL.Database Name", "yourDatabase");
+        config.addDefault("Storage.MySQL.User", "yourUser");
+        config.addDefault("Storage.MySQL.Password", "yourPassword");
         config.options().copyDefaults(true);
         save();
     }
@@ -59,6 +65,12 @@ public class SettingsManager {
         config.set("Command.List.Group Permissions", Arrays.asList("supercore.list.default", "supercore.list.admin", "supercore.list.donor"));
         config.set("On Join.Enable Join Message", true);
         config.set("On Quit.Enable Quit Message", true);
+        config.set("Storage.MySQL.Enable", false);
+        config.set("Storage.MySQL.IP Adress", "127.0.0.1");
+        config.set("Storage.MySQL.Port", 3306);
+        config.set("Storage.MySQL.Database Name", "yourDatabase");
+        config.set("Storage.MySQL.User", "yourUser");
+        config.set("Storage.MySQL.Password", "yourPassword");
         save();
     }
 

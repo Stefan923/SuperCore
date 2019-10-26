@@ -1,9 +1,12 @@
 package me.Stefan923.SuperCoreLite.Utils;
 
+import me.Stefan923.SuperCoreLite.Database.Database;
 import me.Stefan923.SuperCoreLite.Main;
-import me.Stefan923.SuperCoreLite.Settings.SettingsManager;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class User {
 
@@ -18,7 +21,9 @@ public class User {
     private long donorChatCooldown;
 
     public User(Player player) {
-        FileConfiguration settings = Main.instance.getSettingsManager().getConfig();
+        Main instance = Main.instance;
+        FileConfiguration settings = instance.getSettingsManager().getConfig();
+        Database database = instance.getDatabase("supercore_users");
 
         this.player = player;
 
@@ -30,6 +35,17 @@ public class User {
         long now = System.currentTimeMillis();
         this.adminChatCooldown = now;
         this.donorChatCooldown = now;
+
+        if (database.has(player.getName())) {
+            ResultSet resultSet = database.get(player.getName());
+            try {
+                this.language = resultSet.getString("language");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        } else {
+            database.put(player.getName(), "language", this.language);
+        }
     }
 
     public Player getPlayer() {
@@ -46,6 +62,7 @@ public class User {
 
     public void setLanguage(String language) {
         this.language = language;
+        Main.instance.getDatabase("supercore_users").put(player.getName(), "language", language);
     }
 
     public String getAdminChatLastMessage() {

@@ -19,8 +19,6 @@ public class PlayerQuitListener implements Listener, MessageUtils {
         Main instance = Main.instance;
         FileConfiguration settings = instance.getSettingsManager().getConfig();
 
-        instance.removeUser(playerName);
-
         event.setQuitMessage("");
 
         if (settings.getBoolean("On Quit.Enable Quit Message")) {
@@ -30,6 +28,8 @@ public class PlayerQuitListener implements Listener, MessageUtils {
                 onlinePlayer.sendMessage(formatAll(languageConfig.getString("On Quit.Quit Message").replace("%playername%", playerName)));
             }
         }
+
+        instance.removeUser(playerName);
     }
 
 }

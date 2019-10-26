@@ -87,7 +87,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
 
     private void processRequirements(AbstractCommand command, CommandSender sender, String[] strings) {
         if (!(sender instanceof Player) && command.isNoConsole()) {
-            sender.sendMessage(formatAll("&cYou must be a player to use this commands."));
+            sender.sendMessage(formatAll("&8「&3SuperCore&8」 &cYou must be a player to use this commands."));
             return;
         }
         if (command.getPermissionNode() == null || sender.hasPermission(command.getPermissionNode())) {
