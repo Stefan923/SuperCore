@@ -17,13 +17,19 @@ public class PlayerQuitListener implements Listener, MessageUtils {
         String playerName = player.getName();
 
         Main instance = Main.instance;
-        FileConfiguration config = instance.getSettingsManager().getConfig();
-        FileConfiguration language = instance.getLanguageManager().getConfig();
+        FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         instance.removeUser(playerName);
 
-        if (config.getBoolean("On Quit.Enable Quit Message"))
-            event.setQuitMessage(formatAll(language.getString("On Quit.Quit Message").replace("%playername%", playerName)));
+        event.setQuitMessage("");
+
+        if (settings.getBoolean("On Quit.Enable Quit Message")) {
+            FileConfiguration languageConfig;
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                languageConfig = instance.getLanguageManager(instance.getUser(onlinePlayer).getLanguage()).getConfig();
+                onlinePlayer.sendMessage(formatAll(languageConfig.getString("On Quit.Quit Message").replace("%playername%", playerName)));
+            }
+        }
     }
 
 }

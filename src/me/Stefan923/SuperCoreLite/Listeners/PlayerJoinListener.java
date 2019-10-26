@@ -18,13 +18,19 @@ public class PlayerJoinListener implements Listener, MessageUtils {
         String playerName = player.getName();
 
         Main instance = Main.instance;
-        FileConfiguration config = instance.getSettingsManager().getConfig();
-        FileConfiguration language = instance.getLanguageManager().getConfig();
+        FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         instance.addUser(player);
 
-        if (config.getBoolean("On Join.Enable Join Message"))
-            event.setJoinMessage(formatAll(language.getString("On Join.Join Message").replace("%playername%", playerName)));
+        event.setJoinMessage("");
+
+        if (settings.getBoolean("On Quit.Enable Quit Message")) {
+            FileConfiguration languageConfig;
+            for (Player onlinePlayer : Bukkit.getOnlinePlayers()) {
+                languageConfig = instance.getLanguageManager(instance.getUser(onlinePlayer).getLanguage()).getConfig();
+                onlinePlayer.sendMessage(formatAll(languageConfig.getString("On Join.Join Message").replace("%playername%", playerName)));
+            }
+        }
     }
 
 }
