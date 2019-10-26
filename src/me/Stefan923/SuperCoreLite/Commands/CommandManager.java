@@ -41,6 +41,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             plugin.getCommand("helpop").setExecutor(this);
             addCommand(new CommandDonorChat());
         }
+        if (settings.getBoolean("Enabled Commands.Language")) {
+            plugin.getCommand("language").setExecutor(this);
+            addCommand(new CommandList());
+        }
         if (settings.getBoolean("Enabled Commands.List")) {
             plugin.getCommand("list").setExecutor(this);
             addCommand(new CommandList());
