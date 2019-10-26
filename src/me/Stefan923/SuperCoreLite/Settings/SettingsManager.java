@@ -9,12 +9,13 @@ import org.bukkit.plugin.Plugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class SettingsManager {
 
-    static SettingsManager instance = new SettingsManager();
-    FileConfiguration config;
-    File cfile;
+    private static SettingsManager instance = new SettingsManager();
+    private FileConfiguration config;
+    private File cfile;
 
     public static SettingsManager getInstance() {
         return instance;
@@ -24,6 +25,8 @@ public class SettingsManager {
         cfile = new File(p.getDataFolder(), "settings.yml");
         config = YamlConfiguration.loadConfiguration(cfile);
         config.options().header("SuperCore Lite by Stefan923\n");
+        config.addDefault("Languages.Default Language Display Name", "lang_en.yml");
+        config.addDefault("Languages.Available Languages.English", "lang_en.yml");
         config.addDefault("Enabled Commands.AdminChat", true);
         config.addDefault("Enabled Commands.DonorChat", true);
         config.addDefault("Enabled Commands.HelpOp", true);
@@ -43,12 +46,18 @@ public class SettingsManager {
     }
 
     public void resetConfig() {
+        config.set("Languages.Default Language", "lang_en.yml");
+        config.set("Languages.Available Languages.English", "lang_en.yml");
         config.set("Enabled Commands.AdminChat", true);
         config.set("Enabled Commands.DonorChat", true);
         config.set("Enabled Commands.HelpOp", true);
+        config.set("Enabled Commands.List", true);
         config.set("Command Cooldowns.AdminChat", 5);
         config.set("Command Cooldowns.DonorChat", 10);
         config.set("Command Cooldowns.HelpOp", 10);
+        config.set("Command.List.Group Permissions", Arrays.asList("supercore.list.default", "supercore.list.admin", "supercore.list.donor"));
+        config.set("On Join.Enable Join Message", true);
+        config.set("On Join.Enable Quit Message", true);
         save();
     }
 

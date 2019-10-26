@@ -23,7 +23,7 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
         User user = instance.getUser(senderPlayer);
 
         FileConfiguration settings = instance.getSettingsManager().getConfig();
-        FileConfiguration languageConfig = instance.getLanguageManager().getConfig();
+        FileConfiguration languageConfig = instance.getLanguageManager(user.getLanguage()).getConfig();
 
         long now = System.currentTimeMillis();
         if (user.getAdminChatCooldown() > now) {

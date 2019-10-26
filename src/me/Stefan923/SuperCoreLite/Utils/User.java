@@ -1,10 +1,15 @@
 package me.Stefan923.SuperCoreLite.Utils;
 
+import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.Settings.SettingsManager;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 public class User {
 
     private Player player;
+
+    private String language;
 
     private String adminChatLastMessage;
     private String donorChatLastMessage;
@@ -13,9 +18,15 @@ public class User {
     private long donorChatCooldown;
 
     public User(Player player) {
+        FileConfiguration settings = Main.instance.getSettingsManager().getConfig();
+
         this.player = player;
+
+        this.language = settings.getString("Languages.Default Language").toLowerCase();
+
         this.adminChatLastMessage = "";
         this.donorChatLastMessage = "";
+
         long now = System.currentTimeMillis();
         this.adminChatCooldown = now;
         this.donorChatCooldown = now;
@@ -27,6 +38,14 @@ public class User {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
     }
 
     public String getAdminChatLastMessage() {
@@ -60,5 +79,4 @@ public class User {
     public void setDonorChatCooldown(long donorChatCooldown) {
         this.donorChatCooldown = donorChatCooldown;
     }
-
 }

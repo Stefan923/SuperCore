@@ -22,9 +22,10 @@ public class CommandList extends AbstractCommand implements MessageUtils, Player
     @Override
     protected AbstractCommand.ReturnType runCommand(Main instance, CommandSender sender, String... args) {
         Player senderPlayer = (Player) sender;
+        User user = instance.getUser(senderPlayer);
 
         FileConfiguration config = instance.getSettingsManager().getConfig();
-        FileConfiguration language = instance.getLanguageManager().getConfig();
+        FileConfiguration language = instance.getLanguageManager(user.getLanguage()).getConfig();
 
         String messageToSend = String.join("\n", language.getStringList("Command.List.Format"));
 

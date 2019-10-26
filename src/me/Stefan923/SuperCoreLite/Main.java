@@ -19,7 +19,7 @@ public class Main extends JavaPlugin implements MessageUtils {
     public static Main instance;
 
     private SettingsManager settingsManager;
-    private LanguageManager languageManager;
+    private HashMap<String, LanguageManager> languageManagers;
     private CommandManager commandManager;
 
     private HashMap<String, User> users;
@@ -29,12 +29,16 @@ public class Main extends JavaPlugin implements MessageUtils {
         instance = this;
 
         settingsManager = SettingsManager.getInstance();
-        languageManager = LanguageManager.getInstance();
+        for (String fileName : settingsManager.getConfig().getStringList("Languages.Available Languages")) {
+            LanguageManager languageManager = new LanguageManager();
+            fileName = fileName.toLowerCase();
+            languageManager.setup(this, fileName);
+            languageManagers.put(fileName, languageManager);
+        }
 
         users = new HashMap<>();
 
         settingsManager.setup(this);
-        languageManager.setup(this);
 
         sendLogger("&8&l> &7&m------ &8&l( &3&lSuperCore Lite &b&lby Stefan923 &8&l) &7&m------ &8&l<");
         sendLogger("&b   Plugin has been initialized.");
@@ -61,8 +65,21 @@ public class Main extends JavaPlugin implements MessageUtils {
         return settingsManager;
     }
 
-    public LanguageManager getLanguageManager() {
-        return languageManager;
+    public void reloadSettingManager() {
+        settingsManager.reload();
+    }
+
+    public LanguageManager getLanguageManager(String language) {
+        return languageManagers.get(language);
+    }
+
+    public HashMap<String, LanguageManager> getLanguageManagers() {
+        return languageManagers;
+    }
+
+    public void reloadLanguageManagers() {
+        for (LanguageManager languageManager : languageManagers.values())
+            languageManager.reload();
     }
 
     public HashMap<String, User> getUsers() {
