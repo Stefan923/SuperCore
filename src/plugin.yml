@@ -18,6 +18,9 @@ commands:
   helpop:
     description: Special chat to request help.
     aliases: [superhelpop, shelpop, superreport, sreport, report]
+  language:
+    description: Shows list of online players.
+    aliases: [superlanguage, slanguage, lang, superlang, slang]
   list:
     description: Shows list of online players.
     aliases: [superlist, slist, who, superwho, swho]
@@ -43,6 +46,9 @@ permissions:
     default: op
   supercore.helpop.receive:
     description: Receive messages on helpop.
+    default: op
+  supercore.language:
+    description: Change your language.
     default: op
   supercore.list:
     description: Use list command.
