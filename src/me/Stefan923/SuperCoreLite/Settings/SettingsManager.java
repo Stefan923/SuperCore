@@ -30,6 +30,7 @@ public class SettingsManager {
         config.addDefault("Enabled Commands.AdminChat", true);
         config.addDefault("Enabled Commands.DonorChat", true);
         config.addDefault("Enabled Commands.HelpOp", true);
+        config.addDefault("Enabled Commands.Language", true);
         config.addDefault("Enabled Commands.List", true);
         config.addDefault("Command Cooldowns.AdminChat", 5);
         config.addDefault("Command Cooldowns.DonorChat", 10);
@@ -51,6 +52,7 @@ public class SettingsManager {
         config.set("Enabled Commands.AdminChat", true);
         config.set("Enabled Commands.DonorChat", true);
         config.set("Enabled Commands.HelpOp", true);
+        config.set("Enabled Commands.Language", true);
         config.set("Enabled Commands.List", true);
         config.set("Command Cooldowns.AdminChat", 5);
         config.set("Command Cooldowns.DonorChat", 10);
