@@ -1,5 +1,6 @@
 package me.Stefan923.SuperCoreLite;
 
+import me.Stefan923.SuperCoreLite.Commands.Type.CommandCore;
 import me.Stefan923.SuperCoreLite.Commands.CommandManager;
 import me.Stefan923.SuperCoreLite.Database.Database;
 import me.Stefan923.SuperCoreLite.Database.H2Database;
@@ -159,7 +160,7 @@ public class Main extends JavaPlugin implements MessageUtils {
         Database database = null;
         try {
             database = new H2Database(table);
-            sendLogger("&8「&3SuperCore&8」 &rUsing H2 database for " + table + " data");
+            sendLogger("&8「&3SuperCore&8」 &rUsing H2 database for &b" + table + " &fdata.");
             databases.put(table, database);
         } catch (ClassNotFoundException | SQLException e) {
             sendLogger("&8「&3SuperCore&8」 &cH2 failed...");

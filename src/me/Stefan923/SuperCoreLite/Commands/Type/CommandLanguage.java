@@ -66,7 +66,7 @@ public class CommandLanguage extends AbstractCommand implements MessageUtils {
 
     @Override
     protected List<String> onTab(Main instance, CommandSender sender, String... args) {
-        return new ArrayList<>(languages.keySet());
+        return null;
     }
 
     @Override
