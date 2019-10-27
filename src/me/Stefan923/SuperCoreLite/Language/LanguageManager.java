@@ -1,7 +1,6 @@
 package me.Stefan923.SuperCoreLite.Language;
 
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
-import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
@@ -29,6 +28,11 @@ public class LanguageManager implements MessageUtils {
         if (!cfile.exists()) {
             try {
                 //noinspection ResultOfMethodCallIgnored
+                File dir = new File(p.getDataFolder() + "/languages");
+
+                if (!dir.exists())
+                    dir.mkdir();
+
                 cfile.createNewFile();
             } catch (IOException e) {
                 e.printStackTrace();
