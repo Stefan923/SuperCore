@@ -160,7 +160,7 @@ public class Main extends JavaPlugin implements MessageUtils {
         Database database = null;
         try {
             database = new H2Database(table);
-            sendLogger("&8「&3SuperCore&8」 &rUsing H2 database for &b" + table + " &fdata.");
+            sendLogger("&8「&3SuperCore&8」 &rUsing H2 database for &b" + table + " &7data.");
             databases.put(table, database);
         } catch (ClassNotFoundException | SQLException e) {
             sendLogger("&8「&3SuperCore&8」 &cH2 failed...");

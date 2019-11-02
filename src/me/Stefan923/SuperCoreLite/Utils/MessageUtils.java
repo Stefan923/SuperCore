@@ -33,6 +33,31 @@ public interface MessageUtils {
                 .replace("&r", "§r");
     }
 
+    default String removeFormat(String string) {
+        return string.replace("&a", "")
+                .replace("&b", "")
+                .replace("&c", "")
+                .replace("&d", "")
+                .replace("&e", "")
+                .replace("&f", "")
+                .replace("&0", "")
+                .replace("&1", "")
+                .replace("&2", "")
+                .replace("&3", "")
+                .replace("&4", "")
+                .replace("&5", "")
+                .replace("&6", "")
+                .replace("&7", "")
+                .replace("&8", "")
+                .replace("&9", "")
+                .replace("&o", "")
+                .replace("&l", "")
+                .replace("&m", "")
+                .replace("&n", "")
+                .replace("&k", "")
+                .replace("&r", "");
+    }
+
     default void sendLogger(final String string) {
         Bukkit.getConsoleSender().sendMessage(formatAll(string));
     }

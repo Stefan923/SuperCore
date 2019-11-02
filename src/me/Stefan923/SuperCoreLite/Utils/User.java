@@ -13,6 +13,7 @@ public class User {
     private Player player;
 
     private String language;
+    private String nickname;
 
     private String adminChatLastMessage;
     private String donorChatLastMessage;
@@ -28,6 +29,7 @@ public class User {
         this.player = player;
 
         this.language = settings.getString("Languages.Default Language").toLowerCase();
+        this.nickname = null;
 
         this.adminChatLastMessage = "";
         this.donorChatLastMessage = "";
@@ -40,11 +42,16 @@ public class User {
             ResultSet resultSet = database.get(player.getName());
             try {
                 this.language = resultSet.getString("language");
+                this.language = resultSet.getString("nickname");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
         } else {
             database.put(player.getName(), "language", this.language);
+        }
+
+        if (!instance.getLanguageManagers().containsKey(language)) {
+            setLanguage(settings.getString("Languages.Default Language").toLowerCase());
         }
     }
 
@@ -95,5 +102,14 @@ public class User {
 
     public void setDonorChatCooldown(long donorChatCooldown) {
         this.donorChatCooldown = donorChatCooldown;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
+        Main.instance.getDatabase("supercore_users").put(player.getName(), "nickname", nickname);
     }
 }

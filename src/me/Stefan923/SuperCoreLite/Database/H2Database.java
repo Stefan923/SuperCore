@@ -24,22 +24,25 @@ public class H2Database extends Database implements MessageUtils {
         connection = DriverManager.getConnection(url);
         if (connection == null)
             return;
-        PreparedStatement stmt = connection.prepareStatement("CREATE TABLE IF NOT EXISTS %table (`id` INT NOT NULL AUTO_INCREMENT, `playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36));".replace("%table", tablename));
-        stmt.executeUpdate();
-        stmt.close();
+        PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS %table (`id` INT NOT NULL AUTO_INCREMENT, `playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(256));".replace("%table", tablename));
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        preparedStatement = connection.prepareStatement("ALTER TABLE `%table` ADD COLUMN IF NOT EXISTS `nickname` VARCHAR(256) DEFAULT NULL;".replace("%table", tablename));
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 
     @SuppressWarnings("unchecked")
     @Override
     public ResultSet get(String playerKey) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT * FROM %table WHERE `playerKey` = ?;".replace("%table", tablename));
-            statement.setString(1, playerKey);
-            ResultSet resultSet = statement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM %table WHERE `playerKey` = ?;".replace("%table", tablename));
+            preparedStatement.setString(1, playerKey);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 return resultSet;
             }
-            statement.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -49,14 +52,14 @@ public class H2Database extends Database implements MessageUtils {
     @Override
     public ResultSet get(String playerKey, String key) {
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT `%key` FROM %table WHERE `playerKey` = ?;".replace("%table", tablename).replace("%key", key));
-            statement.setString(1, playerKey);
-            ResultSet resultSet = statement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT `%key` FROM %table WHERE `playerKey` = ?;".replace("%table", tablename).replace("%key", key));
+            preparedStatement.setString(1, playerKey);
+            ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                statement.close();
+                preparedStatement.close();
                 return resultSet;
             }
-            statement.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -67,10 +70,10 @@ public class H2Database extends Database implements MessageUtils {
     public void delete(String playerKey) {
         new Thread(() -> {
             try {
-                PreparedStatement statement = connection.prepareStatement("DELETE FROM %table WHERE `playerKey` = ?".replace("%table", tablename));
-                statement.setString(1, playerKey);
-                statement.executeUpdate();
-                statement.close();
+                PreparedStatement preparedStatement = connection.prepareStatement("DELETE FROM %table WHERE `playerKey` = ?".replace("%table", tablename));
+                preparedStatement.setString(1, playerKey);
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -81,12 +84,12 @@ public class H2Database extends Database implements MessageUtils {
     public void put(String playerKey, String key, String value) {
         new Thread(() -> {
             try {
-                PreparedStatement statement = connection.prepareStatement("INSERT INTO %table (`playerKey`, `%key`) VALUES (?,?) ON DUPLICATE KEY UPDATE `%key` = ?".replace("%table", tablename).replace("%key", key));
-                statement.setString(1, playerKey);
-                statement.setString(2, value);
-                statement.setString(3, value);
-                statement.executeUpdate();
-                statement.close();
+                PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO %table (`playerKey`, `%key`) VALUES (?,?) ON DUPLICATE KEY UPDATE `%key` = ?".replace("%table", tablename).replace("%key", key));
+                preparedStatement.setString(1, playerKey);
+                preparedStatement.setString(2, value);
+                preparedStatement.setString(3, value);
+                preparedStatement.executeUpdate();
+                preparedStatement.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -97,12 +100,12 @@ public class H2Database extends Database implements MessageUtils {
     public boolean has(String key) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT `playerKey` FROM %table WHERE `playerKey` = ?;".replace("%table", tablename));
-            statement.setString(1, key);
-            ResultSet resultSet = statement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT `playerKey` FROM %table WHERE `playerKey` = ?;".replace("%table", tablename));
+            preparedStatement.setString(1, key);
+            ResultSet resultSet = preparedStatement.executeQuery();
             result = resultSet.next();
             resultSet.close();
-            statement.close();
+            preparedStatement.close();
             return result;
         } catch (SQLException e) {
             e.printStackTrace();
@@ -126,12 +129,12 @@ public class H2Database extends Database implements MessageUtils {
     public Set<String> getKeys() {
         Set<String> tempSet = new HashSet<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT `playerKey` FROM %table;".replace("%table", tablename));
-            ResultSet result = statement.executeQuery();
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT `playerKey` FROM %table;".replace("%table", tablename));
+            ResultSet result = preparedStatement.executeQuery();
             while (result.next())
                 tempSet.add(result.getString("playerKey"));
             result.close();
-            statement.close();
+            preparedStatement.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

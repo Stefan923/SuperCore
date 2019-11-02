@@ -49,6 +49,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             plugin.getCommand("list").setExecutor(this);
             addCommand(new CommandList());
         }
+        if (settings.getBoolean("Enabled Commands.Nick")) {
+            plugin.getCommand("nick").setExecutor(this);
+            addCommand(new CommandNick());
+        }
         addCommand(new CommandReload(commandCore));
 
         for (AbstractCommand abstractCommand : commands) {

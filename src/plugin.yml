@@ -1,5 +1,5 @@
 name: SuperCoreLite
-version: 0.1.1
+version: 0.1.2
 main: me.Stefan923.SuperCoreLite.Main
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -24,6 +24,9 @@ commands:
   list:
     description: Shows list of online players.
     aliases: [superlist, slist, who, superwho, swho]
+  nick:
+    description: Change your name.
+    aliases: [supernick, snick, nickname, supernickname, snickname]
 
 permissions:
   supercore.admin:
@@ -56,3 +59,9 @@ permissions:
   supercore.list.default:
     description: Appear on online list as default player.
     default: true
+  supercore.nick:
+    description: Use nick command.
+    default: op
+  supercore.nick.format:
+    description: Use formatting codes in nickname.
+    default: op

@@ -126,9 +126,13 @@ public class MySQLDatabase extends Database {
     }
 
     private void initTable() throws SQLException {
-        String tablequery = "CREATE TABLE IF NOT EXISTS %table (`id` INT NOT NULL AUTO_INCREMENT, `playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36));".replace("%table", tablename);
-        PreparedStatement statement = connection.prepareStatement(tablequery);
-        statement.executeUpdate();
+        String tablequery = "CREATE TABLE IF NOT EXISTS %table (`id` INT NOT NULL AUTO_INCREMENT, `playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(256));".replace("%table", tablename);
+        PreparedStatement preparedStatement = connection.prepareStatement(tablequery);
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        preparedStatement = connection.prepareStatement("IF NOT EXISTS( SELECT `column_name` FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '%table' AND table_schema = 'database' AND `column_name` = 'nickname') THEN ALTER TABLE `%table` ADD `nickname` VARCHAR(256) DEFAULT NULL; END IF;");
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
     }
 
 }

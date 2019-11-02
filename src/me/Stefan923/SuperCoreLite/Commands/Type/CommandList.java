@@ -5,7 +5,6 @@ import me.Stefan923.SuperCoreLite.Main;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.PlayerUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
-import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
