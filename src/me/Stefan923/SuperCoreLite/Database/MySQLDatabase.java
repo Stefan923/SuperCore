@@ -7,29 +7,29 @@ import java.util.Set;
 
 public class MySQLDatabase extends Database {
 
-    private final String tablename;
+    private String tablename;
     private Connection connection;
+    private String url;
+    private String username;
+    private String password;
 
     public MySQLDatabase(String host, Integer port, String dbname, String tablename, String username, String password) throws SQLException {
         this.tablename = tablename;
-        String url = "jdbc:mysql://" + host + ":" + port + "/" + dbname;
+        this.username = username;
+        this.password = password;
+        this.url = "jdbc:mysql://" + host + ":" + port + "/" + dbname;
         connection = DriverManager.getConnection(url, username, password);
         initTable();
     }
 
     @Override
-    public HashMap<String, Object> get(String playerKey) {
+    public ResultSet get(String playerKey) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM %table WHERE `playerKey` = ?;".replace("%table", tablename));
+            PreparedStatement preparedStatement = getConnection().prepareStatement("SELECT * FROM %table WHERE `playerKey` = ?;".replace("%table", tablename));
             preparedStatement.setString(1, playerKey);
             ResultSet resultSet = preparedStatement.executeQuery();
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            Integer columns = metaData.getColumnCount();
             if (resultSet.next()) {
-                HashMap<String, Object> results = new HashMap<>();
-                for (Integer i = 1; i <= columns; ++i)
-                    results.put(metaData.getColumnName(i), resultSet.getObject(i));
-                return results;
+                return resultSet;
             }
             preparedStatement.close();
         } catch (SQLException e) {
@@ -39,14 +39,14 @@ public class MySQLDatabase extends Database {
     }
 
     @Override
-    public Object get(String playerKey, String key) {
+    public ResultSet get(String playerKey, String key) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT `%key` FROM %table WHERE `playerKey` = ?;".replace("%table", tablename).replace("%key", key));
+            PreparedStatement preparedStatement = getConnection().prepareStatement("SELECT `%key` FROM %table WHERE `playerKey` = ?;".replace("%table", tablename).replace("%key", key));
             preparedStatement.setString(1, playerKey);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 preparedStatement.close();
-                return resultSet.getObject(1);
+                return resultSet;
             }
             preparedStatement.close();
         } catch (SQLException e) {
@@ -59,7 +59,7 @@ public class MySQLDatabase extends Database {
     public void delete(String playerKey) {
         new Thread(() -> {
             try {
-                PreparedStatement statement = connection.prepareStatement("DELETE FROM %table WHERE `playerKey` = ?".replace("%table", tablename));
+                PreparedStatement statement = getConnection().prepareStatement("DELETE FROM %table WHERE `playerKey` = ?".replace("%table", tablename));
                 statement.setString(1, playerKey);
                 statement.executeUpdate();
                 statement.close();
@@ -74,7 +74,7 @@ public class MySQLDatabase extends Database {
         new Thread(() -> {
             try {
                 if (value != null) {
-                    PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO %table (`playerKey`, `%key`) VALUES (?,?) ON DUPLICATE KEY UPDATE `%key` = ?".replace("%table", tablename).replace("%key", key));
+                    PreparedStatement preparedStatement = getConnection().prepareStatement("INSERT INTO %table (`playerKey`, `%key`) VALUES (?,?) ON DUPLICATE KEY UPDATE `%key` = ?".replace("%table", tablename).replace("%key", key));
                     preparedStatement.setString(1, playerKey);
                     preparedStatement.setString(2, value);
                     preparedStatement.setString(3, value);
@@ -91,7 +91,7 @@ public class MySQLDatabase extends Database {
     public boolean has(String playerKey) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT `playerKey` FROM %table WHERE `playerKey` = ?".replace("%table", tablename));
+            PreparedStatement statement = getConnection().prepareStatement("SELECT `playerKey` FROM %table WHERE `playerKey` = ?".replace("%table", tablename));
             statement.setString(1, playerKey);
             ResultSet rs = statement.executeQuery();
             result = rs.next();
@@ -107,7 +107,7 @@ public class MySQLDatabase extends Database {
     @Override
     public void clear() {
         try {
-            PreparedStatement statement = connection.prepareStatement("TRUNCATE TABLE %table".replace("%table", tablename));
+            PreparedStatement statement = getConnection().prepareStatement("TRUNCATE TABLE %table".replace("%table", tablename));
             statement.executeQuery();
             statement.close();
         } catch (SQLException e) {
@@ -119,7 +119,7 @@ public class MySQLDatabase extends Database {
     public Set<String> getKeys() {
         Set<String> tempset = new HashSet<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT `playerKey` FROM %table".replace("%table", tablename));
+            PreparedStatement statement = getConnection().prepareStatement("SELECT `playerKey` FROM %table".replace("%table", tablename));
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 tempset.add(rs.getString("id"));
@@ -134,16 +134,31 @@ public class MySQLDatabase extends Database {
 
     private void initTable() throws SQLException {
         String tablequery = "CREATE TABLE IF NOT EXISTS %table (`playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(256));".replace("%table", tablename);
-        PreparedStatement preparedStatement = connection.prepareStatement(tablequery);
+        PreparedStatement preparedStatement = getConnection().prepareStatement(tablequery);
         preparedStatement.executeUpdate();
         preparedStatement.close();
         try {
-            preparedStatement = connection.prepareStatement("ALTER TABLE `%table` ADD COLUMN `nickname` VARCHAR(256) DEFAULT NULL;".replace("%table", tablename));
+            preparedStatement = getConnection().prepareStatement("ALTER TABLE `%table` ADD COLUMN `nickname` VARCHAR(256) DEFAULT NULL;".replace("%table", tablename));
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException exception) {
 
         }
+    }
+
+    private void connect() {
+        try {
+            this.connection = DriverManager.getConnection(this.url, this.username, this.password);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+    }
+
+    private Connection getConnection() throws SQLException {
+        if (this.connection == null || !this.connection.isValid(5)) {
+            this.connect();
+        }
+        return this.connection;
     }
 
 }

@@ -1,6 +1,6 @@
 package me.Stefan923.SuperCoreLite.Database;
 
-import java.util.HashMap;
+import java.sql.ResultSet;
 import java.util.Set;
 
 public abstract class Database {
@@ -11,9 +11,9 @@ public abstract class Database {
 
     public abstract Set<String> getKeys();
 
-    public abstract HashMap<String, Object> get(String key);
+    public abstract ResultSet get(String key);
 
-    public abstract Object get(String playerKey, String key);
+    public abstract ResultSet get(String playerKey, String key);
 
     public abstract void delete(String playerKey);
 

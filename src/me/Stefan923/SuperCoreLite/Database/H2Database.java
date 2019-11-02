@@ -33,20 +33,14 @@ public class H2Database extends Database implements MessageUtils {
         preparedStatement.close();
     }
 
-    @SuppressWarnings("unchecked")
     @Override
-    public HashMap<String, Object> get(String playerKey) {
+    public ResultSet get(String playerKey) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM %table WHERE `playerKey` = ?;".replace("%table", tablename));
             preparedStatement.setString(1, playerKey);
             ResultSet resultSet = preparedStatement.executeQuery();
-            ResultSetMetaData metaData = resultSet.getMetaData();
-            Integer columns = metaData.getColumnCount();
             if (resultSet.next()) {
-                HashMap<String, Object> results = new HashMap<>();
-                for (Integer i = 1; i <= columns; ++i)
-                    results.put(metaData.getColumnName(i), resultSet.getObject(i));
-                return results;
+                return resultSet;
             }
             preparedStatement.close();
         } catch (SQLException e) {
@@ -56,14 +50,14 @@ public class H2Database extends Database implements MessageUtils {
     }
 
     @Override
-    public Object get(String playerKey, String key) {
+    public ResultSet get(String playerKey, String key) {
         try {
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT `%key` FROM %table WHERE `playerKey` = ?;".replace("%table", tablename).replace("%key", key));
             preparedStatement.setString(1, playerKey);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 preparedStatement.close();
-                return resultSet.getObject(1);
+                return resultSet;
             }
             preparedStatement.close();
         } catch (SQLException e) {

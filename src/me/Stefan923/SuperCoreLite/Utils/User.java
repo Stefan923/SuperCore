@@ -40,9 +40,13 @@ public class User {
         this.donorChatCooldown = now;
 
         if (database.has(player.getName())) {
-            HashMap<String, Object> results = database.get(player.getName());
-            this.language = String.valueOf(results.get("language"));
-            this.nickname = String.valueOf(results.get("nickname"));
+            ResultSet resultSet = database.get(player.getName());
+            try {
+                this.language = resultSet.getString("language");
+                this.language = resultSet.getString("nickname");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         } else {
             database.put(player.getName(), "language", this.language);
         }
