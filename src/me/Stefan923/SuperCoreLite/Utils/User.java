@@ -42,7 +42,7 @@ public class User {
         if (database.has(player.getName())) {
             HashMap<String, Object> results = database.get(player.getName());
             this.language = String.valueOf(results.get("language"));
-            this.language = String.valueOf(results.get("nickname"));
+            this.nickname = String.valueOf(results.get("nickname"));
         } else {
             database.put(player.getName(), "language", this.language);
         }
