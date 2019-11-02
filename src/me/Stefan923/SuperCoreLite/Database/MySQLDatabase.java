@@ -1,6 +1,7 @@
 package me.Stefan923.SuperCoreLite.Database;
 
 import java.sql.*;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -17,13 +18,18 @@ public class MySQLDatabase extends Database {
     }
 
     @Override
-    public ResultSet get(String playerKey) {
+    public HashMap<String, Object> get(String playerKey) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM %table WHERE `playerKey` = ?;".replace("%table",tablename));
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT * FROM %table WHERE `playerKey` = ?;".replace("%table", tablename));
             preparedStatement.setString(1, playerKey);
             ResultSet resultSet = preparedStatement.executeQuery();
+            ResultSetMetaData metaData = resultSet.getMetaData();
+            Integer columns = metaData.getColumnCount();
             if (resultSet.next()) {
-                return resultSet;
+                HashMap<String, Object> results = new HashMap<>();
+                for (Integer i = 1; i <= columns; ++i)
+                    results.put(metaData.getColumnName(i), resultSet.getObject(i));
+                return results;
             }
             preparedStatement.close();
         } catch (SQLException e) {
@@ -33,13 +39,14 @@ public class MySQLDatabase extends Database {
     }
 
     @Override
-    public ResultSet get(String playerKey, String key) {
+    public Object get(String playerKey, String key) {
         try {
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT `%key` FROM %table WHERE `id` = ?;".replace("%table",tablename).replace("%key", key));
+            PreparedStatement preparedStatement = connection.prepareStatement("SELECT `%key` FROM %table WHERE `playerKey` = ?;".replace("%table", tablename).replace("%key", key));
             preparedStatement.setString(1, playerKey);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                return resultSet;
+                preparedStatement.close();
+                return resultSet.getObject(1);
             }
             preparedStatement.close();
         } catch (SQLException e) {
@@ -84,7 +91,7 @@ public class MySQLDatabase extends Database {
     public boolean has(String playerKey) {
         boolean result = false;
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT `id` FROM %table WHERE `playerKey` = ?".replace("%table", tablename));
+            PreparedStatement statement = connection.prepareStatement("SELECT `playerKey` FROM %table WHERE `playerKey` = ?".replace("%table", tablename));
             statement.setString(1, playerKey);
             ResultSet rs = statement.executeQuery();
             result = rs.next();
@@ -112,7 +119,7 @@ public class MySQLDatabase extends Database {
     public Set<String> getKeys() {
         Set<String> tempset = new HashSet<>();
         try {
-            PreparedStatement statement = connection.prepareStatement("SELECT `id` FROM %table".replace("%table", tablename));
+            PreparedStatement statement = connection.prepareStatement("SELECT `playerKey` FROM %table".replace("%table", tablename));
             ResultSet rs = statement.executeQuery();
             while (rs.next()) {
                 tempset.add(rs.getString("id"));
@@ -126,13 +133,17 @@ public class MySQLDatabase extends Database {
     }
 
     private void initTable() throws SQLException {
-        String tablequery = "CREATE TABLE IF NOT EXISTS %table (`id` INT NOT NULL AUTO_INCREMENT, `playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(256));".replace("%table", tablename);
+        String tablequery = "CREATE TABLE IF NOT EXISTS %table (`playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(256));".replace("%table", tablename);
         PreparedStatement preparedStatement = connection.prepareStatement(tablequery);
         preparedStatement.executeUpdate();
         preparedStatement.close();
-        preparedStatement = connection.prepareStatement("IF NOT EXISTS( SELECT `column_name` FROM INFORMATION_SCHEMA.COLUMNS WHERE table_name = '%table' AND table_schema = 'database' AND `column_name` = 'nickname') THEN ALTER TABLE `%table` ADD `nickname` VARCHAR(256) DEFAULT NULL; END IF;");
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
+        try {
+            preparedStatement = connection.prepareStatement("ALTER TABLE `%table` ADD COLUMN `nickname` VARCHAR(256) DEFAULT NULL;".replace("%table", tablename));
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+        } catch (SQLException exception) {
+
+        }
     }
 
 }

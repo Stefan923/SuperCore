@@ -7,6 +7,7 @@ import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.HashMap;
 
 public class User {
 
@@ -39,13 +40,9 @@ public class User {
         this.donorChatCooldown = now;
 
         if (database.has(player.getName())) {
-            ResultSet resultSet = database.get(player.getName());
-            try {
-                this.language = resultSet.getString("language");
-                this.language = resultSet.getString("nickname");
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
+            HashMap<String, Object> results = database.get(player.getName());
+            this.language = String.valueOf(results.get("language"));
+            this.language = String.valueOf(results.get("nickname"));
         } else {
             database.put(player.getName(), "language", this.language);
         }
