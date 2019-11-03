@@ -1,5 +1,5 @@
 name: SuperCoreLite
-version: 0.1.2
+version: 0.1.3
 main: me.Stefan923.SuperCoreLite.Main
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -12,6 +12,9 @@ commands:
   adminchat:
     description: Special chat for admins.
     aliases: [superadminchat, sadminchat, achat, superachat, sachat, ac, superac, sac]
+  broadcast:
+    description: Sends a message to all online players.
+    aliases: [superbroadcast, sbroadcast, bc, superbc, sbc]
   donorchat:
     description: Special chat for donors.
     aliases: [superdonorchat, sdonorchat, dchat, superdchat, sdchat, dc, superdc, sdc]

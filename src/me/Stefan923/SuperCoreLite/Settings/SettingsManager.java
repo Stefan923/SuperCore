@@ -27,6 +27,7 @@ public class SettingsManager {
         config.addDefault("Languages.Default Language", "lang_en.yml");
         config.addDefault("Languages.Available Languages", Arrays.asList("lang_en.yml"));
         config.addDefault("Enabled Commands.AdminChat", true);
+        config.addDefault("Enabled Commands.Broadcast", true);
         config.addDefault("Enabled Commands.DonorChat", true);
         config.addDefault("Enabled Commands.HelpOp", true);
         config.addDefault("Enabled Commands.Language", true);

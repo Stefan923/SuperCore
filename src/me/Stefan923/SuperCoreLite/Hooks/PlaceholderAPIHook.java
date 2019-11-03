@@ -12,7 +12,7 @@ public class PlaceholderAPIHook extends EZPlaceholderHook {
     private Main instance;
 
     PlaceholderAPIHook(Main instance) {
-        super(instance, "supercorelite");
+        super(instance, "supercore");
         this.instance = instance;
     }
 

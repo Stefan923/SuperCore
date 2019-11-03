@@ -43,6 +43,7 @@ public class LanguageManager implements MessageUtils {
         config.options().header("SuperCore Lite by Stefan923.\n");
         config.addDefault("Language Display Name", "English");
         config.addDefault("Command.AdminChat.Format", "&3[&bSTAFF&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
+        config.addDefault("Command.Broadcast.Format", "&7(&3Broadcast&7) &f%message%");
         config.addDefault("Command.Cooldown", "&7(&3!&7) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.addDefault("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.addDefault("Command.HelpOp.Format", "&4&k|&cHelpOp&4&k|&r &7%playername%: &f%message%");
@@ -72,6 +73,7 @@ public class LanguageManager implements MessageUtils {
     public void reset() {
         config.set("Language Display Name", "English");
         config.set("Command.AdminChat.Format", "&3[&bSTAFF&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
+        config.set("Command.Broadcast.Format", "&7(&3Broadcast&7) &f%message%");
         config.set("Command.Cooldown", "&7(&3!&7) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.set("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.set("Command.HelpOp.Format", "&4&k|&cHelpOp&4&k|&r &7%playername%: &f%message%");
