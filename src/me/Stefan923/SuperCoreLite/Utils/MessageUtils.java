@@ -138,7 +138,7 @@ public interface MessageUtils {
     }
 
     default String replacePlaceholders(Player player, String string) {
-        return PlaceholderAPI.setPlaceholders(player, string);
+        return Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null ? PlaceholderAPI.setPlaceholders(player, string) : string;
     }
 
 }
