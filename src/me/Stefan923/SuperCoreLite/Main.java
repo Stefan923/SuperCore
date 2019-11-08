@@ -138,16 +138,16 @@ public class Main extends JavaPlugin implements MessageUtils {
         Database database = null;
         try {
             database = new MySQLDatabase(address, port, name, table, user, password);
-            sendLogger("&8「&3SuperCore&8」 &rMySQL connection " + address + " was a success!");
+            sendLogger("&8(&3SuperCore&8) &rMySQL connection " + address + " was a success!");
             databases.put(table, database);
             return database;
         } catch (SQLException exception) {
-            sendLogger("&8「&3SuperCore&8」 &cMySQL connection failed!");
-            sendLogger("&8「&3SuperCore&8」 &rAddress: " + address + " with user: " + user);
-            sendLogger("&8「&3SuperCore&8」 &rReason: " + exception.getMessage());
+            sendLogger("&8(&3SuperCore&8) &cMySQL connection failed!");
+            sendLogger("&8(&3SuperCore&8) &rAddress: " + address + " with user: " + user);
+            sendLogger("&8(&3SuperCore&8) &rReason: " + exception.getMessage());
         } finally {
             if (database == null) {
-                sendLogger("&8「&3SuperCore&8」 &rAttempting to use SQLite instead...");
+                sendLogger("&8(&3SuperCore&8) &rAttempting to use SQLite instead...");
                 database = getFileDatabase(table);
             }
         }
@@ -160,10 +160,10 @@ public class Main extends JavaPlugin implements MessageUtils {
         Database database = null;
         try {
             database = new H2Database(table);
-            sendLogger("&8「&3SuperCore&8」 &rUsing H2 database for &b" + table + " &7data.");
+            sendLogger("&8(&3SuperCore&8) &rUsing H2 database for &b" + table + " &7data.");
             databases.put(table, database);
         } catch (ClassNotFoundException | SQLException e) {
-            sendLogger("&8「&3SuperCore&8」 &cH2 failed...");
+            sendLogger("&8(&3SuperCore&8) &cH2 failed...");
             e.printStackTrace();
         }
         return database;
@@ -173,7 +173,7 @@ public class Main extends JavaPlugin implements MessageUtils {
     public void onDisable() {
         users.clear();
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.kickPlayer(formatAll("&8「&3SuperCore&8」 &cPlugin has been disabled."));
+            player.kickPlayer(formatAll("&8(&3SuperCore&8) &cPlugin has been disabled."));
         }
     }
 
