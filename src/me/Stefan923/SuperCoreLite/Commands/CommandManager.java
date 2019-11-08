@@ -1,8 +1,10 @@
 package me.Stefan923.SuperCoreLite.Commands;
 
 import me.Stefan923.SuperCoreLite.Commands.Type.*;
+import me.Stefan923.SuperCoreLite.Language.LanguageManager;
 import me.Stefan923.SuperCoreLite.Main;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
+import me.Stefan923.SuperCoreLite.Utils.User;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -43,7 +45,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         }
         if (settings.getBoolean("Enabled Commands.HelpOp")) {
             plugin.getCommand("helpop").setExecutor(this);
-            addCommand(new CommandDonorChat());
+            addCommand(new CommandHelpOp());
         }
         if (settings.getBoolean("Enabled Commands.Language")) {
             plugin.getCommand("language").setExecutor(this);
@@ -94,19 +96,32 @@ public class CommandManager implements CommandExecutor, MessageUtils {
     }
 
     private void processRequirements(AbstractCommand command, CommandSender sender, String[] strings) {
-        if (!(sender instanceof Player) && command.isNoConsole()) {
-            sender.sendMessage(formatAll("&8「&3SuperCore&8」 &cYou must be a player to use this commands."));
+        if ((sender instanceof Player)) {
+            User user = plugin.getUser((Player) sender);
+            FileConfiguration language = plugin.getLanguageManager(user.getLanguage()).getConfig();
+            String permissionNode = command.getPermissionNode();
+            if (permissionNode == null || sender.hasPermission(command.getPermissionNode())) {
+                AbstractCommand.ReturnType returnType = command.runCommand(plugin, sender, strings);
+                if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
+
+                    sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
+                }
+                return;
+            }
+            sender.sendMessage(formatAll(language.getString("General.No Permission").replace("%permission%", permissionNode)));
             return;
         }
+        if (command.isNoConsole())
+            sender.sendMessage(formatAll("&8[&3SuperCore&8] &cYou must be a player to use this commands."));
         if (command.getPermissionNode() == null || sender.hasPermission(command.getPermissionNode())) {
             AbstractCommand.ReturnType returnType = command.runCommand(plugin, sender, strings);
             if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
-                sender.sendMessage(formatAll("&8「&3SuperCore&8」 &cInvalid Syntax!"));
-                sender.sendMessage(formatAll("&8「&3SuperCore&8」 &fThe valid syntax is: &b" + command.getSyntax() + "&f."));
+                sender.sendMessage(formatAll("&8[&3SuperCore&8] &cInvalid Syntax!"));
+                sender.sendMessage(formatAll("&8[&3SuperCore&8] &fThe valid syntax is: &b" + command.getSyntax() + "&f."));
             }
             return;
         }
-        sender.sendMessage(formatAll("&8「&3SuperCore&8」 &cYou have no permission!"));
+        sender.sendMessage(formatAll("&8[&3SuperCore&8] &cYou have no permission!"));
     }
 
     public List<AbstractCommand> getCommands() {

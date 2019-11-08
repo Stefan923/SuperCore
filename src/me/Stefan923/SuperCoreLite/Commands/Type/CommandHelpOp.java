@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandHelpOp extends AbstractCommand implements MessageUtils {
 
     public CommandHelpOp() {
-        super(true, true, "helpop");
+        super(true, false, "helpop");
     }
 
     @Override
@@ -24,6 +24,9 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
 
         FileConfiguration settings = instance.getSettingsManager().getConfig();
         FileConfiguration languageConfig = instance.getLanguageManager(user.getLanguage()).getConfig();
+
+        if (args.length < 1)
+            return ReturnType.SYNTAX_ERROR;
 
         long now = System.currentTimeMillis();
         if (user.getAdminChatCooldown() > now) {

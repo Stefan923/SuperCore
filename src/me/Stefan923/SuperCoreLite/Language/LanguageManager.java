@@ -56,8 +56,10 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("General.Available Languages.Syntax", "&7(&3!&7) &fAvailable languages are: ");
         config.addDefault("General.Available Languages.Separator", "&f, ");
         config.addDefault("General.Available Languages.Item Color", "&b");
+        config.addDefault("General.Invalid Command Syntax", "&8「&3SuperCore&8」 &cInvalid Syntax!\n&8「&3SuperCore&8」 &fThe valid syntax is: &b%syntax%");
         config.addDefault("General.Language Changed", "&7(&3!&7) &fYou have set your language to &b%language%&f!");
         config.addDefault("General.Nickname Changed", "&7(&3!&7) &fYour nickname has been set to &b%nickname%&f!");
+        config.addDefault("General.No Permission", "&8「&3SuperCore&8」 &cYou need the &4%permission% &cpermission to do that!");
         config.addDefault("General.Repeated Message", "&7(&3!&7) &fYou can not write &cthe same message&f!");
         config.addDefault("On Join.Join Message", "&7(&3!&7) &a%playername% &fjoined the game!");
         config.addDefault("On Quit.Quit Message", "&7(&3!&7) &c%playername% &fleft the game!");
@@ -86,8 +88,10 @@ public class LanguageManager implements MessageUtils {
         config.set("General.Available Languages.Syntax", "&7(&3!&7) &fAvailable languages are: ");
         config.set("General.Available Languages.Separator", "&f, ");
         config.set("General.Available Languages.Item Color", "&b");
+        config.set("General.Invalid Command Syntax", "&8「&3SuperCore&8」 &cInvalid Syntax!\n&8「&3SuperCore&8」 &fThe valid syntax is: &b%syntax%");
         config.set("General.Language Changed", "&7(&3!&7) &fYou have set your language to &b%language%&f!");
         config.set("General.Nickname Changed", "&7(&3!&7) &fYour nickname has been set to &b%nickname%&f!");
+        config.set("General.No Permission", "&8「&3SuperCore&8」 &cYou need the &4%permission% &cpermission to do that!");
         config.set("General.Repeated Message", "&7(&3!&7) &fYou can not write &cthe same message&f!");
         config.set("On Join.Join Message", "&7(&3!&7) &a%playername% &fjoined the game!");
         config.set("On Quit.Quit Message", "&7(&3!&7) &c%playername% &fleft the game!");
