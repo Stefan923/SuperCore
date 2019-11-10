@@ -43,7 +43,7 @@ public class User {
             ResultSet resultSet = database.get(player.getName());
             try {
                 this.language = resultSet.getString("language");
-                this.language = resultSet.getString("nickname");
+                this.nickname = resultSet.getString("nickname");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
