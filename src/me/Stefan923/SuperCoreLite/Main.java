@@ -1,6 +1,5 @@
 package me.Stefan923.SuperCoreLite;
 
-import me.Stefan923.SuperCoreLite.Commands.Type.CommandCore;
 import me.Stefan923.SuperCoreLite.Commands.CommandManager;
 import me.Stefan923.SuperCoreLite.Database.Database;
 import me.Stefan923.SuperCoreLite.Database.H2Database;
