@@ -32,22 +32,22 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils {
         if (length == 1) {
             if (senderPlayer.hasPermission("supercore.gamemode.survival") && (args[0].equalsIgnoreCase("survival") || args[0].equalsIgnoreCase("0"))) {
                 senderPlayer.setGameMode(GameMode.SURVIVAL);
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("Command.Gamemode.Survival"))));
+                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Survival"))));
                 return ReturnType.SUCCESS;
             }
             if (senderPlayer.hasPermission("supercore.gamemode.creative") && (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("1"))) {
                 senderPlayer.setGameMode(GameMode.CREATIVE);
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("Command.Gamemode.Creative"))));
+                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Creative"))));
                 return ReturnType.SUCCESS;
             }
             if (senderPlayer.hasPermission("supercore.gamemode.adventure") && (args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("2"))) {
                 senderPlayer.setGameMode(GameMode.ADVENTURE);
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("Command.Gamemode.Adventure"))));
+                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Adventure"))));
                 return ReturnType.SUCCESS;
             }
             if (senderPlayer.hasPermission("supercore.gamemode.spectator") && (args[0].equalsIgnoreCase("spectator") || args[0].equalsIgnoreCase("3"))) {
                 senderPlayer.setGameMode(GameMode.SPECTATOR);
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("Command.Gamemode.Spectator"))));
+                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Spectator"))));
                 return ReturnType.SUCCESS;
             }
             return ReturnType.SYNTAX_ERROR;
@@ -61,26 +61,26 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils {
             }
             if (senderPlayer.hasPermission("supercore.gamemode.survival") && (args[1].equalsIgnoreCase("survival") || args[1].equalsIgnoreCase("0"))) {
                 senderPlayer.setGameMode(GameMode.SURVIVAL);
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("Command.Gamemode.Survival"))));
-                targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("Command.Gamemode.Survival"))));
+                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Survival"))));
+                targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Survival"))));
                 return ReturnType.SUCCESS;
             }
             if (senderPlayer.hasPermission("supercore.gamemode.creative") && (args[1].equalsIgnoreCase("creative") || args[1].equalsIgnoreCase("1"))) {
                 senderPlayer.setGameMode(GameMode.CREATIVE);
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("Command.Gamemode.Creative"))));
-                targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("Command.Gamemode.Creative"))));
+                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Creative"))));
+                targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Creative"))));
                 return ReturnType.SUCCESS;
             }
             if (senderPlayer.hasPermission("supercore.gamemode.adventure") && (args[1].equalsIgnoreCase("adventure") || args[1].equalsIgnoreCase("2"))) {
                 senderPlayer.setGameMode(GameMode.ADVENTURE);
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("Command.Gamemode.Adventure"))));
-                targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("Command.Gamemode.Adventure"))));
+                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Adventure"))));
+                targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Adventure"))));
                 return ReturnType.SUCCESS;
             }
             if (senderPlayer.hasPermission("supercore.gamemode.spectator") && (args[1].equalsIgnoreCase("spectator") || args[1].equalsIgnoreCase("3"))) {
                 senderPlayer.setGameMode(GameMode.SPECTATOR);
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("Command.Gamemode.Spectator"))));
-                targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("Command.Gamemode.Spectator"))));
+                senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Spectator"))));
+                targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Spectator"))));
                 return ReturnType.SUCCESS;
             }
         }
