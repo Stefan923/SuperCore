@@ -1,5 +1,5 @@
 name: SuperCoreLite
-version: 0.1.6
+version: 0.1.8
 main: me.Stefan923.SuperCoreLite.Main
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -33,6 +33,9 @@ commands:
   nick:
     description: Change your name.
     aliases: [supernick, snick, nickname, supernickname, snickname]
+  whois:
+    description: Change your name.
+    aliases: [superwhois]
 
 permissions:
   supercore.admin:
@@ -73,4 +76,7 @@ permissions:
     default: op
   supercore.nick.format:
     description: Use formatting codes in nickname.
+    default: op
+  supercore.whois:
+    description: Use whois command.
     default: op
