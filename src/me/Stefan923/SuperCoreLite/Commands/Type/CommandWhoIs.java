@@ -1,9 +1,9 @@
 package me.Stefan923.SuperCoreLite.Commands.Type;
 
 import me.Stefan923.SuperCoreLite.Commands.AbstractCommand;
-import me.Stefan923.SuperCoreLite.Language.LanguageManager;
 import me.Stefan923.SuperCoreLite.Main;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
+import me.Stefan923.SuperCoreLite.Utils.PlayerUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class CommandWhoIs extends AbstractCommand implements MessageUtils {
+public class CommandWhoIs extends AbstractCommand implements MessageUtils, PlayerUtils {
 
     public CommandWhoIs() {
         super(true, true, "whois");
@@ -58,7 +58,8 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils {
                 .replace("%health%", String.valueOf(targetPlayer.getHealth()))
                 .replace("%hunger%", String.valueOf(targetPlayer.getFoodLevel()))
                 .replace("%flying%", targetPlayer.getAllowFlight() ? languageConfig.getString("General.Yes") : languageConfig.getString("General.No"))
-                .replace("%ipaddress%", targetPlayer.getAddress().toString().replace("/", ""))));
+                .replace("%ipaddress%", targetPlayer.getAddress().toString().replace("/", "")))
+                .replace("%location%", locationToString(targetPlayer.getLocation())));
         return ReturnType.SUCCESS;
     }
 

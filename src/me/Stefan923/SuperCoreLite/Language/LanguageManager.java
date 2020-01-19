@@ -54,7 +54,7 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("Command.List.Separator", "&f, ");
         config.addDefault("Command.Nick.Formatting Codes", "&8(&3!&8) &cYou are not allowed to use formatting codes in nickname!");
         config.addDefault("Command.Nick.Maximum Length", "&8(&3!&8) &cSpecified name exceeds the maximum length of &4%length% &ccharacters!");
-        config.addDefault("Command.WhoIs.Format", Arrays.asList("&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r", "&8(&3!&8) &fThere are informations about &b%playername%&f:", "&7 - &fIP Address: &3%ipaddress%", "&7 - &fGamemode: &3%gamemode%", "&7 - &fHealth: &3%health%", "&7 - &Hunger: &3%hunger%", "&7 - &fFlying: &3%flying%", "&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r"));
+        config.addDefault("Command.WhoIs.Format", Arrays.asList("&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r", "&8(&3!&8) &fThere are informations about &b%playername%&f:", "&7 - &fIP Address: &3%ipaddress%", "&7 - &fLocation: &3%location%", "&7 - &fGamemode: &3%gamemode%", "&7 - &fHealth: &3%health%", "&7 - &Hunger: &3%hunger%", "&7 - &fFlying: &3%flying%", "&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r"));
         config.addDefault("General.Already Using Language", "&8(&3!&8) &fYou are already using this language.");
         config.addDefault("General.Available Languages.Syntax", "&8(&3!&8) &fAvailable languages are: ");
         config.addDefault("General.Available Languages.Separator", "&f, ");
