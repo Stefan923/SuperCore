@@ -34,6 +34,7 @@ public class SettingsManager {
         config.addDefault("Enabled Commands.Language", true);
         config.addDefault("Enabled Commands.List", true);
         config.addDefault("Enabled Commands.Nick", true);
+        config.addDefault("Enabled Commands.WhoIs", true);
         config.addDefault("Command Cooldowns.AdminChat", 5);
         config.addDefault("Command Cooldowns.DonorChat", 10);
         config.addDefault("Command Cooldowns.HelpOp", 10);
