@@ -1,7 +1,6 @@
 package me.Stefan923.SuperCoreLite.Commands;
 
 import me.Stefan923.SuperCoreLite.Commands.Type.*;
-import me.Stefan923.SuperCoreLite.Language.LanguageManager;
 import me.Stefan923.SuperCoreLite.Main;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
@@ -61,6 +60,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         }
         if (settings.getBoolean("Enabled Commands.Nick")) {
             plugin.getCommand("nick").setExecutor(this);
+            addCommand(new CommandNick());
+        }
+        if (settings.getBoolean("Enabled Commands.WhoIs")) {
+            plugin.getCommand("whois").setExecutor(this);
             addCommand(new CommandNick());
         }
         addCommand(new CommandReload(commandCore));
