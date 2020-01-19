@@ -64,7 +64,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         }
         if (settings.getBoolean("Enabled Commands.WhoIs")) {
             plugin.getCommand("whois").setExecutor(this);
-            addCommand(new CommandNick());
+            addCommand(new CommandWhoIs());
         }
         addCommand(new CommandReload(commandCore));
 
