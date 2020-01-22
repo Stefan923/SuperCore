@@ -72,6 +72,8 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("General.Yes", "yes");
         config.addDefault("On Join.Join Message", "&8(&3!&8) &a%playername% &fjoined the game!");
         config.addDefault("On Quit.Quit Message", "&8(&3!&8) &c%playername% &fleft the game!");
+        config.addDefault("Update Checker.Available", "&8(&3!&8) &fThere is a new version of &bSuperCore Lite &favailable!\n&8(&3!&8) &fDownload link: &b%link%");
+        config.addDefault("Update Checker.Not Available", "&8(&3!&8) &fThere's no update available for &bSuperCore Lite&f.");
         config.options().copyDefaults(true);
 
         save();
