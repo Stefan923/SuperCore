@@ -58,7 +58,9 @@ public class Main extends JavaPlugin implements MessageUtils, VersionUtils {
         sendLogger("&8&l> &7&m------ &8&l( &3&lSuperCore Lite &b&lby Stefan923 &8&l) &7&m------ &8&l<");
 
         if (settingsManager.getConfig().getBoolean("Update Checker.Enable.On Plugin Enable"))
-            checkForUpdate(this, this);
+            Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
+                checkForUpdate(this, this);
+            });
     }
 
     private Integer enableListeners() {

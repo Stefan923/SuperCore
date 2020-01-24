@@ -16,11 +16,9 @@ public interface VersionUtils extends MessageUtils {
 
     default void checkForUpdate(Plugin plugin, Main instance) {
         String version = getLatestPluginVersion(plugin);
-        if (version == null )
-            return;
 
         LanguageManager languageManager = instance.getLanguageManager(instance.getSettingsManager().getConfig().getString("Languages.Default Language"));
-        if (version.equalsIgnoreCase(getCurrentPluginVersion()))
+        if (!version.equalsIgnoreCase(getCurrentPluginVersion()))
             sendLogger(languageManager.getConfig().getString("Update Checker.Available").replace("%link%", "https://www.spigotmc.org/resources/72224"));
         else
             sendLogger(languageManager.getConfig().getString("Update Checker.Not Available"));
@@ -28,28 +26,25 @@ public interface VersionUtils extends MessageUtils {
 
     default void checkForUpdate(Plugin plugin, Main instance, Player player) {
         String version = getLatestPluginVersion(plugin);
-        if (version == null )
-            return;
 
         LanguageManager languageManager = instance.getLanguageManager(instance.getUser(player).getLanguage());
-        if (version.equalsIgnoreCase(getCurrentPluginVersion()))
+        if (!version.equalsIgnoreCase(getCurrentPluginVersion()))
             player.sendMessage(languageManager.getConfig().getString("Update Checker.Available").replace("%link%", "https://www.spigotmc.org/resources/72224"));
         else
             player.sendMessage(languageManager.getConfig().getString("Update Checker.Not Available"));
     }
 
     default String getLatestPluginVersion(Plugin plugin) {
-        final String[] version = new String[1];
-        Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
+        String version = "";
         try {
             InputStream inputStream = new URL("https://api.spigotmc.org/legacy/update.php?resource=72224").openStream();
             Scanner scanner = new Scanner(inputStream);
             if (scanner.hasNext())
-                version[0] = scanner.next();
+                version = scanner.next();
         } catch (IOException exception) {
             plugin.getLogger().info("Cannot look for updates: " + exception.getMessage());
-        }});
-        return version[0];
+        }
+        return version;
     }
 
     default String getCurrentPluginVersion() {
