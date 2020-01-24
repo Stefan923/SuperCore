@@ -52,7 +52,7 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
                 break;
         }
 
-        senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.WhoIs.Format")
+        senderPlayer.sendMessage(formatAll(String.join("\n", languageConfig.getStringList("Command.WhoIs.Format"))
                 .replace("%playername%", targetPlayerName)
                 .replace("%gamemode%", languageConfig.getString("General.Gamemode." + targetPlayerGamemode))
                 .replace("%health%", String.valueOf(targetPlayer.getHealth()))
