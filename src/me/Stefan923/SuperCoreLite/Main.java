@@ -10,6 +10,7 @@ import me.Stefan923.SuperCoreLite.Listeners.PlayerQuitListener;
 import me.Stefan923.SuperCoreLite.Settings.SettingsManager;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
+import me.Stefan923.SuperCoreLite.Utils.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
@@ -19,7 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class Main extends JavaPlugin implements MessageUtils {
+public class Main extends JavaPlugin implements MessageUtils, VersionUtils {
 
     public static Main instance;
 
@@ -55,6 +56,9 @@ public class Main extends JavaPlugin implements MessageUtils {
         sendLogger("&b   Enabled listeners: &3" + enableListeners());
         sendLogger("&b   Enabled commands: &3" + enableCommands());
         sendLogger("&8&l> &7&m------ &8&l( &3&lSuperCore Lite &b&lby Stefan923 &8&l) &7&m------ &8&l<");
+
+        if (settingsManager.getConfig().getBoolean("Update Checker.Enable.On Plugin Enable"))
+            checkForUpdate(this, this);
     }
 
     private Integer enableListeners() {
