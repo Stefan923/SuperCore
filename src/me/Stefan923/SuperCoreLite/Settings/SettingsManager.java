@@ -49,6 +49,8 @@ public class SettingsManager {
         config.addDefault("Storage.MySQL.Database Name", "yourDatabase");
         config.addDefault("Storage.MySQL.User", "yourUser");
         config.addDefault("Storage.MySQL.Password", "yourPassword");
+        config.addDefault("Update Checker.Enable.On Plugin Enable", true);
+        config.addDefault("Update Checker.Enable.On Join", true);
         config.options().copyDefaults(true);
         save();
     }
