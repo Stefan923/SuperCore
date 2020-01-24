@@ -19,9 +19,9 @@ public interface VersionUtils extends MessageUtils {
 
         LanguageManager languageManager = instance.getLanguageManager(instance.getSettingsManager().getConfig().getString("Languages.Default Language"));
         if (!version.equalsIgnoreCase(getCurrentPluginVersion()))
-            sendLogger(languageManager.getConfig().getString("Update Checker.Available").replace("%link%", "https://www.spigotmc.org/resources/72224"));
+            sendLogger(formatAll(languageManager.getConfig().getString("Update Checker.Available").replace("%link%", "https://www.spigotmc.org/resources/72224")));
         else
-            sendLogger(languageManager.getConfig().getString("Update Checker.Not Available"));
+            sendLogger(formatAll(languageManager.getConfig().getString("Update Checker.Not Available")));
     }
 
     default void checkForUpdate(Plugin plugin, Main instance, Player player) {
@@ -29,9 +29,9 @@ public interface VersionUtils extends MessageUtils {
 
         LanguageManager languageManager = instance.getLanguageManager(instance.getUser(player).getLanguage());
         if (!version.equalsIgnoreCase(getCurrentPluginVersion()))
-            player.sendMessage(languageManager.getConfig().getString("Update Checker.Available").replace("%link%", "https://www.spigotmc.org/resources/72224"));
+            player.sendMessage(formatAll(languageManager.getConfig().getString("Update Checker.Available").replace("%link%", "https://www.spigotmc.org/resources/72224")));
         else
-            player.sendMessage(languageManager.getConfig().getString("Update Checker.Not Available"));
+            player.sendMessage(formatAll(languageManager.getConfig().getString("Update Checker.Not Available")));
     }
 
     default String getLatestPluginVersion(Plugin plugin) {
