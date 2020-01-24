@@ -1,5 +1,5 @@
 name: SuperCoreLite
-version: 0.1.8
+version: 0.1.9
 main: me.Stefan923.SuperCoreLite.Main
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -79,4 +79,7 @@ permissions:
     default: op
   supercore.whois:
     description: Use whois command.
+    default: op
+  supercore.updatechecker:
+    description: Shows a message when an update is available.
     default: op
