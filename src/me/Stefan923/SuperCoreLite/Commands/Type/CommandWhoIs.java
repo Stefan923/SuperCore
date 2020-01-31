@@ -57,7 +57,7 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
                 .replace("%gamemode%", languageConfig.getString("General.Gamemode." + targetPlayerGamemode))
                 .replace("%health%", String.valueOf(targetPlayer.getHealth()))
                 .replace("%hunger%", String.valueOf(targetPlayer.getFoodLevel()))
-                .replace("%flying%", targetPlayer.getAllowFlight() ? languageConfig.getString("General.Yes") : languageConfig.getString("General.No"))
+                .replace("%flying%", targetPlayer.getAllowFlight() ? languageConfig.getString("General.Word Yes") : languageConfig.getString("General.Word No"))
                 .replace("%ipaddress%", targetPlayer.getAddress().toString().replace("/", "")))
                 .replace("%location%", locationToString(targetPlayer.getLocation())));
         return ReturnType.SUCCESS;
