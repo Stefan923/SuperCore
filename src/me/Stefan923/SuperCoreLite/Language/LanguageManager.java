@@ -46,6 +46,9 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("Command.Broadcast.Format", "&7(&3Broadcast&7) &f%message%");
         config.addDefault("Command.Cooldown", "&8(&3!&8) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.addDefault("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
+        config.addDefault("Command.Fly.Own Flight Mode Changed", "&8(&3!&8) &fYour flight mode has been %status%&f!");
+        config.addDefault("Command.Fly.Own Flight Mode Changed By", "&8(&3!&8) &fYour flight mode has been %status%&f by &b%sender%&f!");
+        config.addDefault("Command.Fly.Others Flight Mode Changed", "&8(&3!&8) &b%target%&f's flight mode has been %status%&f!");
         config.addDefault("Command.Gamemode.Own Gamemode Changed", "&8(&3!&8) &fYour gamemode has been set to &b%gamemode%&f!");
         config.addDefault("Command.Gamemode.Others Gamemode Changed", "&8(&3!&8) &fYou set &b%playername%&f's gamemode to &3%gamemode%&f!");
         config.addDefault("Command.HelpOp.Format", "&4&k|&cHelpOp&4&k|&r &7%playername%: &f%message%");
@@ -67,10 +70,12 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("General.Language Changed", "&8(&3!&8) &fYou have set your language to &b%language%&f!");
         config.addDefault("General.Must Be Online", "&8(&3!&8) &cSpecified player must be online!");
         config.addDefault("General.Nickname Changed", "&8(&3!&8) &fYour nickname has been set to &b%nickname%&f!");
-        config.addDefault("General.No", "no");
         config.addDefault("General.No Permission", "&8(&3!&8) &cYou need the &4%permission% &cpermission to do that!");
         config.addDefault("General.Repeated Message", "&8(&3!&8) &fYou can not write &cthe same message&f!");
-        config.addDefault("General.Yes", "yes");
+        config.addDefault("General.Word Disabled", "&cdisabled");
+        config.addDefault("General.Word Enabled", "&aenabled");
+        config.addDefault("General.Word No", "&cno");
+        config.addDefault("General.Word Yes", "&ayes");
         config.addDefault("On Join.Join Message", "&8(&3!&8) &a%playername% &fjoined the game!");
         config.addDefault("On Quit.Quit Message", "&8(&3!&8) &c%playername% &fleft the game!");
         config.addDefault("Update Checker.Available", "&8(&3!&8) &fThere is a new version of &bSuperCore Lite &favailable!\n&8(&3!&8) &fDownload link: &b%link%");
