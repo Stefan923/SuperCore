@@ -63,11 +63,15 @@ public class SettingsManager {
         config.set("Languages.Default Language", "lang_en.yml");
         config.set("Languages.Available Languages", Arrays.asList("lang_en.yml"));
         config.set("Enabled Commands.AdminChat", true);
+        config.set("Enabled Commands.Broadcast", true);
         config.set("Enabled Commands.DonorChat", true);
+        config.set("Enabled Commands.Fly", true);
+        config.set("Enabled Commands.Gamemode", true);
         config.set("Enabled Commands.HelpOp", true);
         config.set("Enabled Commands.Language", true);
         config.set("Enabled Commands.List", true);
         config.set("Enabled Commands.Nick", true);
+        config.set("Enabled Commands.WhoIs", true);
         config.set("Command Cooldowns.AdminChat", 5);
         config.set("Command Cooldowns.DonorChat", 10);
         config.set("Command Cooldowns.HelpOp", 10);
