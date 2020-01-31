@@ -19,23 +19,21 @@ public class CommandReload extends AbstractCommand implements MessageUtils {
         if (args.length != 2)
             return ReturnType.SYNTAX_ERROR;
 
-        Main plugin = Main.instance;
-
         if (args[1].equalsIgnoreCase("all")) {
-            plugin.reloadSettingManager();
-            plugin.reloadLanguageManagers();
+            instance.reloadSettingManager();
+            instance.reloadLanguageManagers();
             sender.sendMessage(formatAll("&8「&3SuperCore&8」 &fYou have successfully reloaded &ball &fmodules!"));
             return ReturnType.SUCCESS;
         }
 
         if (args[1].equalsIgnoreCase("settings")) {
-            plugin.reloadSettingManager();
+            instance.reloadSettingManager();
             sender.sendMessage(formatAll("&8「&3SuperCore&8」 &fYou have successfully reloaded &bsettings &fmodule!"));
             return ReturnType.SUCCESS;
         }
 
         if (args[1].equalsIgnoreCase("languages")) {
-            plugin.reloadLanguageManagers();
+            instance.reloadLanguageManagers();
             sender.sendMessage(formatAll("&8「&3SuperCore&8」 &fYou have successfully reloaded &blanguages &fmodule!"));
             return ReturnType.SUCCESS;
         }
