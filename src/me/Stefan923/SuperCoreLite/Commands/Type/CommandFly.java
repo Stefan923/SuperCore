@@ -17,7 +17,7 @@ import java.util.List;
 public class CommandFly extends AbstractCommand implements MessageUtils, PlayerUtils {
 
     public CommandFly() {
-        super(true, false, "fly");
+        super(true, true, "fly");
     }
 
     @Override
@@ -29,22 +29,28 @@ public class CommandFly extends AbstractCommand implements MessageUtils, PlayerU
 
         int length = args.length;
 
-        if (length == 0) {
-            senderPlayer.setAllowFlight(!senderPlayer.getAllowFlight());
+        if (length == 0 || args[0].equalsIgnoreCase(senderPlayer.getName())) {
+            boolean isAllowed = !senderPlayer.getAllowFlight();
+            senderPlayer.setAllowFlight(isAllowed);
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Fly.Own Flight Mode Changed")
+                    .replace("%status%", isAllowed ? languageConfig.getString("General.Word Enabled") : languageConfig.getString("General.Word Disabled"))));
             return ReturnType.SUCCESS;
         }
 
-        if (length == 2) {
-            Player targetPlayer = Bukkit.getPlayer(args[0]);
-            if (targetPlayer == null) {
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
-                return ReturnType.FAILURE;
-            }
-            targetPlayer.setAllowFlight(!targetPlayer.getAllowFlight());
-            return ReturnType.SUCCESS;
+        Player targetPlayer = Bukkit.getPlayer(args[0]);
+        if (targetPlayer == null) {
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
+            return ReturnType.FAILURE;
         }
-
-        return ReturnType.SYNTAX_ERROR;
+        boolean isAllowed = !senderPlayer.getAllowFlight();
+        senderPlayer.setAllowFlight(isAllowed);
+        senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Fly.Others Flight Mode Changed")
+                .replace("%status%", isAllowed ? languageConfig.getString("General.Word Enabled") : languageConfig.getString("General.Word Disabled"))
+                .replace("%target%", targetPlayer.getName())));
+        targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Fly.Own Flight Mode Changed By")
+                .replace("%status%", isAllowed ? languageConfig.getString("General.Word Enabled") : languageConfig.getString("General.Word Disabled"))
+                .replace("%sender%", senderPlayer.getName())));
+        return ReturnType.SUCCESS;
     }
 
     @Override
