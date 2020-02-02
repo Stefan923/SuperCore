@@ -31,6 +31,7 @@ public class SettingsManager {
         config.addDefault("Enabled Commands.DonorChat", true);
         config.addDefault("Enabled Commands.Fly", true);
         config.addDefault("Enabled Commands.Gamemode", true);
+        config.addDefault("Enabled Commands.God", true);
         config.addDefault("Enabled Commands.HelpOp", true);
         config.addDefault("Enabled Commands.Language", true);
         config.addDefault("Enabled Commands.List", true);
@@ -68,6 +69,7 @@ public class SettingsManager {
         config.set("Enabled Commands.DonorChat", true);
         config.set("Enabled Commands.Fly", true);
         config.set("Enabled Commands.Gamemode", true);
+        config.set("Enabled Commands.God", true);
         config.set("Enabled Commands.HelpOp", true);
         config.set("Enabled Commands.Language", true);
         config.set("Enabled Commands.List", true);
