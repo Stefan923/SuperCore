@@ -51,6 +51,9 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("Command.Fly.Others Flight Mode Changed", "&8(&3!&8) &b%target%&f's flight mode has been %status%&f!");
         config.addDefault("Command.Gamemode.Own Gamemode Changed", "&8(&3!&8) &fYour gamemode has been set to &b%gamemode%&f!");
         config.addDefault("Command.Gamemode.Others Gamemode Changed", "&8(&3!&8) &fYou set &b%playername%&f's gamemode to &3%gamemode%&f!");
+        config.addDefault("Command.God.Own God Mode Changed", "&8(&3!&8) &fYour god mode has been %status%&f!");
+        config.addDefault("Command.God.Own God Mode Changed By", "&8(&3!&8) &fYour god mode has been %status%&f by &b%sender%&f!");
+        config.addDefault("Command.God.Others God Mode Changed", "&8(&3!&8) &b%target%&f's god mode has been %status%&f!");
         config.addDefault("Command.HelpOp.Format", "&4&k|&cHelpOp&4&k|&r &7%playername%: &f%message%");
         config.addDefault("Command.List.Format", Arrays.asList("&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r", "&8(&3!&8) &fThere are &b%list_size_supercore.list.default% &fplayers online!", "&7 - &fAdmins (&3%list_size_supercore.list.admin%&f): %list_supercore.list.admin%", "&7 - &fDonors (&3%list_size_supercore.list.donor%&f): %list_supercore.list.donor%", "&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r"));
         config.addDefault("Command.List.Name Color", "&b");
