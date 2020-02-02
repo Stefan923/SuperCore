@@ -1,5 +1,5 @@
 name: SuperCoreLite
-version: 0.2.0
+version: 0.2.1
 main: me.Stefan923.SuperCoreLite.Main
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -24,6 +24,9 @@ commands:
   gamemode:
     description: Change your or others gamemode.
     aliases: [supergamemode, sgamemode, gm, supergm, sgm]
+  god:
+    description: Change your or others god mode.
+    aliases: [supergod, sgod]
   helpop:
     description: Special chat to request help.
     aliases: [superhelpop, shelpop, superreport, sreport, report]
@@ -61,6 +64,9 @@ permissions:
     default: op
   supercore.gamemode:
     description: Use gamemode command.
+    default: op
+  supercore.god:
+    description: Use god command.
     default: op
   supercore.helpop.send:
     description: Use helpop command.
