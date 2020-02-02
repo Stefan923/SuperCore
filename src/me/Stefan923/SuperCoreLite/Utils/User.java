@@ -15,6 +15,7 @@ public class User {
 
     private String language;
     private String nickname;
+    private boolean god;
 
     private String adminChatLastMessage;
     private String donorChatLastMessage;
@@ -31,6 +32,7 @@ public class User {
 
         this.language = settings.getString("Languages.Default Language").toLowerCase();
         this.nickname = null;
+        this.god = false;
 
         this.adminChatLastMessage = "";
         this.donorChatLastMessage = "";
@@ -73,6 +75,14 @@ public class User {
         Main.instance.getDatabase("supercore_users").put(player.getName(), "language", language);
     }
 
+    public void setGod(boolean god) {
+        this.god = god;
+    }
+
+    public boolean getGod() {
+        return god;
+    }
+
     public String getAdminChatLastMessage() {
         return adminChatLastMessage;
     }
@@ -113,4 +123,5 @@ public class User {
         this.nickname = nickname;
         Main.instance.getDatabase("supercore_users").put(player.getName(), "nickname", nickname);
     }
+
 }
