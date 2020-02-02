@@ -5,6 +5,7 @@ import me.Stefan923.SuperCoreLite.Database.Database;
 import me.Stefan923.SuperCoreLite.Database.H2Database;
 import me.Stefan923.SuperCoreLite.Database.MySQLDatabase;
 import me.Stefan923.SuperCoreLite.Language.LanguageManager;
+import me.Stefan923.SuperCoreLite.Listeners.PlayerDamageListener;
 import me.Stefan923.SuperCoreLite.Listeners.PlayerJoinListener;
 import me.Stefan923.SuperCoreLite.Listeners.PlayerQuitListener;
 import me.Stefan923.SuperCoreLite.Settings.SettingsManager;
@@ -64,8 +65,9 @@ public class Main extends JavaPlugin implements MessageUtils, VersionUtils {
     }
 
     private Integer enableListeners() {
-        Integer i = 2;
+        Integer i = 3;
         PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(new PlayerDamageListener(), this);
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         pluginManager.registerEvents(new PlayerQuitListener(), this);
         return i;
