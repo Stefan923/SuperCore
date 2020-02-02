@@ -50,6 +50,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             plugin.getCommand("gamemode").setExecutor(this);
             addCommand(new CommandGamemode());
         }
+        if (settings.getBoolean("Enabled Commands.God")) {
+            plugin.getCommand("god").setExecutor(this);
+            addCommand(new CommandGod());
+        }
         if (settings.getBoolean("Enabled Commands.HelpOp")) {
             plugin.getCommand("helpop").setExecutor(this);
             addCommand(new CommandHelpOp());
