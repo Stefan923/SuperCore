@@ -42,8 +42,8 @@ public class CommandFly extends AbstractCommand implements MessageUtils, PlayerU
             senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
             return ReturnType.FAILURE;
         }
-        boolean isAllowed = !senderPlayer.getAllowFlight();
-        senderPlayer.setAllowFlight(isAllowed);
+        boolean isAllowed = !targetPlayer.getAllowFlight();
+        targetPlayer.setAllowFlight(isAllowed);
         senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Fly.Others Flight Mode Changed")
                 .replace("%status%", isAllowed ? languageConfig.getString("General.Word Enabled") : languageConfig.getString("General.Word Disabled"))
                 .replace("%target%", targetPlayer.getName())));
