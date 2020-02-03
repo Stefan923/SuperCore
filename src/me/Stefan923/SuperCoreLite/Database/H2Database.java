@@ -14,7 +14,7 @@ public class H2Database extends Database implements MessageUtils {
     private Connection connection;
 
     public H2Database(String tablename) throws SQLException, ClassNotFoundException {
-        SuperCore instance = SuperCore.instance;
+        SuperCore instance = SuperCore.getInstance();
         this.tablename = tablename;
 
         Class.forName("org.h2.Driver");

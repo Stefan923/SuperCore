@@ -16,7 +16,7 @@ public class PlayerQuitListener implements Listener, MessageUtils {
         Player player = event.getPlayer();
         String playerName = player.getName();
 
-        SuperCore instance = SuperCore.instance;
+        SuperCore instance = SuperCore.getInstance();
         FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         event.setQuitMessage("");

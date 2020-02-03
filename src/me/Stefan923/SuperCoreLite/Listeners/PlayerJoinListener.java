@@ -17,7 +17,7 @@ public class PlayerJoinListener implements Listener, MessageUtils, VersionUtils 
         Player player = event.getPlayer();
         String playerName = player.getName();
 
-        SuperCore instance = SuperCore.instance;
+        SuperCore instance = SuperCore.getInstance();
         FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         instance.addUser(player);
