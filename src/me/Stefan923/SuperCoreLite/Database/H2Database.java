@@ -1,22 +1,20 @@
 package me.Stefan923.SuperCoreLite.Database;
 
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 
 import java.io.File;
 import java.sql.*;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 
 public class H2Database extends Database implements MessageUtils {
 
-    private final Main instance;
     private final String tablename;
     private Connection connection;
 
     public H2Database(String tablename) throws SQLException, ClassNotFoundException {
-        this.instance = Main.instance;
+        SuperCore instance = SuperCore.instance;
         this.tablename = tablename;
 
         Class.forName("org.h2.Driver");
