@@ -21,9 +21,9 @@ import org.bukkit.plugin.java.JavaPlugin;
 import java.sql.SQLException;
 import java.util.HashMap;
 
-public class Main extends JavaPlugin implements MessageUtils, VersionUtils {
+public class SuperCore extends JavaPlugin implements MessageUtils, VersionUtils {
 
-    public static Main instance;
+    private static SuperCore instance;
 
     private SettingsManager settingsManager;
     private HashMap<String, LanguageManager> languageManagers;
@@ -51,17 +51,21 @@ public class Main extends JavaPlugin implements MessageUtils, VersionUtils {
         databases = new HashMap<>();
         getDatabase("supercore_users");
 
-        sendLogger("&8&l> &7&m------ &8&l( &3&lSuperCore Lite &b&lby Stefan923 &8&l) &7&m------ &8&l<");
+        sendLogger("&8&l> &7&m------- &8&l( &3&lSuperCore &b&lby Stefan923 &8&l) &7&m------- &8&l<");
         sendLogger("&b   Plugin has been initialized.");
         sendLogger("&b   Version: &3v" + getDescription().getVersion());
         sendLogger("&b   Enabled listeners: &3" + enableListeners());
         sendLogger("&b   Enabled commands: &3" + enableCommands());
-        sendLogger("&8&l> &7&m------ &8&l( &3&lSuperCore Lite &b&lby Stefan923 &8&l) &7&m------ &8&l<");
+        sendLogger("&8&l> &7&m------- &8&l( &3&lSuperCore &b&lby Stefan923 &8&l) &7&m------- &8&l<");
 
         if (settingsManager.getConfig().getBoolean("Update Checker.Enable.On Plugin Enable"))
             Bukkit.getScheduler().runTaskAsynchronously(this, () -> {
                 checkForUpdate(this, this);
             });
+    }
+
+    public static SuperCore getInstance() {
+        return instance;
     }
 
     private Integer enableListeners() {
@@ -117,10 +121,12 @@ public class Main extends JavaPlugin implements MessageUtils, VersionUtils {
     }
 
     public User getUser(Player player) {
-        return users.get(player.getName());
+        return getUser(player.getName());
     }
 
     public User getUser(String playerName) {
+        if (!users.containsKey(playerName))
+            return null;
         return users.get(playerName);
     }
 
@@ -154,7 +160,7 @@ public class Main extends JavaPlugin implements MessageUtils, VersionUtils {
             sendLogger("&8(&3SuperCore&8) &rReason: " + exception.getMessage());
         } finally {
             if (database == null) {
-                sendLogger("&8(&3SuperCore&8) &rAttempting to use SQLite instead...");
+                sendLogger("&8(&3SuperCore&8) &rAttempting to use H2 database instead...");
                 database = getFileDatabase(table);
             }
         }
