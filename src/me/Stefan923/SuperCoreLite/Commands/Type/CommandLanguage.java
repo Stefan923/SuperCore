@@ -19,7 +19,7 @@ public class CommandLanguage extends AbstractCommand implements MessageUtils {
     public CommandLanguage() {
         super(true, true, "language");
         languages = new HashMap<>();
-        for (LanguageManager languageManager : SuperCore.instance.getLanguageManagers().values()) {
+        for (LanguageManager languageManager : SuperCore.getInstance().getLanguageManagers().values()) {
             languages.put(languageManager.getConfig().getString("Language Display Name").toLowerCase(), languageManager.getLanguageFileName());
         }
     }
