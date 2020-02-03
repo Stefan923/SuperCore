@@ -25,7 +25,7 @@ public interface PlayerUtils {
 
     default String locationToString(Location location) {
         StringBuffer stringBuffer = new StringBuffer();
-        stringBuffer.append(location.getBlockX()).append(", ").append(location.getBlockY()).append(", ").append(location.getBlockZ()).append(", ").append(location.getWorld());
+        stringBuffer.append(location.getBlockX()).append(", ").append(location.getBlockY()).append(", ").append(location.getBlockZ()).append(", ").append(location.getWorld().getName());
         return stringBuffer.toString();
     }
 
