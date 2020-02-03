@@ -1,7 +1,7 @@
 package me.Stefan923.SuperCoreLite.Commands.Type;
 
 import me.Stefan923.SuperCoreLite.Commands.AbstractCommand;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.PlayerUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
@@ -21,7 +21,7 @@ public class CommandFly extends AbstractCommand implements MessageUtils, PlayerU
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(Main instance, CommandSender sender, String... args) {
+    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         Player senderPlayer = (Player) sender;
         User user = instance.getUser(senderPlayer);
 
@@ -42,6 +42,8 @@ public class CommandFly extends AbstractCommand implements MessageUtils, PlayerU
             senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
             return ReturnType.FAILURE;
         }
+        User targetUser = instance.getUser(senderPlayer);
+        FileConfiguration targetLanguage = instance.getLanguageManager(targetUser.getLanguage()).getConfig();
         boolean isAllowed = !targetPlayer.getAllowFlight();
         targetPlayer.setAllowFlight(isAllowed);
         senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Fly.Others Flight Mode Changed")
@@ -54,7 +56,7 @@ public class CommandFly extends AbstractCommand implements MessageUtils, PlayerU
     }
 
     @Override
-    protected List<String> onTab(Main instance, CommandSender sender, String... args) {
+    protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
         if (!(sender instanceof Player) || !sender.hasPermission("supercore.fly"))
             return null;
         Player senderPlayer = (Player) sender;

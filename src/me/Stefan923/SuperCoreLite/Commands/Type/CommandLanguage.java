@@ -2,14 +2,13 @@ package me.Stefan923.SuperCoreLite.Commands.Type;
 
 import me.Stefan923.SuperCoreLite.Commands.AbstractCommand;
 import me.Stefan923.SuperCoreLite.Language.LanguageManager;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -20,13 +19,13 @@ public class CommandLanguage extends AbstractCommand implements MessageUtils {
     public CommandLanguage() {
         super(true, true, "language");
         languages = new HashMap<>();
-        for (LanguageManager languageManager : Main.instance.getLanguageManagers().values()) {
+        for (LanguageManager languageManager : SuperCore.instance.getLanguageManagers().values()) {
             languages.put(languageManager.getConfig().getString("Language Display Name").toLowerCase(), languageManager.getLanguageFileName());
         }
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(Main instance, CommandSender sender, String... args) {
+    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         Player senderPlayer = (Player) sender;
         User user = instance.getUser(senderPlayer);
 
@@ -65,7 +64,7 @@ public class CommandLanguage extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected List<String> onTab(Main instance, CommandSender sender, String... args) {
+    protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
         return null;
     }
 

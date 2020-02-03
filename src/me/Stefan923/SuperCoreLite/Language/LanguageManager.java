@@ -40,7 +40,7 @@ public class LanguageManager implements MessageUtils {
         }
 
         config = YamlConfiguration.loadConfiguration(cfile);
-        config.options().header("SuperCore Lite by Stefan923.\n");
+        config.options().header("SuperCore by Stefan923.\n");
         config.addDefault("Language Display Name", "English");
         config.addDefault("Command.AdminChat.Format", "&3[&bSTAFF&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.addDefault("Command.Broadcast.Format", "&7(&3Broadcast&7) &f%message%");

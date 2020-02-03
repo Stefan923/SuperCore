@@ -1,7 +1,7 @@
 package me.Stefan923.SuperCoreLite.Commands.Type;
 
 import me.Stefan923.SuperCoreLite.Commands.AbstractCommand;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import org.bukkit.command.CommandSender;
 
@@ -15,7 +15,7 @@ public class CommandReload extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(Main instance, CommandSender sender, String... args) {
+    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         if (args.length != 2)
             return ReturnType.SYNTAX_ERROR;
 
@@ -42,7 +42,7 @@ public class CommandReload extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected List<String> onTab(Main instance, CommandSender sender, String... args) {
+    protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
         if (sender.hasPermission("supercore.admin"))
             return Arrays.asList("settings", "languages", "all");
         return null;

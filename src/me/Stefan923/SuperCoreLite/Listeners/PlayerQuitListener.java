@@ -1,6 +1,6 @@
 package me.Stefan923.SuperCoreLite.Listeners;
 
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -16,7 +16,7 @@ public class PlayerQuitListener implements Listener, MessageUtils {
         Player player = event.getPlayer();
         String playerName = player.getName();
 
-        Main instance = Main.instance;
+        SuperCore instance = SuperCore.instance;
         FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         event.setQuitMessage("");

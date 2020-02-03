@@ -1,7 +1,7 @@
 package me.Stefan923.SuperCoreLite.Commands.Type;
 
 import me.Stefan923.SuperCoreLite.Commands.AbstractCommand;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import org.bukkit.command.CommandSender;
 
@@ -15,7 +15,7 @@ public class CommandCore extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(Main instance, CommandSender sender, String... args) {
+    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         sender.sendMessage(formatAll(" "));
         sendCenteredMessage(sender, formatAll("&8&m--+----------------------------------------+--&r"));
         sendCenteredMessage(sender, formatAll("&3&lSuperCore Lite &f&lv" + instance.getDescription().getVersion()));
@@ -29,7 +29,7 @@ public class CommandCore extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected List<String> onTab(Main instance, CommandSender sender, String... args) {
+    protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
         if (sender.hasPermission("supercore.admin"))
             return Arrays.asList("reload");
         return null;

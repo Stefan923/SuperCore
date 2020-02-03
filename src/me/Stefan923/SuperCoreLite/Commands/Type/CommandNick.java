@@ -1,7 +1,7 @@
 package me.Stefan923.SuperCoreLite.Commands.Type;
 
 import me.Stefan923.SuperCoreLite.Commands.AbstractCommand;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.PlayerUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
@@ -18,7 +18,7 @@ public class CommandNick extends AbstractCommand implements MessageUtils, Player
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(Main instance, CommandSender sender, String... args) {
+    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
 
         if (args.length != 1)
             return ReturnType.SYNTAX_ERROR;
@@ -46,7 +46,7 @@ public class CommandNick extends AbstractCommand implements MessageUtils, Player
     }
 
     @Override
-    protected List<String> onTab(Main instance, CommandSender sender, String... args) {
+    protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
         return null;
     }
 

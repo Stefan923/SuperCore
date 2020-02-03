@@ -1,6 +1,6 @@
 package me.Stefan923.SuperCoreLite.Commands;
 
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import org.bukkit.command.CommandSender;
 
 import java.util.ArrayList;
@@ -49,9 +49,9 @@ public abstract class AbstractCommand {
         subCommand.add(command);
     }
 
-    protected abstract ReturnType runCommand(Main instance, CommandSender sender, String... args);
+    protected abstract ReturnType runCommand(SuperCore instance, CommandSender sender, String... args);
 
-    protected abstract List<String> onTab(Main instance, CommandSender sender, String... args);
+    protected abstract List<String> onTab(SuperCore instance, CommandSender sender, String... args);
 
     public abstract String getPermissionNode();
 

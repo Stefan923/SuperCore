@@ -1,7 +1,7 @@
 package me.Stefan923.SuperCoreLite.Commands;
 
 import me.Stefan923.SuperCoreLite.Commands.Type.*;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
 import org.bukkit.command.Command;
@@ -17,10 +17,10 @@ import java.util.List;
 public class CommandManager implements CommandExecutor, MessageUtils {
 
     private static final List<AbstractCommand> commands = new ArrayList<>();
-    private Main plugin;
+    private SuperCore plugin;
     private TabManager tabManager;
 
-    public CommandManager(Main plugin) {
+    public CommandManager(SuperCore plugin) {
         this.plugin = plugin;
         this.tabManager = new TabManager(this);
 

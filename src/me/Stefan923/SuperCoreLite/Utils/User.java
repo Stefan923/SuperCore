@@ -1,15 +1,16 @@
 package me.Stefan923.SuperCoreLite.Utils;
 
 import me.Stefan923.SuperCoreLite.Database.Database;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashMap;
 
 public class User {
+
+    private SuperCore plugin;
 
     private Player player;
 
@@ -24,9 +25,9 @@ public class User {
     private long donorChatCooldown;
 
     public User(Player player) {
-        Main instance = Main.instance;
-        FileConfiguration settings = instance.getSettingsManager().getConfig();
-        Database database = instance.getDatabase("supercore_users");
+        plugin = SuperCore.getInstance();
+        FileConfiguration settings = plugin.getSettingsManager().getConfig();
+        Database database = plugin.getDatabase("supercore_users");
 
         this.player = player;
 
@@ -53,7 +54,7 @@ public class User {
             database.put(player.getName(), "language", this.language);
         }
 
-        if (!instance.getLanguageManagers().containsKey(language)) {
+        if (!plugin.getLanguageManagers().containsKey(language)) {
             setLanguage(settings.getString("Languages.Default Language").toLowerCase());
         }
     }
@@ -72,7 +73,7 @@ public class User {
 
     public void setLanguage(String language) {
         this.language = language;
-        Main.instance.getDatabase("supercore_users").put(player.getName(), "language", language);
+        plugin.getDatabase("supercore_users").put(player.getName(), "language", language);
     }
 
     public void setGod(boolean god) {
@@ -121,7 +122,7 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-        Main.instance.getDatabase("supercore_users").put(player.getName(), "nickname", nickname);
+        plugin.getDatabase("supercore_users").put(player.getName(), "nickname", nickname);
     }
 
 }

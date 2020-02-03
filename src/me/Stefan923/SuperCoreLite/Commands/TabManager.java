@@ -1,6 +1,6 @@
 package me.Stefan923.SuperCoreLite.Commands;
 
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -34,7 +34,7 @@ public class TabManager implements TabCompleter {
                 String cmd2 = strings.length >= 2 ? String.join(" ", strings[0], strings[1]) : null;
                 for (String cmds : abstractCommand.getSubCommand()) {
                     if (cmd.equalsIgnoreCase(cmds) || (cmd2 != null && cmd2.equalsIgnoreCase(cmds))) {
-                        List<String> list = abstractCommand.onTab(Main.instance, sender, strings);
+                        List<String> list = abstractCommand.onTab(SuperCore.instance, sender, strings);
                         String str = strings[strings.length - 1];
                         if (list != null && str != null && str.length() >= 1) {
                             try {

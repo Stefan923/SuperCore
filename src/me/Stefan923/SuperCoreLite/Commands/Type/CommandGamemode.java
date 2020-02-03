@@ -1,7 +1,7 @@
 package me.Stefan923.SuperCoreLite.Commands.Type;
 
 import me.Stefan923.SuperCoreLite.Commands.AbstractCommand;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.User;
 import org.bukkit.Bukkit;
@@ -20,7 +20,7 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(Main instance, CommandSender sender, String... args) {
+    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         Player senderPlayer = (Player) sender;
         User user = instance.getUser(senderPlayer);
 
@@ -89,7 +89,7 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected List<String> onTab(Main instance, CommandSender sender, String... args) {
+    protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
         List<String> list = new ArrayList<>();
         if (sender.hasPermission("supercore.gamemode.survival"))
             list.add("survival");

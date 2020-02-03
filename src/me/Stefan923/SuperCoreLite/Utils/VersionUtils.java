@@ -1,9 +1,8 @@
 package me.Stefan923.SuperCoreLite.Utils;
 
 import me.Stefan923.SuperCoreLite.Language.LanguageManager;
-import me.Stefan923.SuperCoreLite.Main;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import org.bukkit.Bukkit;
-import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 
@@ -14,7 +13,7 @@ import java.util.Scanner;
 
 public interface VersionUtils extends MessageUtils {
 
-    default void checkForUpdate(Plugin plugin, Main instance) {
+    default void checkForUpdate(Plugin plugin, SuperCore instance) {
         String version = getLatestPluginVersion(plugin);
 
         LanguageManager languageManager = instance.getLanguageManager(instance.getSettingsManager().getConfig().getString("Languages.Default Language"));
@@ -24,7 +23,7 @@ public interface VersionUtils extends MessageUtils {
             sendLogger(formatAll(languageManager.getConfig().getString("Update Checker.Not Available")));
     }
 
-    default void checkForUpdate(Plugin plugin, Main instance, Player player) {
+    default void checkForUpdate(Plugin plugin, SuperCore instance, Player player) {
         String version = getLatestPluginVersion(plugin);
 
         LanguageManager languageManager = instance.getLanguageManager(instance.getUser(player).getLanguage());

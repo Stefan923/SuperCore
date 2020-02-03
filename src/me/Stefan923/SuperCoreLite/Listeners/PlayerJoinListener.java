@@ -1,7 +1,6 @@
 package me.Stefan923.SuperCoreLite.Listeners;
 
-import me.Stefan923.SuperCoreLite.Main;
-import me.Stefan923.SuperCoreLite.Settings.SettingsManager;
+import me.Stefan923.SuperCoreLite.SuperCore;
 import me.Stefan923.SuperCoreLite.Utils.MessageUtils;
 import me.Stefan923.SuperCoreLite.Utils.VersionUtils;
 import org.bukkit.Bukkit;
@@ -18,7 +17,7 @@ public class PlayerJoinListener implements Listener, MessageUtils, VersionUtils 
         Player player = event.getPlayer();
         String playerName = player.getName();
 
-        Main instance = Main.instance;
+        SuperCore instance = SuperCore.instance;
         FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         instance.addUser(player);

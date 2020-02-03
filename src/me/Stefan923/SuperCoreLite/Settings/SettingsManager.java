@@ -23,7 +23,7 @@ public class SettingsManager {
     public void setup(Plugin p) {
         cfile = new File(p.getDataFolder(), "settings.yml");
         config = YamlConfiguration.loadConfiguration(cfile);
-        config.options().header("SuperCore Lite by Stefan923\n");
+        config.options().header("SuperCore by Stefan923\n");
         config.addDefault("Languages.Default Language", "lang_en.yml");
         config.addDefault("Languages.Available Languages", Arrays.asList("lang_en.yml"));
         config.addDefault("Enabled Commands.AdminChat", true);
