@@ -1,4 +1,4 @@
-# SuperCore Lite
+# SuperCore
 
 SuperCore Lite is an all in one plugin for Minecraft server management and recplaces multiple outdated plugins. It provides a large list of features which help you to run your server.
 This resource is free, open-source and under development. Any suggestion is welcome.
