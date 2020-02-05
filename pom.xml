@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>me.Stefan923</groupId>
-    <artifactId>SuperCoreLite</artifactId>
-    <version>0.2.2</version>
+    <artifactId>SuperCore</artifactId>
+    <version>0.2.3</version>
 
     <dependencies>
         <dependency>
