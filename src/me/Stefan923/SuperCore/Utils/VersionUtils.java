@@ -17,9 +17,9 @@ public interface VersionUtils extends MessageUtils {
         String version = getLatestPluginVersion(plugin);
 
         LanguageManager languageManager = instance.getLanguageManager(instance.getSettingsManager().getConfig().getString("Languages.Default Language"));
-        if (!version.equalsIgnoreCase(getCurrentPluginVersion()))
+        if (!version.equalsIgnoreCase(getCurrentPluginVersion())) {
             sendLogger(formatAll(languageManager.getConfig().getString("Update Checker.Available").replace("%link%", "https://www.spigotmc.org/resources/72224")));
-        else
+        } else
             sendLogger(formatAll(languageManager.getConfig().getString("Update Checker.Not Available")));
     }
 
@@ -47,7 +47,7 @@ public interface VersionUtils extends MessageUtils {
     }
 
     default String getCurrentPluginVersion() {
-        return Bukkit.getVersion();
+        return Bukkit.getPluginManager().getPlugin("SuperCore").getDescription().getVersion();
     }
 
 }
