@@ -1,5 +1,5 @@
 name: SuperCore
-version: 0.2.3
+version: 0.2.4
 main: me.Stefan923.SuperCore.SuperCore
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]

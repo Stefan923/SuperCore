@@ -6,7 +6,7 @@
 
     <groupId>me.Stefan923</groupId>
     <artifactId>SuperCore</artifactId>
-    <version>0.2.3</version>
+    <version>0.2.4</version>
 
     <dependencies>
         <dependency>
