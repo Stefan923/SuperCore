@@ -18,36 +18,16 @@ public class TabManager implements TabCompleter {
 
     @Override
     public List<String> onTabComplete(CommandSender sender, Command command, String alias, String[] strings) {
+        SuperCore instance = SuperCore.getInstance();
+        List<String> tabStrings = new ArrayList<>();
         for (AbstractCommand abstractCommand : commandManager.getCommands()) {
-            if (abstractCommand.getCommand() != null && abstractCommand.getCommand().equalsIgnoreCase(command.getName().toLowerCase())) {
-                if (strings.length == 1) {
-                    List<String> subs = new ArrayList<>();
-                    for (AbstractCommand ac : commandManager.getCommands()) {
-                        if (ac.getSubCommand() == null) continue;
-                        subs.addAll(ac.getSubCommand());
-                    }
-                    subs.removeIf(s -> !s.toLowerCase().startsWith(strings[0].toLowerCase()));
-                    return subs;
-                }
-            } else if (strings.length != 0 && abstractCommand.getParent() != null && abstractCommand.getParent().getCommand().equalsIgnoreCase(command.getName().toLowerCase())) {
-                String cmd = strings[0];
-                String cmd2 = strings.length >= 2 ? String.join(" ", strings[0], strings[1]) : null;
-                for (String cmds : abstractCommand.getSubCommand()) {
-                    if (cmd.equalsIgnoreCase(cmds) || (cmd2 != null && cmd2.equalsIgnoreCase(cmds))) {
-                        List<String> list = abstractCommand.onTab(SuperCore.getInstance(), sender, strings);
-                        String str = strings[strings.length - 1];
-                        if (list != null && str != null && str.length() >= 1) {
-                            try {
-                                list.removeIf(s -> !s.toLowerCase().startsWith(str.toLowerCase()));
-                            } catch (UnsupportedOperationException ignored) {
-                            }
-                        }
-                        return list;
-                    }
-                }
+            if (abstractCommand.getCommand() != null && abstractCommand.getCommand().equalsIgnoreCase(command.getName())) {
+                List<String> tempStrings = abstractCommand.onTab(instance, sender, strings);
+                if (tempStrings != null)
+                    tabStrings.addAll(tempStrings);
             }
         }
-        return null;
+        return tabStrings.isEmpty() ? null : tabStrings;
     }
 
 }

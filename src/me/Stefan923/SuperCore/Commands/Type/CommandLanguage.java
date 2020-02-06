@@ -1,5 +1,6 @@
 package me.Stefan923.SuperCore.Commands.Type;
 
+import com.google.common.collect.Sets;
 import me.Stefan923.SuperCore.Commands.AbstractCommand;
 import me.Stefan923.SuperCore.Language.LanguageManager;
 import me.Stefan923.SuperCore.SuperCore;
@@ -9,8 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 public class CommandLanguage extends AbstractCommand implements MessageUtils {
 
@@ -65,6 +66,16 @@ public class CommandLanguage extends AbstractCommand implements MessageUtils {
 
     @Override
     protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
+        if (sender.hasPermission("supercore.language") && args.length == 1) {
+            List<String> tabStrings = new ArrayList<>();
+            if (!args[0].equals("")) {
+                return languages.keySet().stream().filter(string -> string.toLowerCase().startsWith(args[0].toLowerCase())).collect(Collectors.toList());
+            } else {
+                tabStrings.add("list");
+                tabStrings.addAll(languages.keySet());
+            }
+            return tabStrings;
+        }
         return null;
     }
 

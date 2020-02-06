@@ -6,6 +6,7 @@ import me.Stefan923.SuperCore.Utils.MessageUtils;
 import org.bukkit.command.CommandSender;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 public class CommandCore extends AbstractCommand implements MessageUtils {
@@ -31,7 +32,7 @@ public class CommandCore extends AbstractCommand implements MessageUtils {
     @Override
     protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
         if (sender.hasPermission("supercore.admin"))
-            return Arrays.asList("reload");
+            return Collections.singletonList("reload");
         return null;
     }
 
