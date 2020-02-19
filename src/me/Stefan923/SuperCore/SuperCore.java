@@ -10,6 +10,7 @@ import me.Stefan923.SuperCore.Listeners.PlayerJoinListener;
 import me.Stefan923.SuperCore.Listeners.PlayerQuitListener;
 import me.Stefan923.SuperCore.Settings.SettingsManager;
 import me.Stefan923.SuperCore.Utils.MessageUtils;
+import me.Stefan923.SuperCore.Utils.Metrics;
 import me.Stefan923.SuperCore.Utils.User;
 import me.Stefan923.SuperCore.Utils.VersionUtils;
 import org.bukkit.Bukkit;
@@ -50,6 +51,8 @@ public class SuperCore extends JavaPlugin implements MessageUtils, VersionUtils 
         users = new HashMap<>();
         databases = new HashMap<>();
         getDatabase("supercore_users");
+
+        Metrics pluginMetrics = new Metrics(this, 6546);
 
         sendLogger("&8&l> &7&m------- &8&l( &3&lSuperCore &b&lby Stefan923 &8&l) &7&m------- &8&l<");
         sendLogger("&b   Plugin has been initialized.");
