@@ -31,6 +31,8 @@ public class CommandHeal extends AbstractCommand implements MessageUtils, Player
 
         if (length == 0) {
             senderPlayer.setHealth(senderPlayer.getMaxHealth());
+            senderPlayer.setFoodLevel(20);
+            senderPlayer.setFireTicks(0);
             sender.sendMessage(formatAll(senderLanguage.getString("Command.Heal.Self-Healed")));
             return ReturnType.SUCCESS;
         }
@@ -48,6 +50,8 @@ public class CommandHeal extends AbstractCommand implements MessageUtils, Player
             User targetUser = instance.getUser(targetPlayer);
             FileConfiguration targetLanguage = instance.getLanguageManager(targetUser.getLanguage()).getConfig();
             targetPlayer.setHealth(targetPlayer.getMaxHealth());
+            targetPlayer.setFoodLevel(20);
+            targetPlayer.setFireTicks(0);
             senderPlayer.sendMessage(formatAll(senderLanguage.getString("Command.Heal.Healed Others")
                     .replace("%target%", targetPlayer.getName())));
             targetPlayer.sendMessage(formatAll(targetLanguage.getString("Command.Heal.Healed By")
