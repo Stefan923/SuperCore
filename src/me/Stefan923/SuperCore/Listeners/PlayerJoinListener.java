@@ -2,6 +2,7 @@ package me.Stefan923.SuperCore.Listeners;
 
 import me.Stefan923.SuperCore.SuperCore;
 import me.Stefan923.SuperCore.Utils.MessageUtils;
+import me.Stefan923.SuperCore.Utils.User;
 import me.Stefan923.SuperCore.Utils.VersionUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -21,6 +22,9 @@ public class PlayerJoinListener implements Listener, MessageUtils, VersionUtils 
         FileConfiguration settings = instance.getSettingsManager().getConfig();
 
         instance.addUser(player);
+        User user = instance.getUser(playerName);
+
+        user.setJoinTime(System.currentTimeMillis());
 
         event.setJoinMessage("");
 
