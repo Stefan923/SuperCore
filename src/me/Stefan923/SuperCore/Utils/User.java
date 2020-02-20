@@ -14,6 +14,7 @@ public class User {
 
     private Player player;
 
+    private long joinTime;
     private String language;
     private String nickname;
     private boolean god;
@@ -76,12 +77,12 @@ public class User {
         plugin.getDatabase("supercore_users").put(player.getName(), "language", language);
     }
 
-    public void setGod(boolean god) {
-        this.god = god;
-    }
-
     public boolean getGod() {
         return god;
+    }
+
+    public void setGod(boolean god) {
+        this.god = god;
     }
 
     public String getAdminChatLastMessage() {
@@ -125,4 +126,11 @@ public class User {
         plugin.getDatabase("supercore_users").put(player.getName(), "nickname", nickname);
     }
 
+    public long getJoinTime() {
+        return joinTime;
+    }
+
+    public void setJoinTime(long joinTime) {
+        this.joinTime = joinTime;
+    }
 }
