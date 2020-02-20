@@ -23,10 +23,13 @@ public class H2Database extends Database implements MessageUtils {
         connection = DriverManager.getConnection(url);
         if (connection == null)
             return;
-        PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS %table (`id` INT NOT NULL AUTO_INCREMENT, `playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(256));".replace("%table", tablename));
+        PreparedStatement preparedStatement = connection.prepareStatement("CREATE TABLE IF NOT EXISTS %table (`id` INT NOT NULL AUTO_INCREMENT, `playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(255), `lastonline` BIGINT(18));".replace("%table", tablename));
         preparedStatement.executeUpdate();
         preparedStatement.close();
-        preparedStatement = connection.prepareStatement("ALTER TABLE `%table` ADD COLUMN IF NOT EXISTS `nickname` VARCHAR(256) DEFAULT NULL;".replace("%table", tablename));
+        preparedStatement = connection.prepareStatement("ALTER TABLE `%table` ADD COLUMN IF NOT EXISTS `nickname` VARCHAR(255) DEFAULT NULL;".replace("%table", tablename));
+        preparedStatement.executeUpdate();
+        preparedStatement.close();
+        preparedStatement = connection.prepareStatement("ALTER TABLE `%table` ADD COLUMN IF NOT EXISTS `lastonline` BIGINT(18) DEFAULT NULL;".replace("%table", tablename));
         preparedStatement.executeUpdate();
         preparedStatement.close();
     }

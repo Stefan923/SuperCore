@@ -132,12 +132,15 @@ public class MySQLDatabase extends Database {
     }
 
     private void initTable() throws SQLException {
-        String tablequery = "CREATE TABLE IF NOT EXISTS %table (`playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(256));".replace("%table", tablename);
+        String tablequery = "CREATE TABLE IF NOT EXISTS %table (`playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(255), `lastonline` BIGINT(18));".replace("%table", tablename);
         PreparedStatement preparedStatement = getConnection().prepareStatement(tablequery);
         preparedStatement.executeUpdate();
         preparedStatement.close();
         try {
-            preparedStatement = getConnection().prepareStatement("ALTER TABLE `%table` ADD COLUMN `nickname` VARCHAR(256) DEFAULT NULL;".replace("%table", tablename));
+            preparedStatement = getConnection().prepareStatement("ALTER TABLE `%table` ADD COLUMN `nickname` VARCHAR(255) DEFAULT NULL;".replace("%table", tablename));
+            preparedStatement.executeUpdate();
+            preparedStatement.close();
+            preparedStatement = getConnection().prepareStatement("ALTER TABLE `%table` ADD COLUMN `lastonline` BIGINT(18) DEFAULT NULL;".replace("%table", tablename));
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException exception) {
