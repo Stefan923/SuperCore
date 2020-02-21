@@ -36,6 +36,8 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
             return ReturnType.FAILURE;
         }
 
+        User targetUser = instance.getUser(targetPlayerName);
+
         String targetPlayerGamemode = "";
         switch (targetPlayer.getGameMode()) {
             case ADVENTURE:
@@ -57,6 +59,7 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
                 .replace("%gamemode%", languageConfig.getString("General.Gamemode." + targetPlayerGamemode))
                 .replace("%health%", String.valueOf(targetPlayer.getHealth()))
                 .replace("%hunger%", String.valueOf(targetPlayer.getFoodLevel()))
+                .replace("%godmode%", user.getGod() ? languageConfig.getString("General.Word Yes") : languageConfig.getString("General.Word No"))
                 .replace("%flying%", targetPlayer.getAllowFlight() ? languageConfig.getString("General.Word Yes") : languageConfig.getString("General.Word No"))
                 .replace("%ipaddress%", targetPlayer.getAddress().toString().replace("/", "")))
                 .replace("%location%", locationToString(targetPlayer.getLocation())));
