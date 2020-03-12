@@ -32,10 +32,12 @@ public class SettingsManager {
         config.addDefault("Enabled Commands.Fly", true);
         config.addDefault("Enabled Commands.Gamemode", true);
         config.addDefault("Enabled Commands.God", true);
+        config.addDefault("Enabled Commands.Heal", true);
         config.addDefault("Enabled Commands.HelpOp", true);
         config.addDefault("Enabled Commands.Language", true);
         config.addDefault("Enabled Commands.List", true);
         config.addDefault("Enabled Commands.Nick", true);
+        config.addDefault("Enabled Commands.Seen", true);
         config.addDefault("Enabled Commands.WhoIs", true);
         config.addDefault("Command Cooldowns.AdminChat", 5);
         config.addDefault("Command Cooldowns.DonorChat", 10);
