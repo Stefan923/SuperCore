@@ -13,7 +13,7 @@ import java.util.List;
 
 public class CommandGod extends AbstractCommand implements MessageUtils {
 
-    public CommandGod() { super(true, true, "god"); }
+    public CommandGod() { super(false, true, "god"); }
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
