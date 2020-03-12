@@ -44,7 +44,6 @@ public class MySQLDatabase extends Database {
             preparedStatement.setString(1, playerKey);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                preparedStatement.close();
                 return resultSet;
             }
             preparedStatement.close();

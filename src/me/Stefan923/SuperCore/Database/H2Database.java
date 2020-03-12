@@ -57,7 +57,6 @@ public class H2Database extends Database implements MessageUtils {
             preparedStatement.setString(1, playerKey);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-                preparedStatement.close();
                 return resultSet;
             }
             preparedStatement.close();
