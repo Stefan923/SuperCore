@@ -54,6 +54,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             plugin.getCommand("god").setExecutor(this);
             addCommand(new CommandGod());
         }
+        if (settings.getBoolean("Enabled Commands.Heal")) {
+            plugin.getCommand("heal").setExecutor(this);
+            addCommand(new CommandHeal());
+        }
         if (settings.getBoolean("Enabled Commands.HelpOp")) {
             plugin.getCommand("helpop").setExecutor(this);
             addCommand(new CommandHelpOp());
@@ -69,6 +73,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         if (settings.getBoolean("Enabled Commands.Nick")) {
             plugin.getCommand("nick").setExecutor(this);
             addCommand(new CommandNick());
+        }
+        if (settings.getBoolean("Enabled Commands.Seen")) {
+            plugin.getCommand("seen").setExecutor(this);
+            addCommand(new CommandSeen());
         }
         if (settings.getBoolean("Enabled Commands.WhoIs")) {
             plugin.getCommand("whois").setExecutor(this);
@@ -118,7 +126,6 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             if (permissionNode == null || sender.hasPermission(command.getPermissionNode())) {
                 AbstractCommand.ReturnType returnType = command.runCommand(plugin, sender, strings);
                 if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
-
                     sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
                 }
                 return;
