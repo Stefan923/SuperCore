@@ -1,5 +1,5 @@
 name: SuperCore
-version: 0.2.4
+version: 0.2.5
 main: me.Stefan923.SuperCore.SuperCore
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -27,6 +27,9 @@ commands:
   god:
     description: Change your or others god mode.
     aliases: [supergod, sgod]
+  heal:
+    description: Refills player's health state.
+    aliases: [superheal, sheal]
   helpop:
     description: Special chat to request help.
     aliases: [superhelpop, shelpop, superreport, sreport, report]
@@ -39,6 +42,9 @@ commands:
   nick:
     description: Change your name.
     aliases: [supernick, snick, nickname, supernickname, snickname]
+  seen:
+    description: Shows a player's last online session.
+    aliases: [superseen, sseen]
   whois:
     description: Change your name.
     aliases: [superwhois]
