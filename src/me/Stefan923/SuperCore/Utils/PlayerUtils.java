@@ -1,5 +1,6 @@
 package me.Stefan923.SuperCore.Utils;
 
+import me.Stefan923.SuperCore.Language.LanguageManager;
 import me.Stefan923.SuperCore.SuperCore;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
@@ -13,6 +14,22 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 public interface PlayerUtils {
+
+    /* Get player's User object. */
+
+    default User getUser(SuperCore instance, Player player) {
+        return getUser(instance, player.getName());
+    }
+
+    default User getUser(SuperCore instance, String playerName) {
+        User user = null;
+
+        if (instance.getUsers().containsKey(playerName)) {
+            user = instance.getUsers().get(playerName);
+        }
+
+        return user;
+    }
 
     /* Get a set with all online players that a player can see. */
 
@@ -62,4 +79,35 @@ public interface PlayerUtils {
         SuperCore.getInstance().getDatabase("supercore_users").put(playerName, "lastonline", String.valueOf(System.currentTimeMillis()));
     }
 
+    /* Get CommandSender, Player or User's language manager. */
+
+    default LanguageManager getLanguageManager(SuperCore instance, CommandSender commandSender) {
+        LanguageManager languageManager = null;
+
+        if (commandSender != null) {
+            languageManager = (commandSender instanceof Player) ? getLanguageManager(instance, (Player) commandSender) : instance.getLanguageManager(instance.getSettingsManager().getConfig().getString("Languages.Default Language"));
+        }
+
+        return languageManager;
+    }
+
+    default LanguageManager getLanguageManager(SuperCore instance, Player player) {
+        LanguageManager languageManager = null;
+
+        if (player != null) {
+            languageManager = getLanguageManager(instance, getUser(instance, player));
+        }
+
+        return languageManager;
+    }
+
+    default LanguageManager getLanguageManager(SuperCore instance, User user) {
+        LanguageManager languageManager = null;
+
+        if (user != null) {
+            languageManager = instance.getLanguageManager(user.getLanguage());
+        }
+
+        return languageManager;
+    }
 }
