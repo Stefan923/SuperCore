@@ -20,7 +20,7 @@ public class CommandSeen extends AbstractCommand implements MessageUtils, Player
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         FileConfiguration senderLanguage;
 
         if (sender instanceof Player)

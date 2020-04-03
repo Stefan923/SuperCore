@@ -18,7 +18,7 @@ public class CommandNick extends AbstractCommand implements MessageUtils, Player
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
 
         if (args.length != 1)
             return ReturnType.SYNTAX_ERROR;

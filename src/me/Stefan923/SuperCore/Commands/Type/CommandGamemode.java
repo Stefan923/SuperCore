@@ -20,7 +20,7 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         Player senderPlayer = (Player) sender;
         User user = instance.getUser(senderPlayer);
 

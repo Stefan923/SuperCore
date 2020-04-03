@@ -16,7 +16,7 @@ public class CommandCore extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         sender.sendMessage(formatAll(" "));
         sendCenteredMessage(sender, formatAll("&8&m--+----------------------------------------+--&r"));
         sendCenteredMessage(sender, formatAll("&3&lSuperCore &f&lv" + instance.getDescription().getVersion()));

@@ -15,7 +15,7 @@ public class CommandReload extends AbstractCommand implements MessageUtils {
     }
 
     @Override
-    protected AbstractCommand.ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
         if (args.length != 2)
             return ReturnType.SYNTAX_ERROR;
 
