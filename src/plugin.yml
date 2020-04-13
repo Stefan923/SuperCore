@@ -57,6 +57,9 @@ commands:
   survival:
     description: Changes gamemode to survival.
     aliases: [supersurvival, gms, supergms]
+  tp:
+    description: Changes gamemode to survival.
+    aliases: [supertp, teleport, superteleport]
   whois:
     description: Change your name.
     aliases: [superwhois]
