@@ -1,9 +1,9 @@
 package me.Stefan923.SuperCore.Commands;
 
+import me.Stefan923.SuperCore.Commands.Exceptions.MissingPermissionException;
 import me.Stefan923.SuperCore.Commands.Type.*;
 import me.Stefan923.SuperCore.SuperCore;
 import me.Stefan923.SuperCore.Utils.MessageUtils;
-import me.Stefan923.SuperCore.Utils.User;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -49,6 +49,14 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         if (settings.getBoolean("Enabled Commands.Gamemode")) {
             plugin.getCommand("gamemode").setExecutor(this);
             addCommand(new CommandGamemode());
+            plugin.getCommand("survival").setExecutor(this);
+            addCommand(new CommandSurvival());
+            plugin.getCommand("creative").setExecutor(this);
+            addCommand(new CommandCreative());
+            plugin.getCommand("spectator").setExecutor(this);
+            addCommand(new CommandSpectator());
+            plugin.getCommand("adventure").setExecutor(this);
+            addCommand(new CommandAdventure());
         }
         if (settings.getBoolean("Enabled Commands.God")) {
             plugin.getCommand("god").setExecutor(this);
@@ -77,6 +85,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
         if (settings.getBoolean("Enabled Commands.Seen")) {
             plugin.getCommand("seen").setExecutor(this);
             addCommand(new CommandSeen());
+        }
+        if (settings.getBoolean("Enabled Commands.Tp")) {
+            plugin.getCommand("tp").setExecutor(this);
+            addCommand(new CommandTp());
         }
         if (settings.getBoolean("Enabled Commands.WhoIs")) {
             plugin.getCommand("whois").setExecutor(this);
@@ -114,17 +126,21 @@ public class CommandManager implements CommandExecutor, MessageUtils {
                 }
             }
         }
-        commandSender.sendMessage(formatAll("&8「&3SuperCore&8」 &cThe command you entered does not exist or is spelt incorrectly."));
+        commandSender.sendMessage(formatAll("&8[&3SuperCore&8] &cThe command you entered does not exist or is spelt incorrectly."));
         return true;
     }
 
     private void processRequirements(AbstractCommand command, CommandSender sender, String[] strings) {
+        FileConfiguration language = getLanguageConfig(plugin, sender);
         if ((sender instanceof Player)) {
-            User user = plugin.getUser((Player) sender);
-            FileConfiguration language = plugin.getLanguageManager(user.getLanguage()).getConfig();
             String permissionNode = command.getPermissionNode();
             if (permissionNode == null || sender.hasPermission(command.getPermissionNode())) {
-                AbstractCommand.ReturnType returnType = command.runCommand(plugin, sender, strings);
+                AbstractCommand.ReturnType returnType = null;
+                try {
+                    returnType = command.runCommand(plugin, sender, strings);
+                } catch (MissingPermissionException e) {
+                    sender.sendMessage(language.getString("General.No Permission"));
+                }
                 if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
                     sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
                 }
@@ -134,12 +150,16 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             return;
         }
         if (command.isNoConsole())
-            sender.sendMessage(formatAll("&8[&3SuperCore&8] &cYou must be a player to use this commands."));
+            sender.sendMessage(formatAll(language.getString("General.Must Be Player")));
         if (command.getPermissionNode() == null || sender.hasPermission(command.getPermissionNode())) {
-            AbstractCommand.ReturnType returnType = command.runCommand(plugin, sender, strings);
+            AbstractCommand.ReturnType returnType = null;
+            try {
+                returnType = command.runCommand(plugin, sender, strings);
+            } catch (MissingPermissionException e) {
+                e.printStackTrace();
+            }
             if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
-                sender.sendMessage(formatAll("&8[&3SuperCore&8] &cInvalid Syntax!"));
-                sender.sendMessage(formatAll("&8[&3SuperCore&8] &fThe valid syntax is: &b" + command.getSyntax() + "&f."));
+                sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
             }
             return;
         }
