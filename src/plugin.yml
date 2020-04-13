@@ -1,5 +1,5 @@
 name: SuperCore
-version: 0.2.5
+version: 0.2.6
 main: me.Stefan923.SuperCore.SuperCore
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -12,9 +12,15 @@ commands:
   adminchat:
     description: Special chat for admins.
     aliases: [superadminchat, sadminchat, achat, superachat, sachat, ac, superac, sac]
+  adventure:
+    description: Changes gamemode to adventure.
+    aliases: [superadventure, gma, supergma]
   broadcast:
     description: Sends a message to all online players.
     aliases: [superbroadcast, sbroadcast, bc, superbc, sbc]
+  creative:
+    description: Changes gamemode to creative.
+    aliases: [supercreative, gmc, supergmc]
   donorchat:
     description: Special chat for donors.
     aliases: [superdonorchat, sdonorchat, dchat, superdchat, sdchat, dc, superdc, sdc]
@@ -45,6 +51,12 @@ commands:
   seen:
     description: Shows a player's last online session.
     aliases: [superseen, sseen]
+  spectator:
+    description: Changes gamemode to spectator.
+    aliases: [superspectator, gmsp, supergmsp]
+  survival:
+    description: Changes gamemode to survival.
+    aliases: [supersurvival, gms, supergms]
   whois:
     description: Change your name.
     aliases: [superwhois]
@@ -70,6 +82,21 @@ permissions:
     default: op
   supercore.gamemode:
     description: Use gamemode command.
+    default: op
+  supercore.gamemode.others:
+    description: Use gamemode command on other players.
+    default: op
+  supercore.gamemode.survival:
+    description: Change gamemode to survival.
+    default: op
+  supercore.gamemode.creative:
+    description: Change gamemode to creative.
+    default: op
+  supercore.gamemode.adventure:
+    description: Change gamemode to adventure.
+    default: op
+  supercore.gamemode.spectator:
+    description: Change gamemode to spectator.
     default: op
   supercore.god:
     description: Use god command.
