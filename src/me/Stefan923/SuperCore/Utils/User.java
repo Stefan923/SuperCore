@@ -17,7 +17,9 @@ public class User {
     private long joinTime;
     private String language;
     private String nickname;
+
     private boolean god;
+    private boolean canTeleport;
 
     private String adminChatLastMessage;
     private String donorChatLastMessage;
@@ -34,7 +36,9 @@ public class User {
 
         this.language = settings.getString("Languages.Default Language").toLowerCase();
         this.nickname = null;
+
         this.god = false;
+        this.canTeleport = true;
 
         this.adminChatLastMessage = "";
         this.donorChatLastMessage = "";
@@ -133,4 +137,8 @@ public class User {
     public void setJoinTime(long joinTime) {
         this.joinTime = joinTime;
     }
+
+    public boolean getTeleport() { return canTeleport; }
+
+    public void setTeleport(boolean canTeleport) { this.canTeleport = canTeleport; }
 }
