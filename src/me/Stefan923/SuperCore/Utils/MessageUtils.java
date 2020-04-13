@@ -1,6 +1,6 @@
 package me.Stefan923.SuperCore.Utils;
 
-import me.Stefan923.SuperCore.Language.LanguageManager;
+import me.Stefan923.SuperCore.SuperCore;
 import me.clip.placeholderapi.PlaceholderAPI;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -166,6 +166,17 @@ public interface MessageUtils {
             stringBuilder.append(stringBuilder.length() != 0 ? " " : "").append(seconds).append(" ").append(seconds == 1 ? languageManager.getString("General.Word Second") : languageManager.getString("General.Word Seconds"));
 
         return stringBuilder.toString();
+    }
+
+    default FileConfiguration getLanguageConfig(SuperCore instance, CommandSender commandSender) {
+        if (commandSender instanceof Player) {
+            return getLanguageConfig(instance, (Player) commandSender);
+        }
+        return instance.getLanguageManager(instance.getSettingsManager().getConfig().getString("Languages.Default Language")).getConfig();
+    }
+
+    default FileConfiguration getLanguageConfig(SuperCore instance, Player player) {
+        return instance.getLanguageManager(instance.getUser(player).getLanguage()).getConfig();
     }
 
 }
