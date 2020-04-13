@@ -18,7 +18,7 @@ public class PlaceholderAPIHook extends EZPlaceholderHook {
 
     public String onPlaceholderRequest(final Player player, final String identifier) {
         User user = instance.getUser(player);
-        if (identifier.equalsIgnoreCase("nick")) {
+        if (identifier.equalsIgnoreCase("nickname")) {
             return (user.getNickname() == null) ? player.getName() : ChatColor.translateAlternateColorCodes('&', user.getNickname());
         }
         if (identifier.equalsIgnoreCase("isGodMode")) {
