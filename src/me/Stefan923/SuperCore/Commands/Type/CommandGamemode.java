@@ -4,6 +4,7 @@ import me.Stefan923.SuperCore.Commands.AbstractCommand;
 import me.Stefan923.SuperCore.Commands.Exceptions.MissingPermissionException;
 import me.Stefan923.SuperCore.SuperCore;
 import me.Stefan923.SuperCore.Utils.MessageUtils;
+import me.Stefan923.SuperCore.Utils.PlayerUtils;
 import me.Stefan923.SuperCore.Utils.User;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -12,25 +13,28 @@ import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
-public class CommandGamemode extends AbstractCommand implements MessageUtils {
+public class CommandGamemode extends AbstractCommand implements MessageUtils, PlayerUtils {
 
     public CommandGamemode() {
-        super(true, true, "gamemode");
+        super(false, true, "gamemode");
     }
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) throws MissingPermissionException {
-        Player senderPlayer = (Player) sender;
-        User user = instance.getUser(senderPlayer);
-
-        FileConfiguration settings = instance.getSettingsManager().getConfig();
-        FileConfiguration languageConfig = instance.getLanguageManager(user.getLanguage()).getConfig();
+        FileConfiguration languageConfig = getLanguageConfig(instance, sender);
 
         int length = args.length;
 
         if (length == 1) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(formatAll(languageConfig.getString("General.Must Be Player")));
+                return ReturnType.FAILURE;
+            }
+            Player senderPlayer = (Player) sender;
+
             if (args[0].equalsIgnoreCase("survival") || args[0].equalsIgnoreCase("0")) {
                 if (!senderPlayer.hasPermission("supercore.gamemode.survival")) {
                     throw new MissingPermissionException("supercore.gamemode.survival");
@@ -67,51 +71,51 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils {
         }
 
         if (length == 2) {
-            if (!senderPlayer.hasPermission("supercore.gamemode.others")) {
+            if (!sender.hasPermission("supercore.gamemode.others")) {
                 throw new MissingPermissionException("supercore.gamemode.others");
             }
-            Player targetPlayer = Bukkit.getPlayer(args[0]);
+            Player targetPlayer = Bukkit.getPlayer(args[1]);
             if (targetPlayer == null) {
-                senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
+                sender.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
                 return ReturnType.FAILURE;
             }
-            if (args[1].equalsIgnoreCase("survival") || args[1].equalsIgnoreCase("0")) {
-                if (!senderPlayer.hasPermission("supercore.gamemode.survival")) {
+            if (args[0].equalsIgnoreCase("survival") || args[0].equalsIgnoreCase("0")) {
+                if (!sender.hasPermission("supercore.gamemode.survival")) {
                     throw new MissingPermissionException("supercore.gamemode.survival");
                 }
                 targetPlayer.setGameMode(GameMode.SURVIVAL);
                 if (!targetPlayer.getName().equalsIgnoreCase(sender.getName()))
-                    senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Survival"))));
+                    sender.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Survival"))));
                 targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Survival"))));
                 return ReturnType.SUCCESS;
             }
-            if (args[1].equalsIgnoreCase("creative") || args[1].equalsIgnoreCase("1")) {
-                if (!senderPlayer.hasPermission("supercore.gamemode.creative")) {
+            if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("1")) {
+                if (!sender.hasPermission("supercore.gamemode.creative")) {
                     throw new MissingPermissionException("supercore.gamemode.creative");
                 }
                 targetPlayer.setGameMode(GameMode.CREATIVE);
                 if (!targetPlayer.getName().equalsIgnoreCase(sender.getName()))
-                    senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Creative"))));
+                    sender.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Creative"))));
                 targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Creative"))));
                 return ReturnType.SUCCESS;
             }
-            if (args[1].equalsIgnoreCase("adventure") || args[1].equalsIgnoreCase("2")) {
-                if (!senderPlayer.hasPermission("supercore.gamemode.adventure")) {
+            if (args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("2")) {
+                if (!sender.hasPermission("supercore.gamemode.adventure")) {
                     throw new MissingPermissionException("supercore.gamemode.adventure");
                 }
                 targetPlayer.setGameMode(GameMode.ADVENTURE);
                 if (!targetPlayer.getName().equalsIgnoreCase(sender.getName()))
-                    senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Adventure"))));
+                    sender.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Adventure"))));
                 targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Adventure"))));
                 return ReturnType.SUCCESS;
             }
-            if (args[1].equalsIgnoreCase("spectator") || args[1].equalsIgnoreCase("3")) {
-                if (!senderPlayer.hasPermission("supercore.gamemode.spectator")) {
+            if (args[0].equalsIgnoreCase("spectator") || args[0].equalsIgnoreCase("3")) {
+                if (!sender.hasPermission("supercore.gamemode.spectator")) {
                     throw new MissingPermissionException("supercore.gamemode.spectator");
                 }
                 targetPlayer.setGameMode(GameMode.SPECTATOR);
                 if (!targetPlayer.getName().equalsIgnoreCase(sender.getName()))
-                    senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Spectator"))));
+                    sender.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Others Gamemode Changed").replace("%playername%", targetPlayer.getName()).replace("%gamemode%", languageConfig.getString("General.Gamemode.Spectator"))));
                 targetPlayer.sendMessage(formatAll(languageConfig.getString("Command.Gamemode.Own Gamemode Changed").replace("%gamemode%", languageConfig.getString("General.Gamemode.Spectator"))));
                 return ReturnType.SUCCESS;
             }
@@ -123,14 +127,19 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils {
     @Override
     protected List<String> onTab(SuperCore instance, CommandSender sender, String... args) {
         List<String> list = new ArrayList<>();
-        if (sender.hasPermission("supercore.gamemode.survival"))
-            list.add("survival");
-        if (sender.hasPermission("supercore.gamemode.creative"))
-            list.add("creative");
-        if (sender.hasPermission("supercore.gamemode.adventure"))
-            list.add("adventure");
-        if (sender.hasPermission("supercore.gamemode.spectator"))
-            list.add("spectator");
+        if (args.length == 1) {
+            if (sender.hasPermission("supercore.gamemode.survival") && "survival".startsWith(args[0]))
+                list.add("survival");
+            if (sender.hasPermission("supercore.gamemode.creative") && "creative".startsWith(args[0]))
+                list.add("creative");
+            if (sender.hasPermission("supercore.gamemode.adventure") && "adventure".startsWith(args[0]))
+                list.add("adventure");
+            if (sender.hasPermission("supercore.gamemode.spectator") && "spectator".startsWith(args[0]))
+                list.add("spectator");
+        } else if (args.length == 2) {
+            onlinePlayers(sender).stream().filter(onlinePlayer -> onlinePlayer.getName().startsWith(args[1])).forEach(onlinePlayer -> list.add(onlinePlayer.getName()));
+            Collections.sort(list);
+        }
         return list;
     }
 
@@ -141,12 +150,12 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils {
 
     @Override
     public String getSyntax() {
-        return "/gamemode <player> <type>";
+        return "/gamemode <type> [player]";
     }
 
     @Override
     public String getDescription() {
-        return "Change your gamemode.";
+        return "Change own or others gamemode.";
     }
 
 }
