@@ -38,6 +38,7 @@ public class SettingsManager {
         config.addDefault("Enabled Commands.List", true);
         config.addDefault("Enabled Commands.Nick", true);
         config.addDefault("Enabled Commands.Seen", true);
+        config.addDefault("Enabled Commands.Tp", true);
         config.addDefault("Enabled Commands.WhoIs", true);
         config.addDefault("Command Cooldowns.AdminChat", 5);
         config.addDefault("Command Cooldowns.DonorChat", 10);
@@ -72,10 +73,13 @@ public class SettingsManager {
         config.set("Enabled Commands.Fly", true);
         config.set("Enabled Commands.Gamemode", true);
         config.set("Enabled Commands.God", true);
+        config.set("Enabled Commands.Heal", true);
         config.set("Enabled Commands.HelpOp", true);
         config.set("Enabled Commands.Language", true);
         config.set("Enabled Commands.List", true);
         config.set("Enabled Commands.Nick", true);
+        config.set("Enabled Commands.Seen", true);
+        config.set("Enabled Commands.Tp", true);
         config.set("Enabled Commands.WhoIs", true);
         config.set("Command Cooldowns.AdminChat", 5);
         config.set("Command Cooldowns.DonorChat", 10);
@@ -91,6 +95,8 @@ public class SettingsManager {
         config.set("Storage.MySQL.Database Name", "yourDatabase");
         config.set("Storage.MySQL.User", "yourUser");
         config.set("Storage.MySQL.Password", "yourPassword");
+        config.set("Update Checker.Enable.On Plugin Enable", true);
+        config.set("Update Checker.Enable.On Join", true);
         save();
     }
 
