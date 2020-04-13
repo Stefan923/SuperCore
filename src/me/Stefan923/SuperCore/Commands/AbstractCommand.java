@@ -1,5 +1,6 @@
 package me.Stefan923.SuperCore.Commands;
 
+import me.Stefan923.SuperCore.Commands.Exceptions.MissingPermissionException;
 import me.Stefan923.SuperCore.SuperCore;
 import org.bukkit.command.CommandSender;
 
@@ -49,7 +50,7 @@ public abstract class AbstractCommand {
         subCommand.add(command);
     }
 
-    protected abstract ReturnType runCommand(SuperCore instance, CommandSender sender, String... args);
+    protected abstract ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) throws MissingPermissionException;
 
     protected abstract List<String> onTab(SuperCore instance, CommandSender sender, String... args);
 
