@@ -43,9 +43,11 @@ public class LanguageManager implements MessageUtils {
         config.options().header("SuperCore by Stefan923.\n");
         config.addDefault("Language Display Name", "English");
         config.addDefault("Command.AdminChat.Format", "&3[&bSTAFF&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
+        config.addDefault("Command.AdminChat.Format By Console", "&3[&bSTAFF&3] &cCONSOLE&7: &f%message%");
         config.addDefault("Command.Broadcast.Format", "&7(&3Broadcast&7) &f%message%");
         config.addDefault("Command.Cooldown", "&8(&3!&8) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.addDefault("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
+        config.addDefault("Command.DonorChat.Format By Console", "&3[&bDONOR&3] &cCONSOLE&7: &f%message%");
         config.addDefault("Command.Fly.Own Flight Mode Changed", "&8(&3!&8) &fYour flight mode has been %status%&f!");
         config.addDefault("Command.Fly.Own Flight Mode Changed By", "&8(&3!&8) &fYour flight mode has been %status%&f by &b%sender%&f!");
         config.addDefault("Command.Fly.Others Flight Mode Changed", "&8(&3!&8) &b%target%&f's flight mode has been %status%&f!");
