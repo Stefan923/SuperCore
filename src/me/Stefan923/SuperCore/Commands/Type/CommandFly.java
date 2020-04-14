@@ -17,41 +17,43 @@ import java.util.List;
 public class CommandFly extends AbstractCommand implements MessageUtils, PlayerUtils {
 
     public CommandFly() {
-        super(true, true, "fly");
+        super(false, true, "fly");
     }
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
-        Player senderPlayer = (Player) sender;
-        User user = instance.getUser(senderPlayer);
-
-        FileConfiguration senderLanguage = instance.getLanguageManager(user.getLanguage()).getConfig();
+        FileConfiguration senderLanguage = getLanguageConfig(instance, sender);
 
         int length = args.length;
 
-        if (length == 0 || args[0].equalsIgnoreCase(senderPlayer.getName())) {
+        if (length == 0 || args[0].equalsIgnoreCase(sender.getName())) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(formatAll(senderLanguage.getString("General.Must Be Player")));
+                return ReturnType.FAILURE;
+            }
+            Player senderPlayer = (Player) sender;
             boolean isAllowed = !senderPlayer.getAllowFlight();
             senderPlayer.setAllowFlight(isAllowed);
-            senderPlayer.sendMessage(formatAll(senderLanguage.getString("Command.Fly.Own Flight Mode Changed")
+            sender.sendMessage(formatAll(senderLanguage.getString("Command.Fly.Own Flight Mode Changed")
                     .replace("%status%", isAllowed ? senderLanguage.getString("General.Word Enabled") : senderLanguage.getString("General.Word Disabled"))));
             return ReturnType.SUCCESS;
         }
 
         Player targetPlayer = Bukkit.getPlayer(args[0]);
         if (targetPlayer == null) {
-            senderPlayer.sendMessage(formatAll(senderLanguage.getString("General.Must Be Online")));
+            sender.sendMessage(formatAll(senderLanguage.getString("General.Must Be Online")));
             return ReturnType.FAILURE;
         }
         User targetUser = instance.getUser(targetPlayer);
         FileConfiguration targetLanguage = instance.getLanguageManager(targetUser.getLanguage()).getConfig();
         boolean isAllowed = !targetPlayer.getAllowFlight();
         targetPlayer.setAllowFlight(isAllowed);
-        senderPlayer.sendMessage(formatAll(senderLanguage.getString("Command.Fly.Others Flight Mode Changed")
+        sender.sendMessage(formatAll(senderLanguage.getString("Command.Fly.Others Flight Mode Changed")
                 .replace("%status%", isAllowed ? senderLanguage.getString("General.Word Enabled") : senderLanguage.getString("General.Word Disabled"))
                 .replace("%target%", targetPlayer.getName())));
         targetPlayer.sendMessage(formatAll(targetLanguage.getString("Command.Fly.Own Flight Mode Changed By")
                 .replace("%status%", isAllowed ? targetLanguage.getString("General.Word Enabled") : targetLanguage.getString("General.Word Disabled"))
-                .replace("%sender%", senderPlayer.getName())));
+                .replace("%sender%", sender.getName())));
         return ReturnType.SUCCESS;
     }
 
