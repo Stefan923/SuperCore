@@ -4,6 +4,7 @@ import me.Stefan923.SuperCore.Commands.CommandManager;
 import me.Stefan923.SuperCore.Database.Database;
 import me.Stefan923.SuperCore.Database.H2Database;
 import me.Stefan923.SuperCore.Database.MySQLDatabase;
+import me.Stefan923.SuperCore.Hooks.PlaceholderAPIHook;
 import me.Stefan923.SuperCore.Language.LanguageManager;
 import me.Stefan923.SuperCore.Listeners.PlayerDamageListener;
 import me.Stefan923.SuperCore.Listeners.PlayerJoinListener;
@@ -57,6 +58,12 @@ public class SuperCore extends JavaPlugin implements MessageUtils, VersionUtils 
         sendLogger("&8&l> &7&m------- &8&l( &3&lSuperCore &b&lby Stefan923 &8&l) &7&m------- &8&l<");
         sendLogger("&b   Plugin has been initialized.");
         sendLogger("&b   Version: &3v" + getDescription().getVersion());
+        if (this.getServer().getPluginManager().isPluginEnabled("PlaceholderAPI")) {
+            new PlaceholderAPIHook(instance).register();
+            sendLogger("&b   Placeholders: &aEnabled");
+        } else {
+            sendLogger("&b   Placeholders: &aDisabled");
+        }
         sendLogger("&b   Enabled listeners: &3" + enableListeners());
         sendLogger("&b   Enabled commands: &3" + enableCommands());
         sendLogger("&8&l> &7&m------- &8&l( &3&lSuperCore &b&lby Stefan923 &8&l) &7&m------- &8&l<");
