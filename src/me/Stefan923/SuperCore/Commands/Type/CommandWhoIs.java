@@ -32,7 +32,7 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
         Player targetPlayer = Bukkit.getPlayer(targetPlayerName);
 
         if (targetPlayer == null) {
-            senderPlayer.sendMessage(languageConfig.getString("General.Must Be Online"));
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
             return ReturnType.FAILURE;
         }
 
@@ -59,7 +59,7 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
                 .replace("%gamemode%", languageConfig.getString("General.Gamemode." + targetPlayerGamemode))
                 .replace("%health%", String.valueOf(targetPlayer.getHealth()))
                 .replace("%hunger%", String.valueOf(targetPlayer.getFoodLevel()))
-                .replace("%godmode%", user.getGod() ? languageConfig.getString("General.Word Yes") : languageConfig.getString("General.Word No"))
+                .replace("%godmode%", targetUser.getGod() ? languageConfig.getString("General.Word Yes") : languageConfig.getString("General.Word No"))
                 .replace("%flying%", targetPlayer.getAllowFlight() ? languageConfig.getString("General.Word Yes") : languageConfig.getString("General.Word No"))
                 .replace("%ipaddress%", targetPlayer.getAddress().toString().replace("/", "")))
                 .replace("%location%", locationToString(targetPlayer.getLocation())));
@@ -78,7 +78,7 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
 
     @Override
     public String getSyntax() {
-        return "/whois <player_name>";
+        return "/whois <player>";
     }
 
     @Override
