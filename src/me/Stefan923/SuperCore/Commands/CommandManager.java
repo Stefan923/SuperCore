@@ -153,8 +153,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             sender.sendMessage(formatAll(language.getString("General.No Permission").replace("%permission%", permissionNode)));
             return;
         }
-        if (command.isNoConsole())
+        if (command.isNoConsole()) {
             sender.sendMessage(formatAll(language.getString("General.Must Be Player")));
+            return;
+        }
         if (command.getPermissionNode() == null || sender.hasPermission(command.getPermissionNode())) {
             AbstractCommand.ReturnType returnType = null;
             try {
