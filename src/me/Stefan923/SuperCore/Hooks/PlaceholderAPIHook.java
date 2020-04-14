@@ -2,20 +2,44 @@ package me.Stefan923.SuperCore.Hooks;
 
 import me.Stefan923.SuperCore.SuperCore;
 import me.Stefan923.SuperCore.Utils.User;
-import me.clip.placeholderapi.external.EZPlaceholderHook;
+import me.clip.placeholderapi.expansion.PlaceholderExpansion;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
 
-@SuppressWarnings("ALL")
-public class PlaceholderAPIHook extends EZPlaceholderHook {
+public class PlaceholderAPIHook extends PlaceholderExpansion {
 
     private SuperCore instance;
 
-    PlaceholderAPIHook(SuperCore instance) {
-        super(instance, "supercore");
+    public PlaceholderAPIHook(SuperCore instance) {
         this.instance = instance;
     }
 
+    @Override
+    public boolean persist(){
+        return true;
+    }
+
+    @Override
+    public boolean canRegister(){
+        return true;
+    }
+
+    @Override
+    public String getIdentifier() {
+        return "supercore";
+    }
+
+    @Override
+    public String getAuthor() {
+        return "Stefan923";
+    }
+
+    @Override
+    public String getVersion() {
+        return instance.getDescription().getVersion();
+    }
+
+    @Override
     public String onPlaceholderRequest(final Player player, final String identifier) {
         User user = instance.getUser(player);
         if (identifier.equalsIgnoreCase("nickname")) {
@@ -26,5 +50,4 @@ public class PlaceholderAPIHook extends EZPlaceholderHook {
         }
         return null;
     }
-
 }
