@@ -90,6 +90,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             plugin.getCommand("tp").setExecutor(this);
             addCommand(new CommandTp());
         }
+        if (settings.getBoolean("Enabled Commands.TpToggle")) {
+            plugin.getCommand("tptoggle").setExecutor(this);
+            addCommand(new CommandTpToggle());
+        }
         if (settings.getBoolean("Enabled Commands.WhoIs")) {
             plugin.getCommand("whois").setExecutor(this);
             addCommand(new CommandWhoIs());
