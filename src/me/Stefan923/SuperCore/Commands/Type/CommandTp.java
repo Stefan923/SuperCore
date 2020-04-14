@@ -26,7 +26,7 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
         switch (args.length) {
             case 1:
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage(formatAll(senderLanguage.getString("Command.Teleport.Console Can Not Teleport")));
+                    sender.sendMessage(formatAll(senderLanguage.getString("Teleport.Console Can Not Teleport")));
                     return ReturnType.FAILURE;
                 }
 
@@ -61,11 +61,11 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
 
                 User target1User = instance.getUser(target1Player);
                 User target2User = instance.getUser(target2Player);
-                if (target1User.getTeleport()) {
+                if (!target1User.getTeleport()) {
                     sender.sendMessage(formatAll(senderLanguage.getString("Teleport.His Teleport Is Disabled").replace("%target%", target1Player.getName())));
                     return ReturnType.FAILURE;
                 }
-                if (target2User.getTeleport()) {
+                if (!target2User.getTeleport()) {
                     sender.sendMessage(formatAll(senderLanguage.getString("Teleport.His Teleport Is Disabled").replace("%target%", target2Player.getName())));
                     return ReturnType.FAILURE;
                 }
@@ -77,7 +77,7 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
                 return ReturnType.SUCCESS;
             case 3:
                 if (!(sender instanceof Player)) {
-                    sender.sendMessage(formatAll(senderLanguage.getString("Command.Teleport.Console Can Not Teleport")));
+                    sender.sendMessage(formatAll(senderLanguage.getString("Teleport.Console Can Not Teleport")));
                     return ReturnType.FAILURE;
                 }
 
@@ -101,7 +101,7 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
                     return ReturnType.FAILURE;
                 }
                 User targetUser4 = getUser(instance, targetPlayer4);
-                if (targetUser4.getTeleport()) {
+                if (!targetUser4.getTeleport()) {
                     sender.sendMessage(formatAll(senderLanguage.getString("Teleport.His Teleport Is Disabled").replace("%target%", targetPlayer4.getName())));
                     return ReturnType.FAILURE;
                 }
