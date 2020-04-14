@@ -21,15 +21,17 @@ public class CommandHeal extends AbstractCommand implements MessageUtils, Player
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
-        Player senderPlayer = (Player) sender;
-        User user = instance.getUser(senderPlayer);
 
-        FileConfiguration settings = instance.getSettingsManager().getConfig();
-        FileConfiguration senderLanguage = instance.getLanguageManager(user.getLanguage()).getConfig();
+        FileConfiguration senderLanguage = getLanguageConfig(instance, sender);
 
         int length = args.length;
 
-        if (length == 0) {
+        if (length == 0 || args[0].equalsIgnoreCase(sender.getName())) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(formatAll(senderLanguage.getString("General.Must Be Player")));
+                return ReturnType.FAILURE;
+            }
+            Player senderPlayer = (Player) sender;
             senderPlayer.setHealth(senderPlayer.getMaxHealth());
             senderPlayer.setFoodLevel(20);
             senderPlayer.setFireTicks(0);
@@ -38,24 +40,26 @@ public class CommandHeal extends AbstractCommand implements MessageUtils, Player
         }
 
         if (length == 1) {
-            if (!senderPlayer.hasPermission("supercore.heal.others")) {
+            if (!sender.hasPermission("supercore.heal.others")) {
                 sender.sendMessage(formatAll(senderLanguage.getString("General.No Permission").replace("%permission%", "supercore.heal.others")));
                 return ReturnType.FAILURE;
             }
+
             Player targetPlayer = Bukkit.getPlayer(args[0]);
             if (targetPlayer == null) {
-                senderPlayer.sendMessage(formatAll(senderLanguage.getString("General.Must Be Online")));
+                sender.sendMessage(formatAll(senderLanguage.getString("General.Must Be Online")));
                 return ReturnType.FAILURE;
             }
+
             User targetUser = instance.getUser(targetPlayer);
             FileConfiguration targetLanguage = instance.getLanguageManager(targetUser.getLanguage()).getConfig();
             targetPlayer.setHealth(targetPlayer.getMaxHealth());
             targetPlayer.setFoodLevel(20);
             targetPlayer.setFireTicks(0);
-            senderPlayer.sendMessage(formatAll(senderLanguage.getString("Command.Heal.Healed Others")
+            sender.sendMessage(formatAll(senderLanguage.getString("Command.Heal.Healed Others")
                     .replace("%target%", targetPlayer.getName())));
             targetPlayer.sendMessage(formatAll(targetLanguage.getString("Command.Heal.Healed By")
-                    .replace("%sender%", senderPlayer.getName())));
+                    .replace("%sender%", sender.getName())));
             return ReturnType.SUCCESS;
         }
 
