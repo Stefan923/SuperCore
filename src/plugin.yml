@@ -1,5 +1,5 @@
 name: SuperCore
-version: 0.2.6
+version: 0.2.7
 main: me.Stefan923.SuperCore.SuperCore
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
@@ -60,8 +60,11 @@ commands:
   tp:
     description: Changes gamemode to survival.
     aliases: [supertp, teleport, superteleport]
+  tptoggle:
+    description: Toggles own or others teleportation.
+    aliases: [supertptoggle, toggletp, supertoggletp]
   whois:
-    description: Change your name.
+    description: Shows information about a player.
     aliases: [superwhois]
 
 permissions:
@@ -124,6 +127,9 @@ permissions:
     default: op
   supercore.nick.format:
     description: Use formatting codes in nickname.
+    default: op
+  supercore.tptoggle:
+    description: Use tptoggle command.
     default: op
   supercore.whois:
     description: Use whois command.
