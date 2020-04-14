@@ -143,7 +143,7 @@ public class CommandManager implements CommandExecutor, MessageUtils {
                 try {
                     returnType = command.runCommand(plugin, sender, strings);
                 } catch (MissingPermissionException e) {
-                    sender.sendMessage(language.getString("General.No Permission"));
+                    sender.sendMessage(formatAll(language.getString("General.No Permission").replace("%permission%", e.getMessage())));
                 }
                 if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
                     sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
