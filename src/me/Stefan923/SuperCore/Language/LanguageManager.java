@@ -66,6 +66,9 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("Command.Seen.Is Offline", "&8(&3!&8) &b%target% &fhas been &coffline &ffor %time%.");
         config.addDefault("Command.Seen.Is Online", "&8(&3!&8) &b%target% &fhas been &aonline &ffor %time%.\n &7- &fIP Address: &b%ipaddress%\n &7- &fLocation: &b%location%");
         config.addDefault("Command.Seen.Unknown Player", "&8(&3!&8) &b%target% &fhas never joined this server.");
+        config.addDefault("Command.TpToggle.Own Teleportation Toggled", "&8(&3!&8) &fYour teleportation has been %status%&f!");
+        config.addDefault("Command.TpToggle.Own Teleportation Toggled By", "&8(&3!&8) &fYour teleportation has been %status%&f by &b%sender%&f!");
+        config.addDefault("Command.TpToggle.Others Teleportation Toggled", "&8(&3!&8) &b%target%&f's teleportation has been %status%&f!");
         config.addDefault("Command.WhoIs.Format", Arrays.asList("&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r", "&8(&3!&8) &fThere are informations about &b%playername%&f:", "&7 - &fIP Address: &3%ipaddress%", "&7 - &fLocation: &3%location%", "&7 - &fGamemode: &3%gamemode%", "&7 - &fHealth: &3%health%", "&7 - &fHunger: &3%hunger%", "&7 - &fGod mode: &3%godmode%", "&7 - &fFlying: &3%flying%", "&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r"));
         config.addDefault("General.Already Using Language", "&8(&3!&8) &fYou are already using this language.");
         config.addDefault("General.Available Languages.Syntax", "&8(&3!&8) &fAvailable languages are: ");
