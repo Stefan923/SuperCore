@@ -41,8 +41,8 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
             return ReturnType.SYNTAX_ERROR;
 
         long now = System.currentTimeMillis();
-        if (user.getAdminChatCooldown() > now) {
-            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.AdminChat")))));
+        if (user.getHelpOpCooldown() > now) {
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.HelpOp")))));
             return ReturnType.FAILURE;
         }
 
@@ -52,7 +52,7 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
 
         String message = stringBuilder.toString();
 
-        if (user.getAdminChatLastMessage().equalsIgnoreCase(message)) {
+        if (user.getHelpOpLastMessage().equalsIgnoreCase(message)) {
             senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Repeated Message")));
             return ReturnType.FAILURE;
         }
@@ -61,8 +61,8 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
         ConsoleCommandSender logger = Bukkit.getConsoleSender();
         Bukkit.getConsoleSender().sendMessage(formatAll(replacePlaceholders(senderPlayer, getLanguageConfig(instance, logger).getString("Command.HelpOp.Format"))).replace("%message%", message).replace("%playername%", senderPlayer.getName()));
 
-        user.setAdminChatCooldown(now + 1000 * 5);
-        user.setAdminChatLastMessage(message);
+        user.setHelpOpCooldown(now + 1000 * 5);
+        user.setHelpOpLastMessage(message);
         return ReturnType.SUCCESS;
     }
 
