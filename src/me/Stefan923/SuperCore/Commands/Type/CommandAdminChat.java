@@ -6,6 +6,7 @@ import me.Stefan923.SuperCore.Utils.MessageUtils;
 import me.Stefan923.SuperCore.Utils.User;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -19,11 +20,22 @@ public class CommandAdminChat extends AbstractCommand implements MessageUtils {
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+        if (!(sender instanceof Player)) {
+            final StringBuilder stringBuilder = new StringBuilder();
+            for (String arg : args)
+                stringBuilder.append(arg).append(" ");
+            String message = stringBuilder.toString();
+
+            Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.adminchat.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(getLanguageConfig(instance, receiverPlayer).getString("Command.AdminChat.Format By Console").replace("%message%", message))));
+            ConsoleCommandSender logger = Bukkit.getConsoleSender();
+            Bukkit.getConsoleSender().sendMessage(formatAll(getLanguageConfig(instance, logger).getString("Command.AdminChat.Format By Console").replace("%message%", message)));
+            return ReturnType.SUCCESS;
+        }
         Player senderPlayer = (Player) sender;
         User user = instance.getUser(senderPlayer);
 
         FileConfiguration settings = instance.getSettingsManager().getConfig();
-        FileConfiguration languageConfig = instance.getLanguageManager(user.getLanguage()).getConfig();
+        FileConfiguration languageConfig = getLanguageConfig(instance, senderPlayer);
 
         if (args.length < 1)
             return ReturnType.SYNTAX_ERROR;
@@ -45,9 +57,11 @@ public class CommandAdminChat extends AbstractCommand implements MessageUtils {
             return ReturnType.FAILURE;
         }
 
-        Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.adminchat.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(replacePlaceholders(senderPlayer, languageConfig.getString("Command.AdminChat.Format"))).replace("%message%", message).replace("%playername%", receiverPlayer.getName())));
+        Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.adminchat.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(replacePlaceholders(senderPlayer, getLanguageConfig(instance, receiverPlayer).getString("Command.AdminChat.Format"))).replace("%message%", message).replace("%playername%", senderPlayer.getName())));
+        ConsoleCommandSender logger = Bukkit.getConsoleSender();
+        Bukkit.getConsoleSender().sendMessage(formatAll(replacePlaceholders(senderPlayer, getLanguageConfig(instance, logger).getString("Command.AdminChat.Format"))).replace("%message%", message).replace("%playername%", senderPlayer.getName()));
 
-        user.setAdminChatCooldown(now + 1000 * 5);
+        user.setAdminChatCooldown(now + 1000 * settings.getInt("Command Cooldowns.AdminChat"));
         user.setAdminChatLastMessage(message);
         return ReturnType.SUCCESS;
     }

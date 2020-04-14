@@ -6,6 +6,7 @@ import me.Stefan923.SuperCore.Utils.MessageUtils;
 import me.Stefan923.SuperCore.Utils.User;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -19,6 +20,17 @@ public class CommandDonorChat extends AbstractCommand implements MessageUtils {
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+        if (!(sender instanceof Player)) {
+            final StringBuilder stringBuilder = new StringBuilder();
+            for (String arg : args)
+                stringBuilder.append(arg).append(" ");
+            String message = stringBuilder.toString();
+
+            Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.donorchat.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(getLanguageConfig(instance, receiverPlayer).getString("Command.DonorChat.Format By Console").replace("%message%", message))));
+            ConsoleCommandSender logger = Bukkit.getConsoleSender();
+            Bukkit.getConsoleSender().sendMessage(formatAll(getLanguageConfig(instance, logger).getString("Command.DonorChat.Format By Console").replace("%message%", message)));
+            return ReturnType.SUCCESS;
+        }
         Player senderPlayer = (Player) sender;
         User user = instance.getUser(senderPlayer);
 
@@ -30,7 +42,7 @@ public class CommandDonorChat extends AbstractCommand implements MessageUtils {
 
         long now = System.currentTimeMillis();
         if (user.getDonorChatCooldown() > now) {
-            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.AdminChat")))));
+            senderPlayer.sendMessage(formatAll(languageConfig.getString("Command.Cooldown").replace("%cooldown%", String.valueOf(settings.getInt("Command Cooldowns.DonorChat")))));
             return ReturnType.FAILURE;
         }
 
@@ -45,9 +57,11 @@ public class CommandDonorChat extends AbstractCommand implements MessageUtils {
             return ReturnType.FAILURE;
         }
 
-        Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.donorchat.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(replacePlaceholders(senderPlayer, languageConfig.getString("Command.DonorChat.Format"))).replace("%message%", message).replace("%playername%", receiverPlayer.getName())));
+        Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.donorchat.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(replacePlaceholders(senderPlayer, getLanguageConfig(instance, receiverPlayer).getString("Command.DonorChat.Format"))).replace("%message%", message).replace("%playername%", senderPlayer.getName())));
+        ConsoleCommandSender logger = Bukkit.getConsoleSender();
+        Bukkit.getConsoleSender().sendMessage(formatAll(replacePlaceholders(senderPlayer, getLanguageConfig(instance, logger).getString("Command.DonorChat.Format"))).replace("%message%", message).replace("%playername%", senderPlayer.getName()));
 
-        user.setDonorChatCooldown(now + 1000 * 5);
+        user.setDonorChatCooldown(now + 1000 * settings.getInt("Command Cooldowns.DonorChat"));
         user.setDonorChatLastMessage(message);
         return ReturnType.SUCCESS;
     }

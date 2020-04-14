@@ -35,7 +35,7 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
         User user = instance.getUser(senderPlayer);
 
         FileConfiguration settings = instance.getSettingsManager().getConfig();
-        FileConfiguration languageConfig = instance.getLanguageManager(user.getLanguage()).getConfig();
+        FileConfiguration languageConfig = getLanguageConfig(instance, senderPlayer);
 
         if (args.length < 1)
             return ReturnType.SYNTAX_ERROR;
@@ -61,7 +61,7 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
         ConsoleCommandSender logger = Bukkit.getConsoleSender();
         Bukkit.getConsoleSender().sendMessage(formatAll(replacePlaceholders(senderPlayer, getLanguageConfig(instance, logger).getString("Command.HelpOp.Format"))).replace("%message%", message).replace("%playername%", senderPlayer.getName()));
 
-        user.setHelpOpCooldown(now + 1000 * 5);
+        user.setHelpOpCooldown(now + 1000 * settings.getInt("Command Cooldowns.HelpOp"));
         user.setHelpOpLastMessage(message);
         return ReturnType.SUCCESS;
     }
