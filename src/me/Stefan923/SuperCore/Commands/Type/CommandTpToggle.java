@@ -31,7 +31,7 @@ public class CommandTpToggle extends AbstractCommand implements MessageUtils {
             User senderUser = instance.getUser(senderPlayer);
 
             boolean tpToggle = !senderUser.getTeleport();
-            senderUser.setGod(tpToggle);
+            senderUser.setTeleport(tpToggle);
             senderPlayer.sendMessage(formatAll(senderLanguage.getString("Command.TpToggle.Own Teleportation Toggled")
                     .replace("%status%", tpToggle ? senderLanguage.getString("General.Word Enabled") : senderLanguage.getString("General.Word Disabled"))));
             return ReturnType.SUCCESS;
@@ -49,13 +49,13 @@ public class CommandTpToggle extends AbstractCommand implements MessageUtils {
 
         User targetUser = instance.getUser(targetPlayer);
         FileConfiguration targetLanguage = instance.getLanguageManager(targetUser.getLanguage()).getConfig();
-        boolean godMode = !targetUser.getGod();
-        targetUser.setGod(godMode);
+        boolean tpToggle = !targetUser.getTeleport();
+        targetUser.setTeleport(tpToggle);
         sender.sendMessage(formatAll(senderLanguage.getString("Command.TpToggle.Others Teleportation Toggled")
-                .replace("%status%", godMode ? senderLanguage.getString("General.Word Enabled") : senderLanguage.getString("General.Word Disabled"))
+                .replace("%status%", tpToggle ? senderLanguage.getString("General.Word Enabled") : senderLanguage.getString("General.Word Disabled"))
                 .replace("%target%", targetPlayer.getName())));
         targetPlayer.sendMessage(formatAll(targetLanguage.getString("Command.God.Own Teleportation Toggled By")
-                .replace("%status%", godMode ? targetLanguage.getString("General.Word Enabled") : targetLanguage.getString("General.Word Disabled"))
+                .replace("%status%", tpToggle ? targetLanguage.getString("General.Word Enabled") : targetLanguage.getString("General.Word Disabled"))
                 .replace("%sender%", sender.getName())));
         return ReturnType.SUCCESS;
     }
