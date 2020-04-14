@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandHelpOp extends AbstractCommand implements MessageUtils {
 
     public CommandHelpOp() {
-        super(true, false, "helpop");
+        super(true, true, "helpop");
     }
 
     @Override

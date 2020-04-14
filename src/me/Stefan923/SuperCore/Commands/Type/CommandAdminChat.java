@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandAdminChat extends AbstractCommand implements MessageUtils {
 
     public CommandAdminChat() {
-        super(true, false, "adminchat");
+        super(true, true, "adminchat");
     }
 
     @Override

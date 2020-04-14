@@ -14,7 +14,7 @@ import java.util.List;
 public class CommandDonorChat extends AbstractCommand implements MessageUtils {
 
     public CommandDonorChat() {
-        super(true, false, "donorchat");
+        super(true, true, "donorchat");
     }
 
     @Override
