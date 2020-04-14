@@ -6,6 +6,7 @@ import me.Stefan923.SuperCore.Utils.MessageUtils;
 import me.Stefan923.SuperCore.Utils.User;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
 
@@ -14,11 +15,22 @@ import java.util.List;
 public class CommandHelpOp extends AbstractCommand implements MessageUtils {
 
     public CommandHelpOp() {
-        super(true, true, "helpop");
+        super(false, true, "helpop");
     }
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+        if (!(sender instanceof Player)) {
+            final StringBuilder stringBuilder = new StringBuilder();
+            for (String arg : args)
+                stringBuilder.append(arg).append(" ");
+            String message = stringBuilder.toString();
+
+            Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.helpop.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(getLanguageConfig(instance, receiverPlayer).getString("Command.HelpOp.Format By Console").replace("%message%", message))));
+            ConsoleCommandSender logger = Bukkit.getConsoleSender();
+            Bukkit.getConsoleSender().sendMessage(formatAll(getLanguageConfig(instance, logger).getString("Command.HelpOp.Format By Console").replace("%message%", message)));
+            return ReturnType.SUCCESS;
+        }
         Player senderPlayer = (Player) sender;
         User user = instance.getUser(senderPlayer);
 
@@ -45,7 +57,9 @@ public class CommandHelpOp extends AbstractCommand implements MessageUtils {
             return ReturnType.FAILURE;
         }
 
-        Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.helpop.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(replacePlaceholders(senderPlayer, languageConfig.getString("Command.HelpOp.Format"))).replace("%message%", message).replace("%playername%", receiverPlayer.getName())));
+        Bukkit.getOnlinePlayers().stream().filter(receiverPlayer -> receiverPlayer.hasPermission("supercore.helpop.receive")).forEach(receiverPlayer -> receiverPlayer.sendMessage(formatAll(replacePlaceholders(senderPlayer, getLanguageConfig(instance, receiverPlayer).getString("Command.HelpOp.Format"))).replace("%message%", message).replace("%playername%", senderPlayer.getName())));
+        ConsoleCommandSender logger = Bukkit.getConsoleSender();
+        Bukkit.getConsoleSender().sendMessage(formatAll(replacePlaceholders(senderPlayer, getLanguageConfig(instance, logger).getString("Command.HelpOp.Format"))).replace("%message%", message).replace("%playername%", senderPlayer.getName()));
 
         user.setAdminChatCooldown(now + 1000 * 5);
         user.setAdminChatLastMessage(message);
