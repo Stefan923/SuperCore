@@ -38,7 +38,7 @@ public class CommandGod extends AbstractCommand implements MessageUtils {
             return ReturnType.SUCCESS;
         }
 
-        if (sender.hasPermission("supercore.god.others") && !isConsole) {
+        if (!sender.hasPermission("supercore.god.others")) {
             throw new MissingPermissionException("supercore.god.others");
         }
 
