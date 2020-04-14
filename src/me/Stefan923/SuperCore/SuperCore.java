@@ -53,7 +53,7 @@ public class SuperCore extends JavaPlugin implements MessageUtils, VersionUtils 
         databases = new HashMap<>();
         getDatabase("supercore_users");
 
-        Metrics pluginMetrics = new Metrics(this, 6546);
+        new Metrics(this, 6546);
 
         sendLogger("&8&l> &7&m------- &8&l( &3&lSuperCore &b&lby Stefan923 &8&l) &7&m------- &8&l<");
         sendLogger("&b   Plugin has been initialized.");
