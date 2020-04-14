@@ -41,7 +41,7 @@ public class CommandGod extends AbstractCommand implements MessageUtils {
         User targetUser = instance.getUser(targetPlayer);
         FileConfiguration targetLanguage = instance.getLanguageManager(targetUser.getLanguage()).getConfig();
         boolean godMode = !targetUser.getGod();
-        senderUser.setGod(godMode);
+        targetUser.setGod(godMode);
         senderPlayer.sendMessage(formatAll(senderLanguage.getString("Command.God.Others God Mode Changed")
                 .replace("%status%", godMode ? senderLanguage.getString("General.Word Enabled") : senderLanguage.getString("General.Word Disabled"))
                 .replace("%target%", targetPlayer.getName())));
