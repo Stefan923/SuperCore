@@ -107,6 +107,9 @@ permissions:
   supercore.god:
     description: Use god command.
     default: op
+  supercore.god.others:
+    description: Use god command on others.
+    default: op
   supercore.helpop.send:
     description: Use helpop command.
     default: op
@@ -130,6 +133,9 @@ permissions:
     default: op
   supercore.tptoggle:
     description: Use tptoggle command.
+    default: op
+  supercore.tptoggle.others:
+    description: Use tptoggle command on others.
     default: op
   supercore.whois:
     description: Use whois command.
