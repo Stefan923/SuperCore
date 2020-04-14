@@ -84,7 +84,9 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("General.Must Be Online", "&8(&3!&8) &cSpecified player must be online!");
         config.addDefault("General.Must Be Player", "&8(&3!&8) &cYou must be a player to do this!");
         config.addDefault("General.Nickname Changed", "&8(&3!&8) &fYour nickname has been set to &b%nickname%&f!");
+        config.addDefault("General.Nickname Changed By", "&8(&3!&8) &fYour nickname has been set to &b%nickname%&f by &3%sender%&f!");
         config.addDefault("General.No Permission", "&8(&3!&8) &cYou need the &4%permission% &cpermission to do that!");
+        config.addDefault("General.Others Nickname Changed", "&8(&3!&8) &fYou have set &b%target%&f's nickname to &3%nickname%&f!");
         config.addDefault("General.Repeated Message", "&8(&3!&8) &fYou can not write &cthe same message&f!");
         config.addDefault("General.Word Day", "day");
         config.addDefault("General.Word Days", "days");
