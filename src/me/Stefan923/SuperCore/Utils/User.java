@@ -21,9 +21,11 @@ public class User {
     private boolean god;
     private boolean canTeleport;
 
+    private String helpOpLastMessage;
     private String adminChatLastMessage;
     private String donorChatLastMessage;
 
+    private long helpOpCooldown;
     private long adminChatCooldown;
     private long donorChatCooldown;
 
@@ -40,10 +42,12 @@ public class User {
         this.god = false;
         this.canTeleport = true;
 
+        this.helpOpLastMessage = "";
         this.adminChatLastMessage = "";
         this.donorChatLastMessage = "";
 
         long now = System.currentTimeMillis();
+        this.helpOpCooldown = now;
         this.adminChatCooldown = now;
         this.donorChatCooldown = now;
 
@@ -141,4 +145,20 @@ public class User {
     public boolean getTeleport() { return canTeleport; }
 
     public void setTeleport(boolean canTeleport) { this.canTeleport = canTeleport; }
+
+    public String getHelpOpLastMessage() {
+        return helpOpLastMessage;
+    }
+
+    public void setHelpOpLastMessage(String helpOpLastMessage) {
+        this.helpOpLastMessage = helpOpLastMessage;
+    }
+
+    public long getHelpOpCooldown() {
+        return helpOpCooldown;
+    }
+
+    public void setHelpOpCooldown(long helpOpCooldown) {
+        this.helpOpCooldown = helpOpCooldown;
+    }
 }
