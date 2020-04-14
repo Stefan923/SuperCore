@@ -1,6 +1,7 @@
 package me.Stefan923.SuperCore.Commands.Type;
 
 import me.Stefan923.SuperCore.Commands.AbstractCommand;
+import me.Stefan923.SuperCore.Commands.Exceptions.MissingPermissionException;
 import me.Stefan923.SuperCore.SuperCore;
 import me.Stefan923.SuperCore.Utils.MessageUtils;
 import me.Stefan923.SuperCore.Utils.User;
@@ -16,15 +17,19 @@ public class CommandGod extends AbstractCommand implements MessageUtils {
     public CommandGod() { super(false, true, "god"); }
 
     @Override
-    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
-        Player senderPlayer = (Player) sender;
-        User senderUser = instance.getUser(senderPlayer);
-
-        FileConfiguration senderLanguage = instance.getLanguageManager(senderUser.getLanguage()).getConfig();
+    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) throws MissingPermissionException {
+        FileConfiguration senderLanguage = getLanguageConfig(instance, sender);
 
         int length = args.length;
 
-        if (length == 0 || args[0].equalsIgnoreCase(senderPlayer.getName())) {
+        if (length == 0 || args[0].equalsIgnoreCase(sender.getName())) {
+            if (!(sender instanceof Player)) {
+                sender.sendMessage(formatAll(senderLanguage.getString("General.Must Be Player")));
+                return ReturnType.FAILURE;
+            }
+            Player senderPlayer = (Player) sender;
+            User senderUser = instance.getUser(senderPlayer);
+
             boolean godMode = !senderUser.getGod();
             senderUser.setGod(godMode);
             senderPlayer.sendMessage(formatAll(senderLanguage.getString("Command.God.Own God Mode Changed")
@@ -32,9 +37,13 @@ public class CommandGod extends AbstractCommand implements MessageUtils {
             return ReturnType.SUCCESS;
         }
 
+        if (sender.hasPermission("supercore.god.others")) {
+            throw new MissingPermissionException("supercore.god.others");
+        }
+
         Player targetPlayer = Bukkit.getPlayer(args[0]);
         if (targetPlayer == null) {
-            senderPlayer.sendMessage(formatAll(senderLanguage.getString("General.Must Be Online")));
+            sender.sendMessage(formatAll(senderLanguage.getString("General.Must Be Online")));
             return ReturnType.FAILURE;
         }
 
@@ -42,12 +51,12 @@ public class CommandGod extends AbstractCommand implements MessageUtils {
         FileConfiguration targetLanguage = instance.getLanguageManager(targetUser.getLanguage()).getConfig();
         boolean godMode = !targetUser.getGod();
         targetUser.setGod(godMode);
-        senderPlayer.sendMessage(formatAll(senderLanguage.getString("Command.God.Others God Mode Changed")
+        sender.sendMessage(formatAll(senderLanguage.getString("Command.God.Others God Mode Changed")
                 .replace("%status%", godMode ? senderLanguage.getString("General.Word Enabled") : senderLanguage.getString("General.Word Disabled"))
                 .replace("%target%", targetPlayer.getName())));
         targetPlayer.sendMessage(formatAll(targetLanguage.getString("Command.God.Own God Mode Changed By")
                 .replace("%status%", godMode ? targetLanguage.getString("General.Word Enabled") : targetLanguage.getString("General.Word Disabled"))
-                .replace("%sender%", senderPlayer.getName())));
+                .replace("%sender%", sender.getName())));
         return ReturnType.SUCCESS;
     }
 
