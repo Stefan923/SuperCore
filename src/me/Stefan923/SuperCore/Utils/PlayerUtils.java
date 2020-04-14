@@ -43,10 +43,16 @@ public interface PlayerUtils {
         return (sender instanceof Player) ? onlinePlayers((Player) sender) : new HashSet<>(Bukkit.getOnlinePlayers());
     }
 
-    /* Get a set with all online players that a player can see and has certain permission. */
+    /* Get a set with all online players that a player can see and have a certain permission. */
 
     default Set<Player> onlinePlayers(Player player, String permission) {
         return Bukkit.getOnlinePlayers().stream().filter(onlinePlayer -> player.canSee(onlinePlayer) && onlinePlayer.hasPermission(permission)).collect(Collectors.toSet());
+    }
+
+    /* Get a set with all online players that have a certain permission. */
+
+    default Set<Player> onlinePlayers(String permission) {
+        return Bukkit.getOnlinePlayers().stream().filter(onlinePlayer -> onlinePlayer.hasPermission(permission)).collect(Collectors.toSet());
     }
 
     /* Convets a location object to string. */
