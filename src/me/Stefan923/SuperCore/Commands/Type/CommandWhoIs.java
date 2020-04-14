@@ -15,15 +15,12 @@ import java.util.List;
 public class CommandWhoIs extends AbstractCommand implements MessageUtils, PlayerUtils {
 
     public CommandWhoIs() {
-        super(true, true, "whois");
+        super(false, true, "whois");
     }
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
-        Player senderPlayer = (Player) sender;
-        User user = instance.getUser(senderPlayer);
-
-        FileConfiguration languageConfig = instance.getLanguageManager(user.getLanguage()).getConfig();
+        FileConfiguration languageConfig = getLanguageConfig(instance, sender);
 
         if (args.length != 1)
             return ReturnType.SYNTAX_ERROR;
@@ -32,7 +29,7 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
         Player targetPlayer = Bukkit.getPlayer(targetPlayerName);
 
         if (targetPlayer == null) {
-            senderPlayer.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
+            sender.sendMessage(formatAll(languageConfig.getString("General.Must Be Online")));
             return ReturnType.FAILURE;
         }
 
@@ -54,7 +51,7 @@ public class CommandWhoIs extends AbstractCommand implements MessageUtils, Playe
                 break;
         }
 
-        senderPlayer.sendMessage(formatAll(String.join("\n", languageConfig.getStringList("Command.WhoIs.Format"))
+        sender.sendMessage(formatAll(String.join("\n", languageConfig.getStringList("Command.WhoIs.Format"))
                 .replace("%playername%", targetPlayerName)
                 .replace("%gamemode%", languageConfig.getString("General.Gamemode." + targetPlayerGamemode))
                 .replace("%health%", String.valueOf(targetPlayer.getHealth()))
