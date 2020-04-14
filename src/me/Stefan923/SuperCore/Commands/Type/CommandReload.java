@@ -55,7 +55,7 @@ public class CommandReload extends AbstractCommand implements MessageUtils {
 
     @Override
     public String getSyntax() {
-        return "/core reload";
+        return "/core reload <all|settings|languages>";
     }
 
     @Override
