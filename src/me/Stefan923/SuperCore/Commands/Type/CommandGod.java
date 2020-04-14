@@ -18,12 +18,13 @@ public class CommandGod extends AbstractCommand implements MessageUtils {
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) throws MissingPermissionException {
+        boolean isConsole = !(sender instanceof Player);
         FileConfiguration senderLanguage = getLanguageConfig(instance, sender);
 
         int length = args.length;
 
         if (length == 0 || args[0].equalsIgnoreCase(sender.getName())) {
-            if (!(sender instanceof Player)) {
+            if (isConsole) {
                 sender.sendMessage(formatAll(senderLanguage.getString("General.Must Be Player")));
                 return ReturnType.FAILURE;
             }
@@ -37,7 +38,7 @@ public class CommandGod extends AbstractCommand implements MessageUtils {
             return ReturnType.SUCCESS;
         }
 
-        if (sender.hasPermission("supercore.god.others")) {
+        if (sender.hasPermission("supercore.god.others") && !isConsole) {
             throw new MissingPermissionException("supercore.god.others");
         }
 

@@ -22,10 +22,11 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) throws MissingPermissionException {
+        boolean isConsole = !(sender instanceof Player);
         FileConfiguration senderLanguage = getLanguageManager(instance, sender).getConfig();
         switch (args.length) {
             case 1:
-                if (!(sender instanceof Player)) {
+                if (isConsole) {
                     sender.sendMessage(formatAll(senderLanguage.getString("Teleport.Console Can Not Teleport")));
                     return ReturnType.FAILURE;
                 }
@@ -48,7 +49,7 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
                 sender.sendMessage(formatAll(senderLanguage.getString("Teleport.Teleported To Player").replace("%target%", targetPlayer1.getName())));
                 return ReturnType.SUCCESS;
             case 2:
-                if (!sender.hasPermission("supercore.tp.others")) {
+                if (!sender.hasPermission("supercore.tp.others") && !isConsole) {
                     throw new MissingPermissionException("supercore.tp.others");
                 }
 
@@ -76,7 +77,7 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
                 target1Player.sendMessage(formatAll(target1Language.getString("Teleport.Teleported To Player").replace("%target%", target2Player.getName())));
                 return ReturnType.SUCCESS;
             case 3:
-                if (!(sender instanceof Player)) {
+                if (isConsole) {
                     sender.sendMessage(formatAll(senderLanguage.getString("Teleport.Console Can Not Teleport")));
                     return ReturnType.FAILURE;
                 }
@@ -91,7 +92,7 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
                 sender.sendMessage(formatAll(senderLanguage.getString("Teleport.Teleported To Coords").replace("%x%", String.valueOf(location3.getBlockX())).replace("%y%", String.valueOf(location3.getBlockY())).replace("%z%", String.valueOf(location3.getBlockZ()))));
                 return ReturnType.SUCCESS;
             case 4:
-                if (!sender.hasPermission("supercore.tp.others")) {
+                if (!sender.hasPermission("supercore.tp.others") && !isConsole) {
                     throw new MissingPermissionException("supercore.tp.others");
                 }
 
