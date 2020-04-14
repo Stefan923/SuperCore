@@ -17,6 +17,8 @@ public class PlayerDamageListener implements Listener {
             return;
         Player damagedPlayer = (Player) damagedEntity;
         User damagedUser = SuperCore.getInstance().getUser(damagedPlayer);
+        if (damagedUser == null)
+            return;
 
         if (damagedUser.getGod())
             event.setCancelled(true);
