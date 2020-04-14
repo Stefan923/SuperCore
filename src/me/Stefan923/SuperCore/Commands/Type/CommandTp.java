@@ -49,7 +49,7 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
                 sender.sendMessage(formatAll(senderLanguage.getString("Teleport.Teleported To Player").replace("%target%", targetPlayer1.getName())));
                 return ReturnType.SUCCESS;
             case 2:
-                if (!sender.hasPermission("supercore.tp.others") && !isConsole) {
+                if (!sender.hasPermission("supercore.tp.others")) {
                     throw new MissingPermissionException("supercore.tp.others");
                 }
 
@@ -92,7 +92,7 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
                 sender.sendMessage(formatAll(senderLanguage.getString("Teleport.Teleported To Coords").replace("%x%", String.valueOf(location3.getBlockX())).replace("%y%", String.valueOf(location3.getBlockY())).replace("%z%", String.valueOf(location3.getBlockZ()))));
                 return ReturnType.SUCCESS;
             case 4:
-                if (!sender.hasPermission("supercore.tp.others") && !isConsole) {
+                if (!sender.hasPermission("supercore.tp.others")) {
                     throw new MissingPermissionException("supercore.tp.others");
                 }
 

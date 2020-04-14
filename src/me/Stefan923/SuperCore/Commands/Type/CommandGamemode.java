@@ -72,7 +72,7 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils, Pl
         }
 
         if (length == 2) {
-            if (!sender.hasPermission("supercore.gamemode.others") && !isConsole) {
+            if (!sender.hasPermission("supercore.gamemode.others")) {
                 throw new MissingPermissionException("supercore.gamemode.others");
             }
             Player targetPlayer = Bukkit.getPlayer(args[1]);
@@ -81,7 +81,7 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils, Pl
                 return ReturnType.FAILURE;
             }
             if (args[0].equalsIgnoreCase("survival") || args[0].equalsIgnoreCase("0")) {
-                if (!sender.hasPermission("supercore.gamemode.survival") && !isConsole) {
+                if (!sender.hasPermission("supercore.gamemode.survival")) {
                     throw new MissingPermissionException("supercore.gamemode.survival");
                 }
                 targetPlayer.setGameMode(GameMode.SURVIVAL);
@@ -91,7 +91,7 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils, Pl
                 return ReturnType.SUCCESS;
             }
             if (args[0].equalsIgnoreCase("creative") || args[0].equalsIgnoreCase("1")) {
-                if (!sender.hasPermission("supercore.gamemode.creative") && !isConsole) {
+                if (!sender.hasPermission("supercore.gamemode.creative")) {
                     throw new MissingPermissionException("supercore.gamemode.creative");
                 }
                 targetPlayer.setGameMode(GameMode.CREATIVE);
@@ -101,7 +101,7 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils, Pl
                 return ReturnType.SUCCESS;
             }
             if (args[0].equalsIgnoreCase("adventure") || args[0].equalsIgnoreCase("2")) {
-                if (!sender.hasPermission("supercore.gamemode.adventure") && !isConsole) {
+                if (!sender.hasPermission("supercore.gamemode.adventure")) {
                     throw new MissingPermissionException("supercore.gamemode.adventure");
                 }
                 targetPlayer.setGameMode(GameMode.ADVENTURE);
@@ -111,7 +111,7 @@ public class CommandGamemode extends AbstractCommand implements MessageUtils, Pl
                 return ReturnType.SUCCESS;
             }
             if (args[0].equalsIgnoreCase("spectator") || args[0].equalsIgnoreCase("3")) {
-                if (!sender.hasPermission("supercore.gamemode.spectator") && !isConsole) {
+                if (!sender.hasPermission("supercore.gamemode.spectator")) {
                     throw new MissingPermissionException("supercore.gamemode.spectator");
                 }
                 targetPlayer.setGameMode(GameMode.SPECTATOR);

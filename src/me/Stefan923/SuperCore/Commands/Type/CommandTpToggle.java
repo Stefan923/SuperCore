@@ -38,7 +38,7 @@ public class CommandTpToggle extends AbstractCommand implements MessageUtils {
             return ReturnType.SUCCESS;
         }
 
-        if (sender.hasPermission("supercore.tptoggle.others") && !isConsole) {
+        if (!sender.hasPermission("supercore.tptoggle.others")) {
             throw new MissingPermissionException("supercore.tptoggle.others");
         }
 
