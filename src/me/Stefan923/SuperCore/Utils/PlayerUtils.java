@@ -31,22 +31,28 @@ public interface PlayerUtils {
         return user;
     }
 
-    /* Get a set with all online players that a player can see. */
+    /* Get a set with all online players who a given player can see. */
 
     default Set<Player> onlinePlayers(Player player) {
         return Bukkit.getOnlinePlayers().stream().filter(player::canSee).collect(Collectors.toSet());
     }
 
-    /* Get a set with all online players that a command sender can see. */
+    /* Get a set with all online players who a given command sender can see. */
 
     default Set<Player> onlinePlayers(CommandSender sender) {
         return (sender instanceof Player) ? onlinePlayers((Player) sender) : new HashSet<>(Bukkit.getOnlinePlayers());
     }
 
-    /* Get a set with all online players that a player can see and have a certain permission. */
+    /* Get a set with all online players who a given player can see and have a certain permission. */
 
     default Set<Player> onlinePlayers(Player player, String permission) {
         return Bukkit.getOnlinePlayers().stream().filter(onlinePlayer -> player.canSee(onlinePlayer) && onlinePlayer.hasPermission(permission)).collect(Collectors.toSet());
+    }
+
+    /* Get a set with all online players who a given command sender can see and have a certain permission. */
+
+    default Set<Player> onlinePlayers(CommandSender sender, String permission) {
+        return (sender instanceof Player) ? onlinePlayers((Player) sender, permission) : Bukkit.getOnlinePlayers().stream().filter(onlinePlayer -> onlinePlayer.hasPermission(permission)).collect(Collectors.toSet());
     }
 
     /* Get a set with all online players that have a certain permission. */
