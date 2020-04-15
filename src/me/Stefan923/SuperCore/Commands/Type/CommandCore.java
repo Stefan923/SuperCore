@@ -4,6 +4,7 @@ import me.Stefan923.SuperCore.Commands.AbstractCommand;
 import me.Stefan923.SuperCore.SuperCore;
 import me.Stefan923.SuperCore.Utils.MessageUtils;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -17,6 +18,18 @@ public class CommandCore extends AbstractCommand implements MessageUtils {
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+        if (!(sender instanceof Player)) {
+            sender.sendMessage(formatAll(" "));
+            sender.sendMessage(formatAll("&8&m--+----------------------------------------+--&r"));
+            sender.sendMessage(formatAll("  &3&lSuperCore &f&lv" + instance.getDescription().getVersion()));
+            sender.sendMessage(formatAll("&8&l> &fPlugin author: &bStefan923"));
+            sender.sendMessage(formatAll(" "));
+            sender.sendMessage(formatAll("&8&l> &fProvides a core set of commands and server utilities."));
+            sender.sendMessage(formatAll("&8&m--+----------------------------------------+--&r"));
+            sender.sendMessage(formatAll(" "));
+
+            return ReturnType.SUCCESS;
+        }
         sender.sendMessage(formatAll(" "));
         sendCenteredMessage(sender, formatAll("&8&m--+----------------------------------------+--&r"));
         sendCenteredMessage(sender, formatAll("&3&lSuperCore &f&lv" + instance.getDescription().getVersion()));
