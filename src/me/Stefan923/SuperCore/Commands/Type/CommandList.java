@@ -20,16 +20,13 @@ public class CommandList extends AbstractCommand implements MessageUtils, Player
 
     @Override
     protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
-        Player senderPlayer = (Player) sender;
-        User user = instance.getUser(senderPlayer);
-
         FileConfiguration config = instance.getSettingsManager().getConfig();
-        FileConfiguration language = instance.getLanguageManager(user.getLanguage()).getConfig();
+        FileConfiguration language = getLanguageConfig(instance, sender);
 
         String messageToSend = String.join("\n", language.getStringList("Command.List.Format"));
 
         for (String permission : config.getStringList("Command.List.Group Permissions")) {
-            Set<Player> playerSet = onlinePlayers(senderPlayer, permission);
+            Set<Player> playerSet = onlinePlayers(sender, permission);
 
             messageToSend = messageToSend.replace("%list_size_" + permission + "%", String.valueOf(playerSet.size()));
 
@@ -47,7 +44,7 @@ public class CommandList extends AbstractCommand implements MessageUtils, Player
             messageToSend = messageToSend.replace("%list_" + permission + "%", playerSet.size() != 0 ? playerList.toString() : nameColor + "none");
         }
 
-        senderPlayer.sendMessage(formatAll(messageToSend));
+        sender.sendMessage(formatAll(messageToSend));
 
         return ReturnType.SUCCESS;
     }
