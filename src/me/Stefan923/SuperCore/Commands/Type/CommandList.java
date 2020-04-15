@@ -15,7 +15,7 @@ import java.util.Set;
 public class CommandList extends AbstractCommand implements MessageUtils, PlayerUtils {
 
     public CommandList() {
-        super(true, true, "list");
+        super(false, true, "list");
     }
 
     @Override
