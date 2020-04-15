@@ -16,7 +16,7 @@ public class UserAPI {
      * @return godMode
      */
     public boolean isGodMode() {
-        return user.getGod();
+        return (user != null) ? user.getGod() : false;
     }
 
     /**
@@ -25,7 +25,7 @@ public class UserAPI {
      * @return language
      */
     public String getLanguage() {
-        return user.getLanguage();
+        return (user != null) ? user.getLanguage() : null;
     }
 
     /**
@@ -34,7 +34,7 @@ public class UserAPI {
      * @return nickname
      */
     public String getNickname() {
-        return user.getNickname();
+        return (user != null) ? user.getNickname() : null;
     }
 
 }
