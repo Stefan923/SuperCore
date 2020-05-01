@@ -29,6 +29,7 @@ public class SettingsManager {
         config.addDefault("Enabled Commands.AdminChat", true);
         config.addDefault("Enabled Commands.Broadcast", true);
         config.addDefault("Enabled Commands.DonorChat", true);
+        config.addDefault("Enabled Commands.Feed", true);
         config.addDefault("Enabled Commands.Fly", true);
         config.addDefault("Enabled Commands.Gamemode", true);
         config.addDefault("Enabled Commands.God", true);

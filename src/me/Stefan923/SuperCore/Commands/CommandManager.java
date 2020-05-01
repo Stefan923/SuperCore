@@ -42,6 +42,10 @@ public class CommandManager implements CommandExecutor, MessageUtils {
             plugin.getCommand("donorchat").setExecutor(this);
             addCommand(new CommandDonorChat());
         }
+        if (settings.getBoolean("Enabled Commands.Feed")) {
+            plugin.getCommand("feed").setExecutor(this);
+            addCommand(new CommandFeed());
+        }
         if (settings.getBoolean("Enabled Commands.Fly")) {
             plugin.getCommand("fly").setExecutor(this);
             addCommand(new CommandFly());

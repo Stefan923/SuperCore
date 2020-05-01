@@ -48,6 +48,9 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("Command.Cooldown", "&8(&3!&8) &fYou must wait &b%cooldown% seconds &fto use the command again!");
         config.addDefault("Command.DonorChat.Format", "&3[&bDONOR&3] %luckperms_prefix_element_highest% &7%playername%: &f%message%");
         config.addDefault("Command.DonorChat.Format By Console", "&3[&bDONOR&3] &cCONSOLE&7: &f%message%");
+        config.addDefault("Command.Feed.Self-Fed", "&8(&3!&8) &fYou have successfully fed yourself&f!");
+        config.addDefault("Command.Feed.Fed By", "&8(&3!&8) &fYou have been fed by &b%sender%&f!");
+        config.addDefault("Command.Feed.Fed Others", "&8(&3!&8) &fYou have successfully fed &b%target%&f!");
         config.addDefault("Command.Fly.Own Flight Mode Changed", "&8(&3!&8) &fYour flight mode has been %status%&f!");
         config.addDefault("Command.Fly.Own Flight Mode Changed By", "&8(&3!&8) &fYour flight mode has been %status%&f by &b%sender%&f!");
         config.addDefault("Command.Fly.Others Flight Mode Changed", "&8(&3!&8) &b%target%&f's flight mode has been %status%&f!");
@@ -73,6 +76,7 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("Command.TpToggle.Own Teleportation Toggled By", "&8(&3!&8) &fYour teleportation has been %status%&f by &b%sender%&f!");
         config.addDefault("Command.TpToggle.Others Teleportation Toggled", "&8(&3!&8) &b%target%&f's teleportation has been %status%&f!");
         config.addDefault("Command.WhoIs.Format", Arrays.asList("&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r", "&8(&3!&8) &fThere are informations about &b%playername%&f:", "&7 - &fIP Address: &3%ipaddress%", "&7 - &fLocation: &3%location%", "&7 - &fGamemode: &3%gamemode%", "&7 - &fHealth: &3%health%", "&7 - &fHunger: &3%hunger%", "&7 - &fGod mode: &3%godmode%", "&7 - &fFlying: &3%flying%", "&f&m---------&r&b[ &3&m--------------------&r &b]&f&m---------&r"));
+        config.addDefault("General.Action Interrupted", "&8(&3!&8) &cThe action has been interrupted!");
         config.addDefault("General.Already Using Language", "&8(&3!&8) &fYou are already using this language.");
         config.addDefault("General.Available Languages.Syntax", "&8(&3!&8) &fAvailable languages are: ");
         config.addDefault("General.Available Languages.Separator", "&f, ");
@@ -80,7 +84,7 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("General.Gamemode.Adventure", "adventure");
         config.addDefault("General.Gamemode.Creative", "creative");
         config.addDefault("General.Gamemode.Spectator", "spectator");
-        config.addDefault("General.Gamemode.Survival", "Survival");
+        config.addDefault("General.Gamemode.Survival", "survival");
         config.addDefault("General.Invalid Command Syntax", "&8(&3!&8) &cInvalid Syntax or you have no permission!\n&8(&3!&8) &fThe valid syntax is: &b%syntax%");
         config.addDefault("General.Language Changed", "&8(&3!&8) &fYou have set your language to &b%language%&f!");
         config.addDefault("General.Must Be Online", "&8(&3!&8) &cSpecified player must be online!");
