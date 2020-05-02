@@ -9,6 +9,7 @@ import org.bukkit.plugin.Plugin;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Collections;
 
 public class SettingsManager {
 
@@ -25,7 +26,7 @@ public class SettingsManager {
         config = YamlConfiguration.loadConfiguration(cfile);
         config.options().header("SuperCore by Stefan923\n");
         config.addDefault("Languages.Default Language", "lang_en.yml");
-        config.addDefault("Languages.Available Languages", Arrays.asList("lang_en.yml"));
+        config.addDefault("Languages.Available Languages", Collections.singletonList("lang_en.yml"));
         config.addDefault("Enabled Commands.AdminChat", true);
         config.addDefault("Enabled Commands.Broadcast", true);
         config.addDefault("Enabled Commands.DonorChat", true);
@@ -40,6 +41,7 @@ public class SettingsManager {
         config.addDefault("Enabled Commands.Nick", true);
         config.addDefault("Enabled Commands.Seen", true);
         config.addDefault("Enabled Commands.Tp", true);
+        config.addDefault("Enabled Commands.TpHere", true);
         config.addDefault("Enabled Commands.TpToggle", true);
         config.addDefault("Enabled Commands.WhoIs", true);
         config.addDefault("Command Cooldowns.AdminChat", 5);
@@ -68,10 +70,11 @@ public class SettingsManager {
 
     public void resetConfig() {
         config.set("Languages.Default Language", "lang_en.yml");
-        config.set("Languages.Available Languages", Arrays.asList("lang_en.yml"));
+        config.set("Languages.Available Languages", Collections.singletonList("lang_en.yml"));
         config.set("Enabled Commands.AdminChat", true);
         config.set("Enabled Commands.Broadcast", true);
         config.set("Enabled Commands.DonorChat", true);
+        config.set("Enabled Commands.Feed", true);
         config.set("Enabled Commands.Fly", true);
         config.set("Enabled Commands.Gamemode", true);
         config.set("Enabled Commands.God", true);
@@ -82,6 +85,7 @@ public class SettingsManager {
         config.set("Enabled Commands.Nick", true);
         config.set("Enabled Commands.Seen", true);
         config.set("Enabled Commands.Tp", true);
+        config.set("Enabled Commands.TpHere", true);
         config.set("Enabled Commands.TpToggle", true);
         config.set("Enabled Commands.WhoIs", true);
         config.set("Command Cooldowns.AdminChat", 5);

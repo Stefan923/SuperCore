@@ -61,8 +61,11 @@ commands:
     description: Changes gamemode to survival.
     aliases: [supersurvival, gms, supergms]
   tp:
-    description: Changes gamemode to survival.
+    description: Teleports a player somewhere.
     aliases: [supertp, teleport, superteleport]
+  tphere:
+    description: Teleports a player to command sender.
+    aliases: [supertphere, teleporthere, superteleporthere]
   tptoggle:
     description: Toggles own or others teleportation.
     aliases: [supertptoggle, toggletp, supertoggletp]

@@ -136,6 +136,6 @@ public class CommandTp extends AbstractCommand implements MessageUtils, PlayerUt
 
     @Override
     public String getDescription() {
-        return null;
+        return "Teleports a player at certain location.";
     }
 }

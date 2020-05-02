@@ -114,10 +114,12 @@ public class LanguageManager implements MessageUtils {
         config.addDefault("On Quit.Quit Message", "&8(&3!&8) &c%playername% &fleft the game!");
         config.addDefault("Teleport.Console Can Not Teleport", "&8(&3!&8) &fConsole &ccan not &fbe teleported!");
         config.addDefault("Teleport.His Teleport Is Disabled", "&8(&3!&8) &b%target% &fhas &cdisabled &fteleportation!");
+        config.addDefault("Teleport.Teleported By", "&8(&3!&8) &b%sender% &fhave teleported you to his location!");
         config.addDefault("Teleport.Teleported To Coords", "&8(&3!&8) &fYou have been teleported to &b%x% %y% %z%&f!");
         config.addDefault("Teleport.Teleported To Player", "&8(&3!&8) &fYou have been teleported to &b%target%&f!");
         config.addDefault("Teleport.Teleported Player To Coords", "&8(&3!&8) &fYou have teleported &b%target% &fto &b%x% %y% %z%&f!");
         config.addDefault("Teleport.Teleported Player To Player", "&8(&3!&8) &fYou have teleported &b%target1% &fto &b%target2%&f!");
+        config.addDefault("Teleport.Teleported Player To You", "&8(&3!&8) &fYou have teleported &b%target% &fto you!");
         config.addDefault("Update Checker.Available", "&8(&3!&8) &fThere is a new version of &bSuperCore &favailable!\n&8(&3!&8) &fDownload link: &b%link%");
         config.addDefault("Update Checker.Not Available", "&8(&3!&8) &fThere's no update available for &bSuperCore&f.");
         config.options().copyDefaults(true);
