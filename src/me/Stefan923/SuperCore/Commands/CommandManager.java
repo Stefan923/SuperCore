@@ -1,6 +1,7 @@
 package me.Stefan923.SuperCore.Commands;
 
 import me.Stefan923.SuperCore.Commands.Exceptions.MissingPermissionException;
+import me.Stefan923.SuperCore.Commands.Exceptions.MustBeOnlineException;
 import me.Stefan923.SuperCore.Commands.Type.*;
 import me.Stefan923.SuperCore.SuperCore;
 import me.Stefan923.SuperCore.Utils.MessageUtils;
@@ -148,6 +149,8 @@ public class CommandManager implements CommandExecutor, MessageUtils {
                     returnType = command.runCommand(plugin, sender, strings);
                 } catch (MissingPermissionException e) {
                     sender.sendMessage(formatAll(language.getString("General.No Permission").replace("%permission%", e.getMessage())));
+                } catch (MustBeOnlineException e) {
+                    sender.sendMessage(formatAll(language.getString("General.Must Be Online")));
                 }
                 if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
                     sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
@@ -167,6 +170,8 @@ public class CommandManager implements CommandExecutor, MessageUtils {
                 returnType = command.runCommand(plugin, sender, strings);
             } catch (MissingPermissionException e) {
                 e.printStackTrace();
+            } catch (MustBeOnlineException e) {
+                sender.sendMessage(formatAll(language.getString("General.Must Be Online")));
             }
             if (returnType == AbstractCommand.ReturnType.SYNTAX_ERROR) {
                 sender.sendMessage(formatAll(language.getString("General.Invalid Command Syntax").replace("%syntax%", command.getSyntax())));
