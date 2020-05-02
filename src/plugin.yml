@@ -24,6 +24,9 @@ commands:
   donorchat:
     description: Special chat for donors.
     aliases: [superdonorchat, sdonorchat, dchat, superdchat, sdchat, dc, superdc, sdc]
+  feed:
+    description: Refills player's hunger state.
+    aliases: [superfeed, sfeed]
   fly:
     description: Enable/Disable flight mode.
     aliases: [superfly, sfly]
@@ -82,6 +85,12 @@ permissions:
     default: op
   supercore.donorchat.receive:
     description: Receive messages on donorchat.
+    default: op
+  supercore.feed:
+    description: Use feed command.
+    default: op
+  supercore.feed.others:
+    description: Use feed command on other players.
     default: op
   supercore.fly:
     description: Use fly command.
