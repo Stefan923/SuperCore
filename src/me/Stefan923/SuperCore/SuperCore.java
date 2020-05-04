@@ -82,7 +82,7 @@ public class SuperCore extends JavaPlugin implements MessageUtils, VersionUtils 
         Integer i = 3;
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerDamageListener(), this);
-        pluginManager.registerEvents(new PlayerJoinListener(), this);
+        pluginManager.registerEvents(new PlayerJoinListener(this), this);
         pluginManager.registerEvents(new PlayerQuitListener(), this);
         return i;
     }
