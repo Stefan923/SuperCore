@@ -1,5 +1,6 @@
 package me.Stefan923.SuperCore.Utils;
 
+import me.Stefan923.SuperCore.Database.TableType;
 import me.Stefan923.SuperCore.Language.LanguageManager;
 import me.Stefan923.SuperCore.SuperCore;
 import org.bukkit.Bukkit;
@@ -74,7 +75,7 @@ public interface PlayerUtils {
     }
 
     default long getLastOnline(String playerName) {
-        ResultSet resultSet = SuperCore.getInstance().getDatabase("supercore_users").get(playerName, "lastonline");
+        ResultSet resultSet = SuperCore.getInstance().getDatabase("supercore").get(TableType.USERS, playerName, "lastonline");
         try {
             return resultSet == null ? -1 : resultSet.getLong("lastonline");
         } catch (SQLException e) {
@@ -88,7 +89,7 @@ public interface PlayerUtils {
     }
 
     default void setLastOnline(String playerName) {
-        SuperCore.getInstance().getDatabase("supercore_users").put(playerName, "lastonline", String.valueOf(System.currentTimeMillis()));
+        SuperCore.getInstance().getDatabase("supercore").put(TableType.USERS, playerName, "lastonline", String.valueOf(System.currentTimeMillis()));
     }
 
     /* Get CommandSender, Player or User's language manager. */

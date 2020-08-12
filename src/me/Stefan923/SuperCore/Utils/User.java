@@ -1,6 +1,7 @@
 package me.Stefan923.SuperCore.Utils;
 
 import me.Stefan923.SuperCore.Database.Database;
+import me.Stefan923.SuperCore.Database.TableType;
 import me.Stefan923.SuperCore.SuperCore;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.Player;
@@ -51,8 +52,8 @@ public class User {
         this.adminChatCooldown = now;
         this.donorChatCooldown = now;
 
-        if (database.has(player.getName())) {
-            ResultSet resultSet = database.get(player.getName());
+        if (database.has(TableType.USERS, player.getName())) {
+            ResultSet resultSet = database.get(TableType.USERS, player.getName());
             try {
                 this.language = resultSet.getString("language");
                 this.nickname = resultSet.getString("nickname");
@@ -60,7 +61,7 @@ public class User {
                 e.printStackTrace();
             }
         } else {
-            database.put(player.getName(), "language", this.language);
+            database.put(TableType.USERS, player.getName(), "language", this.language);
         }
 
         if (!plugin.getLanguageManagers().containsKey(language)) {
@@ -82,7 +83,7 @@ public class User {
 
     public void setLanguage(String language) {
         this.language = language;
-        plugin.getDatabase("supercore_users").put(player.getName(), "language", language);
+        plugin.getDatabase("supercore").put(TableType.USERS, player.getName(), "language", language);
     }
 
     public boolean getGod() {
@@ -131,7 +132,7 @@ public class User {
 
     public void setNickname(String nickname) {
         this.nickname = nickname;
-        plugin.getDatabase("supercore_users").put(player.getName(), "nickname", nickname);
+        plugin.getDatabase("supercore").put(TableType.USERS, player.getName(), "nickname", nickname);
     }
 
     public long getJoinTime() {
