@@ -12,13 +12,13 @@ public class MySQLDatabase extends Database {
     private String username;
     private String password;
 
-    public MySQLDatabase(String host, Integer port, String dbname, String tablename, String username, String password) throws SQLException {
-        this.tablename = tablename;
+    public MySQLDatabase(TableType tableType, String tablePrefix, String host, Integer port, String dbname, String username, String password) throws SQLException {
+        this.tablename = tablePrefix + "_" + tableType.getTableName();
         this.username = username;
         this.password = password;
         this.url = "jdbc:mysql://" + host + ":" + port + "/" + dbname;
         connection = DriverManager.getConnection(url, username, password);
-        initTable();
+        initTable(tableType.getTableInit());
     }
 
     @Override
@@ -130,16 +130,10 @@ public class MySQLDatabase extends Database {
         return tempset;
     }
 
-    private void initTable() throws SQLException {
-        String tablequery = "CREATE TABLE IF NOT EXISTS %table (`playerKey` VARCHAR(36) PRIMARY KEY, `language` VARCHAR(36), `nickname` VARCHAR(255), `lastonline` BIGINT(18));".replace("%table", tablename);
-        PreparedStatement preparedStatement = getConnection().prepareStatement(tablequery);
-        preparedStatement.executeUpdate();
-        preparedStatement.close();
+    private void initTable(String tableInit) throws SQLException {
+        String tablequery = tableInit.replace("%table_prefix%", tablename);
         try {
-            preparedStatement = getConnection().prepareStatement("ALTER TABLE `%table` ADD COLUMN `nickname` VARCHAR(255) DEFAULT NULL;".replace("%table", tablename));
-            preparedStatement.executeUpdate();
-            preparedStatement.close();
-            preparedStatement = getConnection().prepareStatement("ALTER TABLE `%table` ADD COLUMN `lastonline` BIGINT(18) DEFAULT NULL;".replace("%table", tablename));
+            PreparedStatement preparedStatement = getConnection().prepareStatement(tablequery);
             preparedStatement.executeUpdate();
             preparedStatement.close();
         } catch (SQLException exception) {

@@ -4,6 +4,7 @@ import me.Stefan923.SuperCore.Commands.CommandManager;
 import me.Stefan923.SuperCore.Database.Database;
 import me.Stefan923.SuperCore.Database.H2Database;
 import me.Stefan923.SuperCore.Database.MySQLDatabase;
+import me.Stefan923.SuperCore.Database.TableType;
 import me.Stefan923.SuperCore.Hooks.PlaceholderAPIHook;
 import me.Stefan923.SuperCore.Language.LanguageManager;
 import me.Stefan923.SuperCore.Listeners.PlayerDamageListener;
@@ -160,7 +161,7 @@ public class SuperCore extends JavaPlugin implements MessageUtils, VersionUtils 
         String user = section.getString("MySQL.User");
         Database database = null;
         try {
-            database = new MySQLDatabase(address, port, name, table, user, password);
+            database = new MySQLDatabase(TableType.USERS, table, address, port, name, user, password);
             sendLogger("&8(&3SuperCore&8) &rMySQL connection " + address + " was a success!");
             databases.put(table, database);
             return database;
@@ -182,7 +183,7 @@ public class SuperCore extends JavaPlugin implements MessageUtils, VersionUtils 
             return databases.get(table);
         Database database = null;
         try {
-            database = new H2Database(table);
+            database = new H2Database(table, TableType.USERS);
             sendLogger("&8(&3SuperCore&8) &rUsing H2 database for &b" + table + " &7data.");
             databases.put(table, database);
         } catch (ClassNotFoundException | SQLException e) {
