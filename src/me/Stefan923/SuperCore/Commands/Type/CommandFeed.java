@@ -1,6 +1,7 @@
 package me.Stefan923.SuperCore.Commands.Type;
 
 import me.Stefan923.SuperCore.Commands.AbstractCommand;
+import me.Stefan923.SuperCore.Commands.Exceptions.MissingPermissionException;
 import me.Stefan923.SuperCore.SuperCore;
 import me.Stefan923.SuperCore.Utils.MessageUtils;
 import me.Stefan923.SuperCore.Utils.PlayerUtils;
@@ -21,7 +22,7 @@ public class CommandFeed extends AbstractCommand implements MessageUtils, Player
     }
 
     @Override
-    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) {
+    protected ReturnType runCommand(SuperCore instance, CommandSender sender, String... args) throws MissingPermissionException {
         FileConfiguration senderLanguage = getLanguageConfig(instance, sender);
 
         int length = args.length;
@@ -42,8 +43,7 @@ public class CommandFeed extends AbstractCommand implements MessageUtils, Player
 
         if (length == 1) {
             if (!sender.hasPermission("supercore.feed.others")) {
-                sender.sendMessage(formatAll(senderLanguage.getString("General.No Permission").replace("%permission%", "supercore.feed.others")));
-                return ReturnType.FAILURE;
+                throw new MissingPermissionException("supercore.feed.others");
             }
 
             Player targetPlayer = Bukkit.getPlayer(args[0]);
