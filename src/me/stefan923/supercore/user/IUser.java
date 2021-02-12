@@ -1,6 +1,7 @@
 package me.stefan923.supercore.user;
 
 import me.stefan923.supercore.exception.HomeNotFoundException;
+import me.stefan923.supercore.language.Language;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -30,9 +31,15 @@ public interface IUser {
 
     /**
      * Returns user's language.
-     * @return language - String
+     * @return language - ILanguage
      */
-    public String getLanguage();
+    public Language getLanguage();
+
+    /**
+     * Sets user's language.
+     * @param language - user's new language - Language
+     */
+    public void setLanguage(Language language);
 
     /**
      * Returns true if user's god mode is enabled.
