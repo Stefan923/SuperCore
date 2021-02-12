@@ -8,8 +8,9 @@ import java.io.IOException;
 
 public class FileConfiguration extends CommentConfiguration {
 
-    private String fileName;
-    private SuperCore plugin;
+    private final SuperCore plugin;
+    private final String fileName;
+
     private File file;
 
     public FileConfiguration(SuperCore plugin, String fileName) {
@@ -32,15 +33,15 @@ public class FileConfiguration extends CommentConfiguration {
     }
 
     public File loadFile() {
-        this.file = new File(this.plugin.getDataFolder(), this.fileName);
-        return this.file;
+        file = new File(this.plugin.getDataFolder(), this.fileName);
+        return file;
     }
 
     public void saveData() {
         this.file = new File(plugin.getDataFolder(), fileName);
         try {
             save(file);
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
             System.out.println("Attempting to fix error...");
             createData();
@@ -63,12 +64,10 @@ public class FileConfiguration extends CommentConfiguration {
             if (plugin.getResource(fileName) == null) {
                 try {
                     file.createNewFile();
-                }
-                catch(IOException e) {
+                } catch(IOException e) {
                     e.printStackTrace();
                 }
-            }
-            else {
+            } else {
                 plugin.saveResource(fileName, false);
             }
         }
