@@ -1,8 +1,11 @@
 package me.stefan923.supercore.user;
 
+import me.stefan923.supercore.exception.HomeNotFoundException;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 public interface IUser {
@@ -81,5 +84,40 @@ public interface IUser {
      * @return true if the given player has been removed.
      */
     public boolean removeIgnoredPlayer(UUID uuid);
+
+    /**
+     * Returns a copy of user's list of saved locations. (homes)
+     * @return houses - HashMap<String, Location>
+     */
+    public Map<String, Location> getHomes();
+
+    /**
+     * Adds a new location to user's list of saved locations. (homes)
+     * If there is already a home with this name, it's location will be replaced.
+     * @param name - location's name
+     * @param location - the location to be saved
+     * @return true if the home has been added
+     */
+    public boolean addHome(String name, Location location);
+
+    /**
+     * Removes a new location from user's list of saved locations. (homes)
+     * @param name - location's name
+     * @return true if the home has been removed
+     */
+    public boolean removeHome(String name) throws HomeNotFoundException;
+
+    /**
+     * Teleports the user to his default home.
+     * @return true if the user has been teleported
+     */
+    public boolean teleportHome() throws HomeNotFoundException;
+
+    /**
+     * Teleports the user to a given home.
+     * @param name - location's name
+     * @return true if the user has been teleported
+     */
+    public boolean teleportHome(String name) throws HomeNotFoundException;
 
 }

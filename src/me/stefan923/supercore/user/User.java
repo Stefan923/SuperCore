@@ -1,12 +1,15 @@
 package me.stefan923.supercore.user;
 
+import me.stefan923.supercore.exception.HomeNotFoundException;
+import me.stefan923.supercore.setting.Setting;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class User implements IUser {
+
+    private static final String DEFAULT_HOME_NAME = "home";
 
     private final Player player;
 
@@ -18,23 +21,20 @@ public class User implements IUser {
 
     private List<UUID> ignoredPlayers = new ArrayList<>();
 
+    private Map<String, Location> homes = new HashMap<>();
+
     public User(Player player) {
         this.player = player;
     }
 
-    public User(Player player, String language, String nickname) {
-        this.player = player;
-        this.language = language;
-        this.nickname = nickname;
-    }
-
-    public User(Player player, String language, String nickname, boolean godMode, boolean receivingMessages, List<UUID> ignoredPlayers) {
-        this.player = player;
+    public User(Player player, String language, String nickname, boolean godMode, boolean receivingMessages, List<UUID> ignoredPlayers, Map<String, Location> homes) {
+        this(player);
         this.language = language;
         this.nickname = nickname;
         this.godMode = godMode;
         this.receivingMessages = receivingMessages;
         this.ignoredPlayers = ignoredPlayers;
+        this.homes = homes;
     }
 
     @Override
@@ -99,6 +99,44 @@ public class User implements IUser {
     @Override
     public boolean removeIgnoredPlayer(UUID uuid) {
         return ignoredPlayers.remove(uuid);
+    }
+
+    @Override
+    public Map<String, Location> getHomes() {
+        return homes;
+    }
+
+    @Override
+    public boolean addHome(String name, Location location) {
+        homes.put(name.toLowerCase(), location);
+        return true;
+    }
+
+    @Override
+    public boolean removeHome(String name) throws HomeNotFoundException {
+        String lowerCaseName = name.toLowerCase();
+        if (!homes.containsKey(lowerCaseName)) {
+            throw new HomeNotFoundException();
+        }
+
+        homes.remove(lowerCaseName);
+        return true;
+    }
+
+    @Override
+    public boolean teleportHome() throws HomeNotFoundException {
+        return teleportHome("home");
+    }
+
+    @Override
+    public boolean teleportHome(String name) throws HomeNotFoundException {
+        Location location = homes.get(name.toLowerCase());
+
+        if (location == null) {
+            throw new HomeNotFoundException();
+        }
+
+        return player.teleport(location);
     }
 
 }
