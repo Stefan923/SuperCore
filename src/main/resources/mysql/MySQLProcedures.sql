@@ -2,8 +2,24 @@ DROP PROCEDURE IF EXISTS `CREATE_USER`;
 DELIMITER //
 CREATE PROCEDURE `CREATE_USER`(IN `_uuid` VARCHAR(36), IN `_username` VARCHAR(16))
 BEGIN
-	IF ((SELECT COUNT(*) FROM `{prefix}users` A WHERE A.`username` LIKE `_username`) = 0) THEN
+	IF ((SELECT COUNT(*) FROM `{prefix}users` WHERE `username` LIKE `_username`) = 0) THEN
 		INSERT INTO `{prefix}users` (`uuid`, `username`) VALUE (`_uuid`, `_username`);
 	END IF;
+END;
+// DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `DELETE_USER_BY_UUID`;
+DELIMITER //
+CREATE PROCEDURE `DELETE_USER_BY_UUID`(IN `_uuid` VARCHAR(36))
+BEGIN
+    DELETE FROM `{prefix}users` WHERE `uuid` LIKE `_uuid`;
+END;
+// DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `DELETE_USER_BY_NAME`;
+DELIMITER //
+CREATE PROCEDURE `DELETE_USER_BY_NAME`(IN `_username` VARCHAR(16))
+BEGIN
+    DELETE FROM `{prefix}users` WHERE `username` LIKE `_username`;
 END;
 // DELIMITER ;
