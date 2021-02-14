@@ -11,20 +11,13 @@ public class LanguageManager {
 
     private final List<Language> languages = new ArrayList<>();
 
-    private String fileName;
-
     private LanguageManager() {}
 
     public static LanguageManager getInstance() {
         return instance;
     }
 
-    public String getFileName() {
-        return fileName;
-    }
-
     public void loadLanguage(SuperCore plugin, String fileName) {
-        this.fileName = fileName;
         FileConfiguration fileConfiguration = new FileConfiguration(plugin, "languages/" + fileName);
 
         String languageName = fileConfiguration.getString(MessagePath.LANGUAGE_NAME.getPath());
@@ -39,6 +32,13 @@ public class LanguageManager {
     }
 
     public Language getLanguageByName(String name) {
+        return languages.stream()
+                .filter(language -> name.equals(language.getName()))
+                .findFirst()
+                .orElse(null);
+    }
+
+    public Language getLanguageByFileName(String name) {
         return languages.stream()
                 .filter(language -> name.equals(language.getName()))
                 .findFirst()
