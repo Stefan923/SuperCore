@@ -15,6 +15,6 @@ BEGIN
 	DELETE FROM `{prefix}user_settings` WHERE `userUUID` LIKE OLD.`uuid`;
 	DELETE FROM `{prefix}user_homes` WHERE `userUUID` LIKE OLD.`uuid`;
 	DELETE FROM `{prefix}warps` WHERE `userUUID` LIKE OLD.`uuid`;
-	DELETE FROM `{prefix}ignored_users` WHERE `userUUID` LIKE OLD.`uuid`;
+	DELETE FROM `{prefix}ignored_users` WHERE `userUUID` LIKE OLD.`uuid` OR `ignoredUUID` LIKE OLD.`uuid`;
 END;
 // DELIMITER ;
