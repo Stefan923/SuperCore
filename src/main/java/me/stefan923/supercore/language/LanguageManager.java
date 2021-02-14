@@ -28,7 +28,7 @@ public class LanguageManager {
             }
         }
 
-        languages.add(new Language(languageName, messages));
+        languages.add(new Language(languageName, fileName, messages));
     }
 
     public Language getLanguageByName(String name) {
@@ -38,9 +38,9 @@ public class LanguageManager {
                 .orElse(null);
     }
 
-    public Language getLanguageByFileName(String name) {
+    public Language getLanguageByFileName(String fileName) {
         return languages.stream()
-                .filter(language -> name.equals(language.getName()))
+                .filter(language -> fileName.equals(language.getFileName()))
                 .findFirst()
                 .orElse(null);
     }
