@@ -1,0 +1,15 @@
+##########################################################
+##                      User Homes                      ##
+##########################################################
+
+Homes:
+  # When someone sets his home without specifying a name,
+  # home's name will be the default value set here
+  Default Home Name: "home"
+
+  # The limit of homes that a player can set.
+  # Permission: supercore.home.limit.<group>
+  Home Limits:
+    default: 3
+    vip: 5
+    vip+: 7
