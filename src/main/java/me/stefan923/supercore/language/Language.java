@@ -7,9 +7,11 @@ public class Language implements ILanguage {
     private final Map<MessagePath, String> messages;
 
     private final String name;
+    private final String fileName;
 
-    public Language(String name, Map<MessagePath, String> messages) {
+    public Language(String name, String fileName, Map<MessagePath, String> messages) {
         this.name = name;
+        this.fileName = fileName;
         this.messages = messages;
     }
 
@@ -23,6 +25,10 @@ public class Language implements ILanguage {
 
     public String getName() {
         return name;
+    }
+
+    public String getFileName() {
+        return fileName;
     }
 
 }
