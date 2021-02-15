@@ -44,3 +44,22 @@ BEGIN
 		AND `ignoredUUID` LIKE `_ignoredUUID`;
 END;
 // DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `ADD_USER_HOME`;
+DELIMITER //
+CREATE PROCEDURE `ADD_USER_HOME`(IN `_userUUID` VARCHAR(36), IN `_name` VARCHAR(16), IN `_x` DOUBLE, IN `_y` DOUBLE, IN `_z` DOUBLE, IN `_picth` FLOAT, IN `_yaw` FLOAT)
+BEGIN
+    INSERT INTO `{prefix}user_homes` (`userUUID`, `name`, `x`, `y`, `z`, `picth`, `yaw`)
+		VALUE (`_userUUID`, `_name`, `_x`, `_y`, `_z`, `_picth`, `_yaw`);
+END;
+// DELIMITER ;
+
+DROP PROCEDURE IF EXISTS `REMOVE_USER_HOME`;
+DELIMITER //
+CREATE PROCEDURE `REMOVE_USER_HOME`(IN `_userUUID` VARCHAR(36), IN `_name` VARCHAR(36))
+BEGIN
+    DELETE FROM `{prefix}user_homes`
+		WHERE `userUUID` LIKE `_userUUID`
+		AND `name` LIKE `_name`;
+END;
+// DELIMITER ;
