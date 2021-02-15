@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/SuperCoreLite.iml" filepath="$PROJECT_DIR$/SuperCoreLite.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SuperCore.iml" filepath="$PROJECT_DIR$/SuperCore.iml" />
     </modules>
   </component>
 </project>
