@@ -1,7 +1,7 @@
 package me.stefan923.supercore.user;
 
 import me.stefan923.supercore.exception.HomeNotFoundException;
-import me.stefan923.supercore.language.Language;
+import me.stefan923.supercore.language.ILanguage;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
@@ -11,7 +11,7 @@ public class User implements IUser {
 
     private final Player player;
 
-    private Language language;
+    private ILanguage language;
     private String nickname;
 
     private boolean godMode;
@@ -25,7 +25,7 @@ public class User implements IUser {
         this.player = player;
     }
 
-    public User(Player player, Language language, String nickname, boolean godMode, boolean receivingMessages, List<UUID> ignoredPlayers, Map<String, Location> homes) {
+    public User(Player player, ILanguage language, String nickname, boolean godMode, boolean receivingMessages, List<UUID> ignoredPlayers, Map<String, Location> homes) {
         this(player);
         this.language = language;
         this.nickname = nickname;
@@ -51,11 +51,11 @@ public class User implements IUser {
     }
 
     @Override
-    public Language getLanguage() {
+    public ILanguage getLanguage() {
         return language;
     }
 
-    public void setLanguage(Language language) {
+    public void setLanguage(ILanguage language) {
         this.language = language;
     }
 
