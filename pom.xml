@@ -6,14 +6,9 @@
 
     <groupId>me.Stefan923</groupId>
     <artifactId>SuperCore</artifactId>
-    <version>0.2.9</version>
+    <version>1.0.0</version>
 
     <dependencies>
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <version>1.4.200</version>
-        </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>
             <artifactId>spigot-api</artifactId>
@@ -25,6 +20,11 @@
             <artifactId>placeholderapi</artifactId>
             <version>2.10.9</version>
             <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>1.4.200</version>
         </dependency>
         <dependency>
             <groupId>com.zaxxer</groupId>
@@ -51,14 +51,14 @@
     <build>
         <resources>
             <resource>
-                <directory>src</directory>
+                <directory>src/main/java</directory>
                 <includes>
                     <include>**/*.java</include>
                     <include>**/*.yml</include>
                 </includes>
             </resource>
             <resource>
-                <directory>src</directory>
+                <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.java</include>
                     <include>**/*.yml</include>
