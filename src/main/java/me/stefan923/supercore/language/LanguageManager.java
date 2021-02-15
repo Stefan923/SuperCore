@@ -33,14 +33,14 @@ public class LanguageManager {
 
     public Language getLanguageByName(String name) {
         return languages.stream()
-                .filter(language -> name.equals(language.getName()))
+                .filter(language -> name.equalsIgnoreCase(language.getName()))
                 .findFirst()
                 .orElse(null);
     }
 
     public Language getLanguageByFileName(String fileName) {
         return languages.stream()
-                .filter(language -> fileName.equals(language.getFileName()))
+                .filter(language -> fileName.equalsIgnoreCase(language.getFileName()))
                 .findFirst()
                 .orElse(null);
     }
