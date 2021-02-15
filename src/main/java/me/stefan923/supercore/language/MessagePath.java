@@ -8,9 +8,9 @@ public enum MessagePath {
     HELP_CHAT_MESSAGE_FORMAT("Chat.HelpOp.Format"),
     PRIVATE_MESSAGE_FORMAT("Chat.Private Message.Format");
 
-    private String path;
+    private final String path;
 
-    private MessagePath(String path) {
+    MessagePath(String path) {
         this.path = path;
     }
 
