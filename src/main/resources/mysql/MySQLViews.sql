@@ -5,6 +5,12 @@ CREATE VIEW `{prefix}view_users` AS
 		INNER JOIN `{prefix}user_settings` `US` ON `US`.`userUUID` = `U`.`uuid`
         INNER JOIN `{prefix}user_data` `UD` ON `UD`.`userUUID` = `U`.`uuid`;
 
+DROP VIEW IF EXISTS `{prefix}view_user_homes`;
+CREATE VIEW `{prefix}view_user_homes` AS
+	SELECT `U`.`uuid`, `UH`.`name`, `UH`.`x`, `UH`.`y`, `UH`.`z`, `UH`.`picth`, `UH`.`yaw`
+    FROM `{prefix}users` `U`
+		INNER JOIN `{prefix}user_homes` `UH` ON `UH`.`userUUID` = `U`.`uuid`;
+
 DROP VIEW IF EXISTS `{prefix}view_ignored_users`;
 CREATE VIEW `{prefix}view_ignored_users` AS
 	SELECT `U`.`uuid`, `U`.`username`, `IU`.`ignoredUUID`, `U1`.`username` AS `ignoredUsername`
