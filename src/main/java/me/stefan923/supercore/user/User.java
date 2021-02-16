@@ -17,7 +17,7 @@ public class User implements IUser {
     private boolean godMode;
     private boolean receivingMessages;
 
-    private List<UUID> ignoredPlayers = new ArrayList<>();
+    private List<String> ignoredPlayers = new ArrayList<>();
 
     private Map<String, Location> homes = new HashMap<>();
 
@@ -25,7 +25,7 @@ public class User implements IUser {
         this.player = player;
     }
 
-    public User(Player player, ILanguage language, String nickname, boolean godMode, boolean receivingMessages, List<UUID> ignoredPlayers, Map<String, Location> homes) {
+    public User(Player player, ILanguage language, String nickname, boolean godMode, boolean receivingMessages, List<String> ignoredPlayers, Map<String, Location> homes) {
         this(player);
         this.language = language;
         this.nickname = nickname;
@@ -80,23 +80,23 @@ public class User implements IUser {
     }
 
     @Override
-    public boolean isIgnoring(UUID uuid) {
-        return ignoredPlayers.contains(uuid);
+    public boolean isIgnoring(String playerName) {
+        return ignoredPlayers.contains(playerName);
     }
 
     @Override
-    public List<UUID> getIgnoredPlayers() {
+    public List<String> getIgnoredPlayers() {
         return new ArrayList<>(ignoredPlayers);
     }
 
     @Override
-    public boolean addIgnoredPlayer(UUID uuid) {
-        return ignoredPlayers.add(uuid);
+    public boolean addIgnoredPlayer(String playerName) {
+        return ignoredPlayers.add(playerName);
     }
 
     @Override
-    public boolean removeIgnoredPlayer(UUID uuid) {
-        return ignoredPlayers.remove(uuid);
+    public boolean removeIgnoredPlayer(String playerName) {
+        return ignoredPlayers.remove(playerName);
     }
 
     @Override

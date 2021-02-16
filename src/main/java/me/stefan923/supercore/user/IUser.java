@@ -7,7 +7,6 @@ import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 public interface IUser {
 
@@ -67,30 +66,30 @@ public interface IUser {
 
     /**
      * Returns true if the user ignores the given player.
-     * @param uuid - given player's UUID
+     * @param playerName - given player's name
      * @return isIgnoring - boolean
      */
-    public boolean isIgnoring(UUID uuid);
+    public boolean isIgnoring(String playerName);
 
     /**
      * Returns a copy of user's list of ignored players.
-     * @return ignoredPlayers - List<UUID> - user's list of ignored players
+     * @return ignoredPlayers - List<String> - user's list of ignored players
      */
-    public List<UUID> getIgnoredPlayers();
+    public List<String> getIgnoredPlayers();
 
     /**
      * Adds a given player to user's list of ignored players.
-     * @param uuid - given player's UUID
+     * @param playerName - given player's name
      * @return true if the given player has been added.
      */
-    public boolean addIgnoredPlayer(UUID uuid);
+    public boolean addIgnoredPlayer(String playerName);
 
     /**
      * Removes a given player from user's list of ignored players.
-     * @param uuid - given player's UUID
+     * @param playerName - given player's name
      * @return true if the given player has been removed.
      */
-    public boolean removeIgnoredPlayer(UUID uuid);
+    public boolean removeIgnoredPlayer(String playerName);
 
     /**
      * Returns a copy of user's list of saved locations. (homes)
