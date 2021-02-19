@@ -2,6 +2,7 @@ package me.stefan923.supercore.configuration.language;
 
 import me.stefan923.supercore.SuperCore;
 import me.stefan923.supercore.configuration.FileConfiguration;
+import me.stefan923.supercore.configuration.setting.Setting;
 
 import java.util.*;
 
@@ -17,18 +18,11 @@ public class LanguageManager {
         return instance;
     }
 
-    public void loadLanguage(SuperCore plugin, String fileName) {
-        FileConfiguration fileConfiguration = new FileConfiguration(plugin, "languages/" + fileName);
-
-        String languageName = fileConfiguration.getString(MessagePath.LANGUAGE_NAME.getPath());
-        Map<MessagePath, String> messages = new HashMap<>();
-        for (MessagePath messagePath : MessagePath.values()) {
-            if (!MessagePath.LANGUAGE_NAME.equals(messagePath)) {
-                messages.put(messagePath, fileConfiguration.getString(messagePath.getPath()));
-            }
+    public void loadAllLanguages(SuperCore plugin) {
+        languages.clear();
+        for (String fileName : Setting.LANGUAGES) {
+            loadLanguage(plugin, fileName);
         }
-
-        languages.add(new Language(languageName, fileName, messages));
     }
 
     public Language getLanguageByName(String name) {
@@ -43,6 +37,20 @@ public class LanguageManager {
                 .filter(language -> fileName.equalsIgnoreCase(language.getFileName()))
                 .findFirst()
                 .orElse(null);
+    }
+
+    private void loadLanguage(SuperCore plugin, String fileName) {
+        FileConfiguration fileConfiguration = new FileConfiguration(plugin, "languages/" + fileName);
+
+        String languageName = fileConfiguration.getString(MessagePath.LANGUAGE_NAME.getPath());
+        Map<MessagePath, String> messages = new HashMap<>();
+        for (MessagePath messagePath : MessagePath.values()) {
+            if (!MessagePath.LANGUAGE_NAME.equals(messagePath)) {
+                messages.put(messagePath, fileConfiguration.getString(messagePath.getPath()));
+            }
+        }
+
+        languages.add(new Language(languageName, fileName, messages));
     }
 
 }
