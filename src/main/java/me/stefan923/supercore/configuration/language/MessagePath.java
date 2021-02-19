@@ -1,4 +1,4 @@
-package me.stefan923.supercore.language;
+package me.stefan923.supercore.configuration.language;
 
 public enum MessagePath {
 

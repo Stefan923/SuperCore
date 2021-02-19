@@ -1,4 +1,4 @@
-package me.stefan923.supercore.setting;
+package me.stefan923.supercore.configuration.setting;
 
 import me.stefan923.supercore.SuperCore;
 import me.stefan923.supercore.configuration.FileConfiguration;
