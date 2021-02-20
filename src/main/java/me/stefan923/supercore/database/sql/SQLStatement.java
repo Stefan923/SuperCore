@@ -1,4 +1,4 @@
-package me.stefan923.supercore.database;
+package me.stefan923.supercore.database.sql;
 
 public final class SQLStatement {
 

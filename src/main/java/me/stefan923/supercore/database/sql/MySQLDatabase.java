@@ -1,8 +1,9 @@
-package me.stefan923.supercore.database;
+package me.stefan923.supercore.database.sql;
 
-import me.stefan923.supercore.language.ILanguage;
-import me.stefan923.supercore.language.LanguageManager;
-import me.stefan923.supercore.setting.Setting;
+import me.stefan923.supercore.configuration.language.ILanguage;
+import me.stefan923.supercore.configuration.language.LanguageManager;
+import me.stefan923.supercore.configuration.setting.Setting;
+import me.stefan923.supercore.database.IDatabase;
 import me.stefan923.supercore.user.IUser;
 import me.stefan923.supercore.user.User;
 import me.stefan923.supercore.util.LoggerUtils;
