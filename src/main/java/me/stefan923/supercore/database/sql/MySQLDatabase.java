@@ -12,10 +12,16 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
 public class MySQLDatabase implements IDatabase {
+
+    private static final String MYSQL_SCHEMA_FILENAME = "mysql/MySQLSchema.sql";
+    private static final String MYSQL_PROCEDURES_FILENAME = "mysql/MySQLProcedures.sql";
+    private static final String MYSQL_TRIGGERS_FILENAME = "mysql/MySQLTriggers.sql";
+    private static final String MYSQL_VIEWS_FILENAME = "mysql/MySQLViews.sql";
 
     private static final LanguageManager languageManager = LanguageManager.getInstance();
 
@@ -259,6 +265,28 @@ public class MySQLDatabase implements IDatabase {
         }
 
         return ignoredPlayers;
+    }
+
+    private void executeAll(List<String> queries) {
+        for (String query : queries) {
+            try {
+                PreparedStatement preparedStatement = getConnection().prepareStatement(query);
+                preparedStatement.execute();
+            } catch (SQLException e) {
+                LoggerUtils.sendError("MySQLDatabase#getIgnoredUsers(String): Couldn't execute the following sql query:\n" + query);
+            }
+        }
+    }
+
+    private void init() {
+        try {
+            executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_SCHEMA_FILENAME)));
+            executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_PROCEDURES_FILENAME)));
+            executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_TRIGGERS_FILENAME)));
+            executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_VIEWS_FILENAME)));
+        } catch (IOException e) {
+            LoggerUtils.sendError("MySQLDatabase#getIgnoredUsers(String): Couldn't open MySQL database init files.");
+        }
     }
 
 }
