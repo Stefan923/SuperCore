@@ -1,5 +1,6 @@
 package me.stefan923.supercore.database.sql;
 
+import me.stefan923.supercore.SuperCore;
 import me.stefan923.supercore.configuration.language.ILanguage;
 import me.stefan923.supercore.configuration.language.LanguageManager;
 import me.stefan923.supercore.configuration.setting.Setting;
@@ -12,11 +13,12 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.*;
 import java.util.*;
 
-public class MySQLDatabase implements IDatabase {
+public class H2Database implements IDatabase {
 
     private static final String MYSQL_SCHEMA_FILENAME = "mysql/MySQLSchema.sql";
     private static final String MYSQL_TRIGGERS_FILENAME = "mysql/MySQLTriggers.sql";
@@ -25,21 +27,20 @@ public class MySQLDatabase implements IDatabase {
     private static final LanguageManager languageManager = LanguageManager.getInstance();
 
     private final String url;
-    private final String username;
-    private final String password;
     private final String tablePrefix;
     private final boolean useUUID;
 
     private Connection connection;
 
-    public MySQLDatabase(String tablePrefix, String host, int port, String databaseName, String username, String password, boolean useUUID) throws SQLException {
+    public H2Database(String tablePrefix, boolean useUUID) throws SQLException, ClassNotFoundException {
+        String absolutePath = SuperCore.getInstance().getDataFolder().getAbsolutePath();
+        this.url = "jdbc:h2:" + absolutePath + File.separator + "database;mode=MySQL";
         this.tablePrefix = tablePrefix;
-        this.username = username;
-        this.password = password;
         this.useUUID = useUUID;
-        this.url = "jdbc:mysql://" + host + ":" + port + "/" + databaseName;
 
-        this.connection = getConnection();
+        Class.forName("org.h2.Driver");
+
+        connection = getConnection();
     }
 
     @Override
@@ -49,7 +50,7 @@ public class MySQLDatabase implements IDatabase {
             executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_TRIGGERS_FILENAME)));
             executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_VIEWS_FILENAME)));
         } catch (IOException e) {
-            LoggerUtil.sendError("MySQLDatabase#getIgnoredUsers(String): Couldn't open MySQL database init files.");
+            LoggerUtil.sendError("H2Database#getIgnoredUsers(String): Couldn't open MySQL database init files.");
         }
     }
 
@@ -62,7 +63,7 @@ public class MySQLDatabase implements IDatabase {
             preparedStatement.setString(2, String.valueOf(playerName));
             preparedStatement.execute();
         } catch (SQLException e) {
-            LoggerUtil.sendError("MySQLDatabase#createUser(UUID, String): Couldn't create a new user: User{uuid = " + playerUUID + ", name = " + playerName + "}");
+            LoggerUtil.sendError("H2Database#createUser(UUID, String): Couldn't create a new user: User{uuid = " + playerUUID + ", name = " + playerName + "}");
             return false;
         } finally {
             try {
@@ -70,7 +71,7 @@ public class MySQLDatabase implements IDatabase {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LoggerUtil.sendError("MySQLDatabase#createUser(UUID, String): Couldn't close preparedStatement.");
+                LoggerUtil.sendError("H2Database#createUser(UUID, String): Couldn't close preparedStatement.");
             }
         }
 
@@ -93,7 +94,7 @@ public class MySQLDatabase implements IDatabase {
         ResultSet resultSet = null;
         try {
             preparedStatement = getConnection()
-                .prepareStatement(SQLStatement.GET_USER_BY_UUID.replace("{prefix}", tablePrefix));
+                    .prepareStatement(SQLStatement.GET_USER_BY_UUID.replace("{prefix}", tablePrefix));
             preparedStatement.setString(1, String.valueOf(playerUUID));
 
             resultSet = preparedStatement.executeQuery();
@@ -116,7 +117,7 @@ public class MySQLDatabase implements IDatabase {
                         homes);
             }
         } catch (SQLException e) {
-            LoggerUtil.sendError("MySQLDatabase#getuser(Player): Couldn't select this user: User{uuid = " + playerUUID + "}");
+            LoggerUtil.sendError("H2Database#getuser(Player): Couldn't select this user: User{uuid = " + playerUUID + "}");
         } finally {
             try {
                 if (resultSet != null) {
@@ -126,7 +127,7 @@ public class MySQLDatabase implements IDatabase {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LoggerUtil.sendError("MySQLDatabase#getuser(Player): Couldn't close preparedStatement or resultSet.");
+                LoggerUtil.sendError("H2Database#getuser(Player): Couldn't close preparedStatement or resultSet.");
             }
         }
 
@@ -145,7 +146,7 @@ public class MySQLDatabase implements IDatabase {
 
     private void connect() {
         try {
-            this.connection = DriverManager.getConnection(this.url, this.username, this.password);
+            this.connection = DriverManager.getConnection(this.url);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -166,7 +167,7 @@ public class MySQLDatabase implements IDatabase {
             preparedStatement.setString(1, String.valueOf(playerUUID));
             preparedStatement.execute();
         } catch (SQLException e) {
-            LoggerUtil.sendError("MySQLDatabase#deleteUser(UUID): Couldn't delete this user: User{uuid = " + playerUUID + "}");
+            LoggerUtil.sendError("H2Database#deleteUser(UUID): Couldn't delete this user: User{uuid = " + playerUUID + "}");
             return false;
         } finally {
             try {
@@ -174,7 +175,7 @@ public class MySQLDatabase implements IDatabase {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LoggerUtil.sendError("MySQLDatabase#deleteUser(UUID): Couldn't close preparedStatement.");
+                LoggerUtil.sendError("H2Database#deleteUser(UUID): Couldn't close preparedStatement.");
             }
         }
 
@@ -188,7 +189,7 @@ public class MySQLDatabase implements IDatabase {
             preparedStatement.setString(1, playerName);
             preparedStatement.execute();
         } catch (SQLException e) {
-            LoggerUtil.sendError("MySQLDatabase#deleteUser(String): Couldn't delete this user: User{name = " + playerName + "}");
+            LoggerUtil.sendError("H2Database#deleteUser(String): Couldn't delete this user: User{name = " + playerName + "}");
             return false;
         } finally {
             try {
@@ -196,7 +197,7 @@ public class MySQLDatabase implements IDatabase {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LoggerUtil.sendError("MySQLDatabase#deleteUser(String): Couldn't close preparedStatement.");
+                LoggerUtil.sendError("H2Database#deleteUser(String): Couldn't close preparedStatement.");
             }
         }
 
@@ -228,7 +229,7 @@ public class MySQLDatabase implements IDatabase {
                 }
             }
         } catch (SQLException e) {
-            LoggerUtil.sendError("MySQLDatabase#getUserHomes(String): Couldn't select this user: User{uuid = " + playerUUID + "}");
+            LoggerUtil.sendError("H2Database#getUserHomes(String): Couldn't select this user: User{uuid = " + playerUUID + "}");
         } finally {
             try {
                 if (resultSet != null) {
@@ -238,7 +239,7 @@ public class MySQLDatabase implements IDatabase {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LoggerUtil.sendError("MySQLDatabase#getUserHomes(String): Couldn't close preparedStatement or resultSet.");
+                LoggerUtil.sendError("H2Database#getUserHomes(String): Couldn't close preparedStatement or resultSet.");
             }
         }
 
@@ -260,7 +261,7 @@ public class MySQLDatabase implements IDatabase {
                 ignoredPlayers.add(resultSet.getString("ignoredUsername"));
             }
         } catch (SQLException e) {
-            LoggerUtil.sendError("MySQLDatabase#getIgnoredUsers(String): Couldn't select this user: User{uuid = " + playerUUID + "}");
+            LoggerUtil.sendError("H2Database#getIgnoredUsers(String): Couldn't select this user: User{uuid = " + playerUUID + "}");
         } finally {
             try {
                 if (resultSet != null) {
@@ -270,7 +271,7 @@ public class MySQLDatabase implements IDatabase {
                     preparedStatement.close();
                 }
             } catch (SQLException e) {
-                LoggerUtil.sendError("MySQLDatabase#getIgnoredUsers(String): Couldn't close preparedStatement or resultSet.");
+                LoggerUtil.sendError("H2Database#getIgnoredUsers(String): Couldn't close preparedStatement or resultSet.");
             }
         }
 
@@ -283,9 +284,9 @@ public class MySQLDatabase implements IDatabase {
                 PreparedStatement preparedStatement = getConnection().prepareStatement(query.replace("{prefix}", tablePrefix));
                 preparedStatement.execute();
             } catch (SQLException e) {
-                LoggerUtil.sendError("MySQLDatabase#getIgnoredUsers(String): Couldn't execute the following sql query:\n" + query);
+                LoggerUtil.sendError("H2Database#getIgnoredUsers(String): Couldn't execute the following sql query:\n" + query);
             }
         }
     }
-
+    
 }
