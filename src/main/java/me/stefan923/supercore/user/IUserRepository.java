@@ -7,12 +7,16 @@ public interface IUserRepository {
 
     IUser createUser(UUID uuid, String name);
 
-    IUser getUserByName(String name);
+    IUser getUser(String name);
 
-    IUser getUserByUUID(UUID uuid);
+    IUser getUser(UUID uuid);
+
+    IUser getOrLoadUser(String name);
+
+    IUser getOrLoadUser(UUID uuid);
 
     List<IUser> getOnlineUsers();
 
-    boolean delete(User user);
+    boolean remove(User user);
 
 }
