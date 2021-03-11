@@ -34,11 +34,19 @@ public interface IDatabase {
 
     /**
      * Selects an user from database.
-     * @param player - player's instance
+     * @param playerUUID - player's UUID
      * @return requested user's instance if it could be find
      *         null if the user does not exist
      */
-    public IUser getUser(Player player);
+    public IUser getUser(UUID playerUUID);
+
+    /**
+     * Selects an user from database.
+     * @param playerName - player's name
+     * @return requested user's instance if it could be find
+     *         null if the user does not exist
+     */
+    public IUser getUser(String playerName);
 
     /**
      * Selects and returns a map of user's homes.
