@@ -19,7 +19,7 @@ public class SettingsManager {
         return INSTANCE;
     }
 
-    public void setup(SuperCore plugin) {
+    public void setUp(SuperCore plugin) {
         fileConfiguration = new FileConfiguration(plugin, FILE_NAME);
         loadSettings();
     }
