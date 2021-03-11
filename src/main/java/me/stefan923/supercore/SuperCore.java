@@ -32,9 +32,9 @@ public class SuperCore extends JavaPlugin {
         databaseManager = new DatabaseManager();
         databaseManager.getDatabase().init();
 
-        new ListenerManager().enableAllListeners();
-
         userRepository = new UserRepository(databaseManager.getDatabase());
+
+        new ListenerManager().enableAllListeners();
 
         new Metrics(this, 6546);
 
