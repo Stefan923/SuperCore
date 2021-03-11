@@ -23,15 +23,6 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public IUser getUser(String name) {
-        if (name == null || name.isEmpty()) {
-            return null;
-        }
-
-        return onlineUsers.stream().filter(onlineUser -> name.equalsIgnoreCase(onlineUser.getUserName())).findFirst().orElse(null);
-    }
-
-    @Override
     public IUser getUser(UUID uuid) {
         if (uuid == null) {
             return null;
@@ -41,17 +32,12 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public IUser getOrLoadUser(String name) {
+    public IUser getUser(String name) {
         if (name == null || name.isEmpty()) {
             return null;
         }
 
-        IUser user = onlineUsers.stream().filter(onlineUser -> name.equalsIgnoreCase(onlineUser.getUserName())).findFirst().orElse(null);
-        if (user == null) {
-            return loadUser(name);
-        }
-
-        return user;
+        return onlineUsers.stream().filter(onlineUser -> name.equalsIgnoreCase(onlineUser.getUserName())).findFirst().orElse(null);
     }
 
     @Override
@@ -63,6 +49,20 @@ public class UserRepository implements IUserRepository {
         IUser user = onlineUsers.stream().filter(onlineUser -> uuid.equals(onlineUser.getUUID())).findFirst().orElse(null);
         if (user == null) {
             return loadUser(uuid);
+        }
+
+        return user;
+    }
+
+    @Override
+    public IUser getOrLoadUser(String name) {
+        if (name == null || name.isEmpty()) {
+            return null;
+        }
+
+        IUser user = onlineUsers.stream().filter(onlineUser -> name.equalsIgnoreCase(onlineUser.getUserName())).findFirst().orElse(null);
+        if (user == null) {
+            return loadUser(name);
         }
 
         return user;
@@ -83,14 +83,14 @@ public class UserRepository implements IUserRepository {
         onlineUsers.forEach(this::remove);
     }
 
-    private IUser loadUser(String name) {
-        IUser user = database.getUser(name);
+    private IUser loadUser(UUID uuid) {
+        IUser user = database.getUser(uuid);
         onlineUsers.add(user);
         return user;
     }
 
-    private IUser loadUser(UUID uuid) {
-        IUser user = database.getUser(uuid);
+    private IUser loadUser(String name) {
+        IUser user = database.getUser(name);
         onlineUsers.add(user);
         return user;
     }
