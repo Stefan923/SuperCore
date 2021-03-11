@@ -25,11 +25,7 @@
             <groupId>com.h2database</groupId>
             <artifactId>h2</artifactId>
             <version>1.4.200</version>
-        </dependency>
-        <dependency>
-            <groupId>com.zaxxer</groupId>
-            <artifactId>HikariCP</artifactId>
-            <version>3.2.0</version>
+            <scope>compile</scope>
         </dependency>
     </dependencies>
 
@@ -49,6 +45,8 @@
     </repositories>
 
     <build>
+        <finalName>SuperCore-${project.version}</finalName>
+
         <resources>
             <resource>
                 <directory>src/main/java</directory>
@@ -62,10 +60,11 @@
                 <includes>
                     <include>**/*.java</include>
                     <include>**/*.yml</include>
+                    <include>**/*.sql</include>
                 </includes>
             </resource>
         </resources>
-        <finalName>SuperCore - ${project.version}</finalName>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -75,6 +74,28 @@
                     <source>1.8</source>
                     <target>1.8</target>
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.1</version>
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.h2database.h2</pattern>
+                            <shadedPattern>me.stefan923.superdiscord.shade.com.h2database.h2</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
