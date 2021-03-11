@@ -1,13 +1,13 @@
 package me.stefan923.supercore.util;
 
-public final class MessageUtils {
+public final class MessageUtil {
 
-    public static final char COLOR_CHAR = '\u00A7';
-    public static final char ALT_COLOR_CHAR = '&';
+    private static final char COLOR_CHAR = '\u00A7';
+    private static final char ALT_COLOR_CHAR = '&';
 
-    public static final String FORMAT_CHARS = "0123456789AaBbCcDdEeFfKkLlMmNnOoRr";
+    private static final String FORMAT_CHARS = "0123456789AaBbCcDdEeFfKkLlMmNnOoRr";
 
-    private MessageUtils() { }
+    private MessageUtil() { }
 
     public static String formatAll(String message) {
         char[] formattedMessage = message.toCharArray();
