@@ -74,8 +74,13 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public boolean remove(IUser user) {
-        return onlineUsers.remove(user);
+    public void remove(IUser user) {
+        onlineUsers.remove(user);
+    }
+
+    @Override
+    public void clear() {
+        onlineUsers.forEach(this::remove);
     }
 
     private IUser loadUser(String name) {
