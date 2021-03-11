@@ -14,6 +14,7 @@ public final class SchemaReader {
 
     public static List<String> getStatements(InputStream inputStream) throws IOException {
         List<String> queries = new LinkedList<>();
+        boolean isTrigger = false;
 
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             StringBuilder query = new StringBuilder();
@@ -23,9 +24,26 @@ public final class SchemaReader {
                     continue;
                 }
 
-                query.append(line);
+                if (line.startsWith("DELIMITER //")) {
+                    isTrigger = true;
+                    continue;
+                }
 
-                if (line.endsWith(";")) {
+                if (line.startsWith("// DELIMITER ;")) {
+                    isTrigger = false;
+
+                    String result = query.toString().trim();
+                    if (!result.isEmpty()) {
+                        queries.add(result);
+                    }
+
+                    query = new StringBuilder();
+                    continue;
+                }
+
+                query.append(line).append(" ");
+
+                if (line.endsWith(";") && !isTrigger) {
                     query.deleteCharAt(query.length() - 1);
 
                     String result = query.toString().trim();
