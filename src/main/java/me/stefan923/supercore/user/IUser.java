@@ -3,30 +3,36 @@ package me.stefan923.supercore.user;
 import me.stefan923.supercore.exception.HomeNotFoundException;
 import me.stefan923.supercore.configuration.language.ILanguage;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 import java.util.Map;
+import java.util.UUID;
 
 public interface IUser {
 
     /**
-     * Returns user's Player instance.
-     * @return player - Player
+     * Returns user's UUID.
+     * @return uuid - UUID
      */
-    public Player getPlayer();
+    public UUID getUUID();
 
     /**
-     * Returns user's custom nickname.
-     * @return nickname - String
+     * Returns user's name.
+     * @return userName - String
      */
-    public String getNickname();
+    public String getUserName();
 
     /**
-     * Sets user's custom nickname.
-     * @param nickname - the nickname to be set
+     * Returns user's displayed name.
+     * @return displayName - String
      */
-    public void setNickname(String nickname);
+    public String getDisplayName();
+
+    /**
+     * Sets user's displayed name.
+     * @param displayName - the name to be set
+     */
+    public void setDisplayName(String displayName);
 
     /**
      * Returns user's language.
@@ -112,18 +118,5 @@ public interface IUser {
      * @return true if the home has been removed
      */
     public boolean removeHome(String name) throws HomeNotFoundException;
-
-    /**
-     * Teleports the user to his default home.
-     * @return true if the user has been teleported
-     */
-    public boolean teleportHome() throws HomeNotFoundException;
-
-    /**
-     * Teleports the user to a given home.
-     * @param name - location's name
-     * @return true if the user has been teleported
-     */
-    public boolean teleportHome(String name) throws HomeNotFoundException;
 
 }

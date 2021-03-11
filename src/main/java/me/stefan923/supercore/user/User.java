@@ -3,32 +3,27 @@ package me.stefan923.supercore.user;
 import me.stefan923.supercore.exception.HomeNotFoundException;
 import me.stefan923.supercore.configuration.language.ILanguage;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 
 import java.util.*;
 
 public class User implements IUser {
 
-    private final Player player;
+    private final UUID uuid;
+    private final String userName;
 
+    private final List<String> ignoredPlayers;
+    private final Map<String, Location> homes;
+
+    private String displayName;
     private ILanguage language;
-    private String nickname;
-
     private boolean godMode;
     private boolean receivingMessages;
 
-    private List<String> ignoredPlayers = new ArrayList<>();
-
-    private Map<String, Location> homes = new HashMap<>();
-
-    public User(Player player) {
-        this.player = player;
-    }
-
-    public User(Player player, ILanguage language, String nickname, boolean godMode, boolean receivingMessages, List<String> ignoredPlayers, Map<String, Location> homes) {
-        this(player);
+    public User(UUID uuid, String userName, List<String> ignoredPlayers, Map<String, Location> homes, String displayName, ILanguage language, boolean godMode, boolean receivingMessages) {
+        this.uuid = uuid;
+        this.userName = userName;
+        this.displayName = displayName;
         this.language = language;
-        this.nickname = nickname;
         this.godMode = godMode;
         this.receivingMessages = receivingMessages;
         this.ignoredPlayers = ignoredPlayers;
@@ -36,18 +31,23 @@ public class User implements IUser {
     }
 
     @Override
-    public Player getPlayer() {
-        return player;
+    public UUID getUUID() {
+        return uuid;
     }
 
     @Override
-    public String getNickname() {
-        return nickname != null ? nickname : player.getName();
+    public String getUserName() {
+        return userName;
     }
 
     @Override
-    public void setNickname(String nickname) {
-        this.nickname = nickname;
+    public String getDisplayName() {
+        return displayName != null ? displayName : userName;
+    }
+
+    @Override
+    public void setDisplayName(String displayName) {
+        this.displayName = displayName;
     }
 
     @Override
@@ -122,19 +122,16 @@ public class User implements IUser {
     }
 
     @Override
-    public boolean teleportHome() throws HomeNotFoundException {
-        return teleportHome("home");
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return uuid.equals(user.uuid);
     }
 
     @Override
-    public boolean teleportHome(String name) throws HomeNotFoundException {
-        Location location = homes.get(name.toLowerCase());
-
-        if (location == null) {
-            throw new HomeNotFoundException();
-        }
-
-        return player.teleport(location);
+    public int hashCode() {
+        return Objects.hash(uuid);
     }
 
 }

@@ -11,12 +11,12 @@ public final class LoggerUtil {
 
     private LoggerUtil() { }
 
-    public static void sendError(String message) {
-        logger.log(Level.SEVERE, message);
-    }
-
     public static void sendInfo(String message) {
         logger.log(Level.INFO, message);
+    }
+
+    public static void sendSevere(String message) {
+        logger.log(Level.SEVERE, message);
     }
 
 }
