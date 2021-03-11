@@ -3,8 +3,8 @@ package me.stefan923.supercore;
 import me.stefan923.supercore.configuration.setting.SettingsManager;
 import me.stefan923.supercore.database.DatabaseManager;
 import me.stefan923.supercore.configuration.language.LanguageManager;
+import me.stefan923.supercore.user.UserRepository;
 import me.stefan923.supercore.util.LoggerUtil;
-import me.stefan923.supercore.util.Metrics;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class SuperCore extends JavaPlugin {
@@ -14,6 +14,8 @@ public class SuperCore extends JavaPlugin {
     private SettingsManager settingsManager;
     private LanguageManager languageManager;
     private DatabaseManager databaseManager;
+
+    private UserRepository userRepository;
 
     @Override
     public void onEnable() {
@@ -27,6 +29,8 @@ public class SuperCore extends JavaPlugin {
 
         databaseManager = new DatabaseManager();
         databaseManager.getDatabase().init();
+
+        userRepository = new UserRepository(databaseManager.getDatabase());
 
         new Metrics(this, 6546);
 
@@ -50,6 +54,10 @@ public class SuperCore extends JavaPlugin {
 
     public DatabaseManager getDatabaseManager() {
         return databaseManager;
+    }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
     }
 
     @Override
