@@ -1,8 +1,12 @@
 package me.stefan923.supercore.database.sql;
 
+import org.omg.CORBA.PUBLIC_MEMBER;
+
 public final class SQLStatement {
 
     public static final String CREATE_USER = "INSERT INTO `{prefix}users` (`uuid`, `username`) VALUE (?, ?);";
+    public static final String CREATE_USER_DATA = "INSERT INTO `{prefix}user_data` (`userUUID`, `language`, `balance`, `lastOnline`, `customNickname`) VALUE (?, 'default', 0, NOW(), NULL);";
+    public static final String CREATE_USER_SETTINGS = "INSERT INTO `{prefix}user_settings` (`userUUID`) VALUE (?);";
 
     public static final String ADD_USER_HOME = "INSERT INTO `{prefix}user_homes` (`userUUID`, `name`, `x`, `y`, `z`, `picth`, `yaw`) VALUE (?, ?, ?, ?, ?, ?, ?);";
     public static final String ADD_IGNORED_USER = "INSERT INTO `{prefix}ignored_users` (`userUUID`, `ignoredUUID`) VALUE (?, ?);";
