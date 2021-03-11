@@ -11,6 +11,11 @@ import java.util.UUID;
 public interface IDatabase {
 
     /**
+     * Initializes the database.
+     */
+    public void init();
+
+    /**
      * Inserts a new user into database.
      * @param playerUUID - user's uuid
      * @param playerName - user's name
