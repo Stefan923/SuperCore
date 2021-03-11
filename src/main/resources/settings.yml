@@ -10,12 +10,16 @@ Storage:
   Type: "h2"
 
   # Credentials required to connect to the database:
-  IP: 127.0.0.1
+  IP Address: 127.0.0.1
   Port: 3306
   Database: "database"
   User: "username"
   Password: "password"
   Table Prefix: "supercore_"
+
+  # It the server has online-mode property enabled, you can set this on true.
+  # Otherwise, you should leave it on false.
+  Use UUID: false
 
 #########################################################
 ##                  Language Settings                  ##

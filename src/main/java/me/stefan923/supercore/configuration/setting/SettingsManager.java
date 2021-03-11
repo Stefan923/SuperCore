@@ -18,6 +18,14 @@ public class SettingsManager {
     }
 
     public void loadSettings() {
+        Setting.STORAGE_USE_UUID = fileConfiguration.getBoolean("Storage.Use UUID");
+        Setting.STORAGE_TYPE = fileConfiguration.getString("Storage.Type");
+        Setting.STORAGE_IP_ADDRESS = fileConfiguration.getString("Storage.Ip Address");
+        Setting.STORAGE_PORT = fileConfiguration.getInt("Storage.Database");
+        Setting.STORAGE_DATABASE = fileConfiguration.getString("Storage.Port");
+        Setting.STORAGE_USER = fileConfiguration.getString("Storage.User");
+        Setting.STORAGE_PASSWORD = fileConfiguration.getString("Storage.Password");
+        Setting.STORAGE_TABLE_PREFIX = fileConfiguration.getString("Storage.Table Prefix");
         Setting.DEFAULT_HOME_NAME = fileConfiguration.getString("Homes.Default Home Name");
         Setting.HOME_LIMITS = new HashMap<>();
 
