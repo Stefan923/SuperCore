@@ -1,13 +1,17 @@
-DROP TRIGGER IF EXISTS `ON_USER_DELETE`;
+DROP TRIGGER IF EXISTS `ON_USER_INSERT`;
+
 DELIMITER //
-CREATE TRIGGER `ON_USER_DELETE` AFTER INSERT ON `{prefix}users` FOR EACH ROW
+CREATE TRIGGER `ON_USER_INSERT` AFTER INSERT ON `{prefix}users` FOR EACH ROW
 BEGIN
 	INSERT INTO `{prefix}user_data` (`userUUID`, `language`, `balance`, `lastOnline`, `customNickname`)
 		VALUE (NEW.`uuid`, 'default', 0, NOW(), NULL);
+    INSERT INTO `{prefix}user_settings` (`userUUID`)
+        VALUE (NEW.`uuid`);
 END;
 // DELIMITER ;
 
 DROP TRIGGER IF EXISTS `ON_USER_DELETE`;
+
 DELIMITER //
 CREATE TRIGGER `ON_USER_DELETE` BEFORE DELETE ON `{prefix}users` FOR EACH ROW
 BEGIN

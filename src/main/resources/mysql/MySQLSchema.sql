@@ -1,8 +1,8 @@
 CREATE TABLE IF NOT EXISTS `{prefix}users` (
-  `uuid`     VARCHAR(36) NOT NULL,
-  `username` VARCHAR(16) NOT NULL,
-  PRIMARY KEY (`uuid`),
-  UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE
+    `uuid`     VARCHAR(36) NOT NULL,
+    `username` VARCHAR(16) NOT NULL,
+    PRIMARY KEY (`uuid`),
+    UNIQUE INDEX `username_UNIQUE` (`username` ASC) VISIBLE
 );
 
 CREATE TABLE IF NOT EXISTS `{prefix}ignored_users` (
