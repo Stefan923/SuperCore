@@ -11,29 +11,45 @@ public class SuperCore extends JavaPlugin {
 
     private static SuperCore instance;
 
+    private SettingsManager settingsManager;
+    private LanguageManager languageManager;
+    private DatabaseManager databaseManager;
+
     @Override
     public void onEnable() {
         instance = this;
 
-        SettingsManager settingsManager = SettingsManager.getInstance();
+        settingsManager = new SettingsManager();
         settingsManager.setUp(this);
 
-        LanguageManager languageManager = LanguageManager.getInstance();
+        languageManager = new LanguageManager();
         languageManager.loadAllLanguages(this);
 
-        DatabaseManager databaseManager = DatabaseManager.getInstance();
+        databaseManager = new DatabaseManager();
         databaseManager.getDatabase().init();
 
         new Metrics(this, 6546);
 
-        LoggerUtil.sendInfo("&8&l> &7&m------- &8&l( &3&lSuperCore &b&lby Stefan923 &8&l) &7&m------- &8&l<");
-        LoggerUtil.sendInfo("&b   Plugin has been initialized.");
-        LoggerUtil.sendInfo("&b   Version: &3v" + getDescription().getVersion());
-        LoggerUtil.sendInfo("&8&l> &7&m------- &8&l( &3&lSuperCore &b&lby Stefan923 &8&l) &7&m------- &8&l<");
+        LoggerUtil.sendInfo("> ------- ( SuperCore by Stefan923 ) ------- <");
+        LoggerUtil.sendInfo("   Plugin has been initialized.");
+        LoggerUtil.sendInfo("   Version: v" + getDescription().getVersion());
+        LoggerUtil.sendInfo("> ------- ( SuperCore by Stefan923 ) ------- <");
     }
 
     public static SuperCore getInstance() {
         return instance;
+    }
+
+    public SettingsManager getSettingsManager() {
+        return settingsManager;
+    }
+
+    public LanguageManager getLanguageManager() {
+        return languageManager;
+    }
+
+    public DatabaseManager getDatabaseManager() {
+        return databaseManager;
     }
 
     @Override

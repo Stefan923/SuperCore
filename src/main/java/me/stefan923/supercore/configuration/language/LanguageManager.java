@@ -8,15 +8,7 @@ import java.util.*;
 
 public class LanguageManager {
 
-    private static final LanguageManager instance = new LanguageManager();
-
     private final List<Language> languages = new ArrayList<>();
-
-    private LanguageManager() {}
-
-    public static LanguageManager getInstance() {
-        return instance;
-    }
 
     public void loadAllLanguages(SuperCore plugin) {
         languages.clear();

@@ -9,15 +9,8 @@ import java.util.HashMap;
 public class SettingsManager {
 
     private static final String FILE_NAME = "settings.yml";
-    private static final SettingsManager INSTANCE = new SettingsManager();
 
     private FileConfiguration fileConfiguration;
-
-    private SettingsManager() {}
-
-    public static SettingsManager getInstance() {
-        return INSTANCE;
-    }
 
     public void setUp(SuperCore plugin) {
         fileConfiguration = new FileConfiguration(plugin, FILE_NAME);

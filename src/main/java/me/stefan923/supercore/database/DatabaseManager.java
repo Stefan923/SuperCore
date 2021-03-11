@@ -9,15 +9,7 @@ import java.sql.SQLException;
 
 public class DatabaseManager {
 
-    private static final DatabaseManager INSTANCE = new DatabaseManager();
-
     private IDatabase database;
-
-    public DatabaseManager() { }
-
-    public static DatabaseManager getInstance() {
-        return INSTANCE;
-    }
 
     public IDatabase getDatabase() {
         if (database != null) {
@@ -39,7 +31,7 @@ public class DatabaseManager {
 
     private IDatabase getMySQLDatabase() {
         try {
-            database = new MySQLDatabase(Setting.STORAGE_TABLE_PREFIX, Setting.STORAGE_IP_ADDRESS, Setting.STORAGE_PORT, Setting.STORAGE_DATABASE, Setting.STORAGE_USER, Setting.STORAGE_PASSWORD, Setting.STORAGE_USE_UUID);
+            database = new MySQLDatabase(Setting.STORAGE_TABLE_PREFIX, Setting.STORAGE_USE_UUID, Setting.STORAGE_IP_ADDRESS, Setting.STORAGE_PORT, Setting.STORAGE_DATABASE, Setting.STORAGE_USER, Setting.STORAGE_PASSWORD);
             LoggerUtil.sendInfo("The connection to the MySQL database has been successfully established.");
         } catch (SQLException e) {
             LoggerUtil.sendInfo("MySQL connection failed!");
@@ -59,8 +51,8 @@ public class DatabaseManager {
             database = new H2Database(Setting.STORAGE_TABLE_PREFIX, Setting.STORAGE_USE_UUID);
             LoggerUtil.sendInfo("The connection to the H2 database has been successfully established.");
         } catch (ClassNotFoundException | SQLException e) {
-            LoggerUtil.sendInfo("H2 connection failed!");
-            LoggerUtil.sendInfo("Reason: " + e.getMessage());
+            LoggerUtil.sendSevere("H2 connection failed!");
+            LoggerUtil.sendSevere("Reason: " + e.getMessage());
         }
 
         return database;
