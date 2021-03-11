@@ -1,4 +1,23 @@
 #########################################################
+##                  Storage Settings                   ##
+#########################################################
+
+Storage:
+  # The database system used to store plugin's data.
+  # Available systems:
+  #   - h2
+  #   - mysql
+  Type: "h2"
+
+  # Credentials required to connect to the database:
+  IP: 127.0.0.1
+  Port: 3306
+  Database: "database"
+  User: "username"
+  Password: "password"
+  Table Prefix: "supercore_"
+
+#########################################################
 ##                  Language Settings                  ##
 #########################################################
 

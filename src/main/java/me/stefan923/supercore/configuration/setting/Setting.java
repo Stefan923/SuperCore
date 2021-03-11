@@ -7,15 +7,23 @@ import java.util.Map;
 
 public final class Setting {
 
+    // Storage Settings
+    public static boolean STORAGE_USE_UUID = false;
+    public static String STORAGE_TYPE = "h2";
+    public static String STORAGE_IP_ADDRESS = "127.0.0.1";
+    public static int STORAGE_PORT = 3306;
+    public static String STORAGE_DATABASE = "database";
+    public static String STORAGE_USER = "username";
+    public static String STORAGE_PASSWORD = "password";
+    public static String STORAGE_TABLE_PREFIX = "supercore_";
+
+    // Language Settings
     public static String DEFAULT_LANGUAGE = "english.yml";
     public static List<String> LANGUAGES = new ArrayList<>();
 
+    // Homes Settings
     public static String DEFAULT_HOME_NAME = "home";
     public static Map<String, Integer> HOME_LIMITS = new HashMap<>();
-
-    /*
-     * PRIVATE MESSAGES SETTINGS
-     */
 
     private Setting() { }
 
