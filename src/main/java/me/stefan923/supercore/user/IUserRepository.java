@@ -17,6 +17,6 @@ public interface IUserRepository {
 
     List<IUser> getOnlineUsers();
 
-    boolean remove(User user);
+    boolean remove(IUser user);
 
 }

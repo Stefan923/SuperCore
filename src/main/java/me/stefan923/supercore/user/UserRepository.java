@@ -74,7 +74,7 @@ public class UserRepository implements IUserRepository {
     }
 
     @Override
-    public boolean remove(User user) {
+    public boolean remove(IUser user) {
         return onlineUsers.remove(user);
     }
 
