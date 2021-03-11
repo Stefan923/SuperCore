@@ -13,11 +13,9 @@ public class H2Database extends SQLDatabase {
     private static final String H2_SCHEMA_FILENAME = "h2/H2Schema.sql";
     private static final String H2_VIEWS_FILENAME = "h2/H2Views.sql";
 
-    public H2Database(String tablePrefix, boolean useUUID) throws SQLException, ClassNotFoundException {
+    public H2Database(String tablePrefix, boolean useUUID) throws SQLException {
         super(tablePrefix, "jdbc:h2:" + SuperCore.getInstance().getDataFolder().getAbsolutePath() +
                 File.separator + "database;mode=MySQL", useUUID);
-
-        Class.forName("org.h2.Driver");
     }
 
     @Override

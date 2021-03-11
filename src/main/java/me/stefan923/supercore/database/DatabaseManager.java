@@ -48,7 +48,9 @@ public class DatabaseManager {
 
     private IDatabase getH2Database() {
         try {
+            Class.forName("org.h2.Driver");
             database = new H2Database(Setting.STORAGE_TABLE_PREFIX, Setting.STORAGE_USE_UUID);
+
             LoggerUtil.sendInfo("The connection to the H2 database has been successfully established.");
         } catch (ClassNotFoundException | SQLException e) {
             LoggerUtil.sendSevere("H2 connection failed!");
