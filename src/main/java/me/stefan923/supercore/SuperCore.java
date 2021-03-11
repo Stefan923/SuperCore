@@ -3,6 +3,7 @@ package me.stefan923.supercore;
 import me.stefan923.supercore.configuration.setting.SettingsManager;
 import me.stefan923.supercore.database.DatabaseManager;
 import me.stefan923.supercore.configuration.language.LanguageManager;
+import me.stefan923.supercore.listener.ListenerManager;
 import me.stefan923.supercore.user.IUserRepository;
 import me.stefan923.supercore.user.UserRepository;
 import me.stefan923.supercore.util.LoggerUtil;
@@ -30,6 +31,8 @@ public class SuperCore extends JavaPlugin {
 
         databaseManager = new DatabaseManager();
         databaseManager.getDatabase().init();
+
+        new ListenerManager().enableAllListeners();
 
         userRepository = new UserRepository(databaseManager.getDatabase());
 
