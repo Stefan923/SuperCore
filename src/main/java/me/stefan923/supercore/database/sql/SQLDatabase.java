@@ -74,7 +74,7 @@ public abstract class SQLDatabase implements IDatabase {
             resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
                 String foundUUID = resultSet.getString("uuid");
-                Map<String, Location> homes = getUserHomes(playerUUID);
+                Map<String, Location> homes = getUserHomes(foundUUID);
                 List<String> ignoredUsers = getIgnoredUsers(foundUUID);
 
                 ILanguage language = languageManager.getLanguageByName(resultSet.getString("language"));
@@ -95,6 +95,56 @@ public abstract class SQLDatabase implements IDatabase {
             }
         } catch (SQLException e) {
             LoggerUtil.sendSevere("SQLDatabase#getuser(Player): Couldn't select this user: User{uuid = " + playerUUID + "}");
+        } finally {
+            try {
+                if (resultSet != null) {
+                    resultSet.close();
+                }
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                LoggerUtil.sendSevere("SQLDatabase#getuser(Player): Couldn't close preparedStatement or resultSet.");
+            }
+
+        }
+
+        return null;
+    }
+
+    @Override
+    public IUser getUser(String playerName) {
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        try {
+            preparedStatement = getConnection()
+                    .prepareStatement(SQLStatement.GET_USER_BY_UUID.replace("{prefix}", tablePrefix));
+            preparedStatement.setString(1, playerName);
+
+            resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                String foundUUID = resultSet.getString("uuid");
+                Map<String, Location> homes = getUserHomes(foundUUID);
+                List<String> ignoredUsers = getIgnoredUsers(foundUUID);
+
+                ILanguage language = languageManager.getLanguageByName(resultSet.getString("language"));
+                if (language == null) {
+                    language = languageManager.getLanguageByFileName(Setting.DEFAULT_LANGUAGE);
+                }
+
+                return new User(
+                        UUID.fromString(foundUUID),
+                        resultSet.getString(""),
+                        ignoredUsers,
+                        homes,
+                        resultSet.getString("customNickname"),
+                        language,
+                        resultSet.getBoolean("godMode"),
+                        resultSet.getBoolean("receivingMessages")
+                );
+            }
+        } catch (SQLException e) {
+            LoggerUtil.sendSevere("SQLDatabase#getuser(Player): Couldn't select this user: User{name = " + playerName + "}");
         } finally {
             try {
                 if (resultSet != null) {
