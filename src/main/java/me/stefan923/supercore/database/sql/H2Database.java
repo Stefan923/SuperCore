@@ -20,9 +20,8 @@ import java.util.*;
 
 public class H2Database implements IDatabase {
 
-    private static final String MYSQL_SCHEMA_FILENAME = "mysql/MySQLSchema.sql";
-    private static final String MYSQL_TRIGGERS_FILENAME = "mysql/MySQLTriggers.sql";
-    private static final String MYSQL_VIEWS_FILENAME = "mysql/MySQLViews.sql";
+    private static final String MYSQL_SCHEMA_FILENAME = "h2/H2Schema.sql";
+    private static final String MYSQL_VIEWS_FILENAME = "h2/H2Views.sql";
 
     private static final LanguageManager languageManager = LanguageManager.getInstance();
 
@@ -47,7 +46,6 @@ public class H2Database implements IDatabase {
     public void init() {
         try {
             executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_SCHEMA_FILENAME)));
-            executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_TRIGGERS_FILENAME)));
             executeAll(SchemaReader.getStatements(getClass().getClassLoader().getResourceAsStream(MYSQL_VIEWS_FILENAME)));
         } catch (IOException e) {
             LoggerUtil.sendError("H2Database#getIgnoredUsers(String): Couldn't open MySQL database init files.");
@@ -62,6 +60,9 @@ public class H2Database implements IDatabase {
             preparedStatement.setString(1, String.valueOf(playerUUID));
             preparedStatement.setString(2, String.valueOf(playerName));
             preparedStatement.execute();
+
+            createUserData(playerUUID);
+            createUserSettings(playerUUID);
         } catch (SQLException e) {
             LoggerUtil.sendError("H2Database#createUser(UUID, String): Couldn't create a new user: User{uuid = " + playerUUID + ", name = " + playerName + "}");
             return false;
@@ -158,6 +159,50 @@ public class H2Database implements IDatabase {
         }
 
         return this.connection;
+    }
+
+    private boolean createUserData(UUID playerUUID) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = getConnection().prepareStatement(SQLStatement.CREATE_USER_DATA.replace("{prefix}", tablePrefix));
+            preparedStatement.setString(1, String.valueOf(playerUUID));
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            LoggerUtil.sendError("H2Database#createUserData(UUID): Couldn't create a new user: User{uuid = " + playerUUID + "}");
+            return false;
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                LoggerUtil.sendError("H2Database#createUserData(UUID): Couldn't close preparedStatement.");
+            }
+        }
+
+        return true;
+    }
+
+    private boolean createUserSettings(UUID playerUUID) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = getConnection().prepareStatement(SQLStatement.CREATE_USER_SETTINGS.replace("{prefix}", tablePrefix));
+            preparedStatement.setString(1, String.valueOf(playerUUID));
+            preparedStatement.execute();
+        } catch (SQLException e) {
+            LoggerUtil.sendError("H2Database#createUserSettings(UUID): Couldn't create a new user: User{uuid = " + playerUUID + "}");
+            return false;
+        } finally {
+            try {
+                if (preparedStatement != null) {
+                    preparedStatement.close();
+                }
+            } catch (SQLException e) {
+                LoggerUtil.sendError("H2Database#createUserSettings(UUID): Couldn't close preparedStatement.");
+            }
+        }
+
+        return true;
     }
 
     private boolean deleteUser(UUID playerUUID) {
@@ -284,7 +329,8 @@ public class H2Database implements IDatabase {
                 PreparedStatement preparedStatement = getConnection().prepareStatement(query.replace("{prefix}", tablePrefix));
                 preparedStatement.execute();
             } catch (SQLException e) {
-                LoggerUtil.sendError("H2Database#getIgnoredUsers(String): Couldn't execute the following sql query:\n" + query);
+                LoggerUtil.sendError("H2Database#executeAll(List<String>): Couldn't execute the following sql query:\n" + query);
+                e.printStackTrace();
             }
         }
     }
