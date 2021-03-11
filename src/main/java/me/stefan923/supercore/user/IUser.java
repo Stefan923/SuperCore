@@ -1,7 +1,7 @@
 package me.stefan923.supercore.user;
 
 import me.stefan923.supercore.exception.HomeNotFoundException;
-import me.stefan923.supercore.language.ILanguage;
+import me.stefan923.supercore.configuration.language.ILanguage;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
