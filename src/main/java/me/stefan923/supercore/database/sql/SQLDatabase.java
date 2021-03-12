@@ -38,12 +38,11 @@ public abstract class SQLDatabase implements IDatabase {
         PreparedStatement preparedStatement = null;
         try {
             preparedStatement = getConnection().prepareStatement(SQLStatement.CREATE_USER.replace("{prefix}", tablePrefix));
-            preparedStatement.setString(1, String.valueOf(playerUUID));
+            preparedStatement.setString(1, playerUUID.toString());
             preparedStatement.setString(2, playerName);
             preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LoggerUtil.sendSevere("SQLDatabase#createUser(UUID, String): Couldn't create a new user: User{uuid = " + playerUUID + ", name = " + playerName + "}");
-            e.printStackTrace();
             return false;
         } finally {
             try {
@@ -85,7 +84,7 @@ public abstract class SQLDatabase implements IDatabase {
 
                 return new User(
                         UUID.fromString(foundUUID),
-                        resultSet.getString(""),
+                        resultSet.getString("username"),
                         ignoredUsers,
                         homes,
                         resultSet.getString("customNickname"),
@@ -135,7 +134,7 @@ public abstract class SQLDatabase implements IDatabase {
 
                 return new User(
                         UUID.fromString(foundUUID),
-                        resultSet.getString(""),
+                        resultSet.getString("username"),
                         ignoredUsers,
                         homes,
                         resultSet.getString("customNickname"),
@@ -253,17 +252,22 @@ public abstract class SQLDatabase implements IDatabase {
                 World world = Bukkit.getWorld(resultSet.getString("world"));
 
                 if (world != null) {
-                    homes.put(resultSet.getString("name"),
-                            new Location(world,
+                    homes.put(
+                            resultSet.getString("name"),
+                            new Location(
+                                    world,
                                     resultSet.getDouble("x"),
                                     resultSet.getDouble("y"),
                                     resultSet.getDouble("z"),
                                     resultSet.getFloat("yaw"),
-                                    resultSet.getFloat("pitch")));
+                                    resultSet.getFloat("pitch")
+                            )
+                    );
                 }
             }
         } catch (SQLException e) {
             LoggerUtil.sendSevere("SQLDatabase#getUserHomes(String): Couldn't select this user: User{uuid = " + playerUUID + "}");
+            e.printStackTrace();
         } finally {
             try {
                 if (resultSet != null) {

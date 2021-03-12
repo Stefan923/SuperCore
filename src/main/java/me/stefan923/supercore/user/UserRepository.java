@@ -85,13 +85,19 @@ public class UserRepository implements IUserRepository {
 
     private IUser loadUser(UUID uuid) {
         IUser user = database.getUser(uuid);
-        onlineUsers.add(user);
+        if (user != null) {
+            onlineUsers.add(user);
+        }
+
         return user;
     }
 
     private IUser loadUser(String name) {
         IUser user = database.getUser(name);
-        onlineUsers.add(user);
+        if (user != null) {
+            onlineUsers.add(user);
+        }
+
         return user;
     }
 
