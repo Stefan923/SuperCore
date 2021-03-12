@@ -51,7 +51,7 @@ public class H2Database extends SQLDatabase {
         try {
             preparedStatement = getConnection().prepareStatement(SQLStatement.CREATE_USER_DATA.replace("{prefix}", tablePrefix));
             preparedStatement.setString(1, String.valueOf(playerUUID));
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LoggerUtil.sendSevere("H2Database#createUserData(UUID): Couldn't create a new user: User{uuid = " + playerUUID + "}");
             return false;
@@ -73,7 +73,7 @@ public class H2Database extends SQLDatabase {
         try {
             preparedStatement = getConnection().prepareStatement(SQLStatement.CREATE_USER_SETTINGS.replace("{prefix}", tablePrefix));
             preparedStatement.setString(1, String.valueOf(playerUUID));
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LoggerUtil.sendSevere("H2Database#createUserSettings(UUID): Couldn't create a new user: User{uuid = " + playerUUID + "}");
             return false;

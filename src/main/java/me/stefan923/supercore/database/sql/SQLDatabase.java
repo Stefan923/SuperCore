@@ -39,10 +39,11 @@ public abstract class SQLDatabase implements IDatabase {
         try {
             preparedStatement = getConnection().prepareStatement(SQLStatement.CREATE_USER.replace("{prefix}", tablePrefix));
             preparedStatement.setString(1, String.valueOf(playerUUID));
-            preparedStatement.setString(2, String.valueOf(playerName));
-            preparedStatement.execute();
+            preparedStatement.setString(2, playerName);
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LoggerUtil.sendSevere("SQLDatabase#createUser(UUID, String): Couldn't create a new user: User{uuid = " + playerUUID + ", name = " + playerName + "}");
+            e.printStackTrace();
             return false;
         } finally {
             try {
@@ -186,7 +187,7 @@ public abstract class SQLDatabase implements IDatabase {
         for (String query : queries) {
             try {
                 PreparedStatement preparedStatement = getConnection().prepareStatement(query.replace("{prefix}", tablePrefix));
-                preparedStatement.execute();
+                preparedStatement.executeUpdate();
             } catch (SQLException e) {
                 LoggerUtil.sendSevere("SQLDatabase#getIgnoredUsers(String): Couldn't execute the following sql query:\n" + query);
             }
@@ -198,7 +199,7 @@ public abstract class SQLDatabase implements IDatabase {
         try {
             preparedStatement = getConnection().prepareStatement(SQLStatement.DELETE_USER_BY_UUID.replace("{prefix}", tablePrefix));
             preparedStatement.setString(1, String.valueOf(playerUUID));
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LoggerUtil.sendSevere("SQLDatabase#deleteUser(UUID): Couldn't delete this user: User{uuid = " + playerUUID + "}");
             return false;
@@ -220,7 +221,7 @@ public abstract class SQLDatabase implements IDatabase {
         try {
             preparedStatement = getConnection().prepareStatement(SQLStatement.DELETE_USER_BY_NAME.replace("{prefix}", tablePrefix));
             preparedStatement.setString(1, playerName);
-            preparedStatement.execute();
+            preparedStatement.executeUpdate();
         } catch (SQLException e) {
             LoggerUtil.sendSevere("SQLDatabase#deleteUser(String): Couldn't delete this user: User{name = " + playerName + "}");
             return false;
