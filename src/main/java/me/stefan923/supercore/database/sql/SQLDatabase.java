@@ -79,7 +79,7 @@ public abstract class SQLDatabase implements IDatabase {
 
                 ILanguage language = languageManager.getLanguageByName(resultSet.getString("language"));
                 if (language == null) {
-                    language = languageManager.getLanguageByFileName(Setting.DEFAULT_LANGUAGE);
+                    language = languageManager.getLanguageByFileName(Setting.DEFAULT_LANGUAGE_FILENAME);
                 }
 
                 return new User(
@@ -129,7 +129,7 @@ public abstract class SQLDatabase implements IDatabase {
 
                 ILanguage language = languageManager.getLanguageByName(resultSet.getString("language"));
                 if (language == null) {
-                    language = languageManager.getLanguageByFileName(Setting.DEFAULT_LANGUAGE);
+                    language = languageManager.getLanguageByFileName(Setting.DEFAULT_LANGUAGE_FILENAME);
                 }
 
                 return new User(
