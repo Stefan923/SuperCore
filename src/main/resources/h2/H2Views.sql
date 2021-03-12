@@ -7,7 +7,7 @@ CREATE VIEW `{prefix}view_users` AS
 
 DROP VIEW IF EXISTS `{prefix}view_user_homes`;
 CREATE VIEW `{prefix}view_user_homes` AS
-	SELECT `U`.`user` as `userUUID`, `UH`.`name`, `UH`.`x`, `UH`.`y`, `UH`.`z`, `UH`.`picth`, `UH`.`yaw`
+	SELECT `U`.`uuid` as `userUUID`, `UH`.`name`, `UH`.`x`, `UH`.`y`, `UH`.`z`, `UH`.`picth`, `UH`.`yaw`
     FROM `{prefix}users` `U`
 		INNER JOIN `{prefix}user_homes` `UH` ON `UH`.`userUUID` = `U`.`uuid`;
 
