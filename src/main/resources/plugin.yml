@@ -4,3 +4,8 @@ main: me.stefan923.supercore.SuperCore
 description: Provides a core set of commands and server utilities.
 softdepend: [PlaceholderAPI]
 authors: [Stefan923]
+
+commands:
+  core:
+    description: The main command of the plugin.
+    aliases: [supercore]
