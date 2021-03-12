@@ -12,7 +12,7 @@ public class LanguageManager {
 
     public void loadAllLanguages(SuperCore plugin) {
         languages.clear();
-        for (String fileName : Setting.LANGUAGES) {
+        for (String fileName : Setting.LANGUAGE_FILENAMES) {
             loadLanguage(plugin, fileName);
         }
     }

@@ -18,8 +18,8 @@ public final class Setting {
     public static String STORAGE_TABLE_PREFIX = "supercore_";
 
     // Language Settings
-    public static String DEFAULT_LANGUAGE = "english.yml";
-    public static List<String> LANGUAGES = new ArrayList<>();
+    public static String DEFAULT_LANGUAGE_FILENAME = "english.yml";
+    public static List<String> LANGUAGE_FILENAMES = new ArrayList<>();
 
     // Homes Settings
     public static String DEFAULT_HOME_NAME = "home";
@@ -28,7 +28,7 @@ public final class Setting {
     private Setting() { }
 
     static {
-        LANGUAGES.add("english.yml");
+        LANGUAGE_FILENAMES.add("english.yml");
 
         HOME_LIMITS.put("default", 3);
         HOME_LIMITS.put("vip", 5);
