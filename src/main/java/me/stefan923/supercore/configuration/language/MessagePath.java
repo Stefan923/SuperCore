@@ -3,10 +3,9 @@ package me.stefan923.supercore.configuration.language;
 public enum MessagePath {
 
     LANGUAGE_NAME("Language Display Name"),
-    ADMIN_CHAT_MESSAGE_FORMAT("Chat.AdminChat.Format"),
-    DONOR_CHAT_MESSAGE_FORMAT("Chat.DonorChat.Format"),
-    HELP_CHAT_MESSAGE_FORMAT("Chat.HelpOp.Format"),
-    PRIVATE_MESSAGE_FORMAT("Chat.Private Message.Format");
+    COMMAND_INVALID_SYNTAX("Command.Invalid Syntax"),
+    GENERAL_MUST_BE_PLAYER("General.Must Be Player"),
+    GENERAL_NO_PERMISSION("General.No Permission");
 
     private final String path;
 
