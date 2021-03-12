@@ -7,13 +7,13 @@ CREATE VIEW `{prefix}view_users` AS
 
 DROP VIEW IF EXISTS `{prefix}view_user_homes`;
 CREATE VIEW `{prefix}view_user_homes` AS
-	SELECT `U`.`uuid`, `UH`.`name`, `UH`.`x`, `UH`.`y`, `UH`.`z`, `UH`.`picth`, `UH`.`yaw`
+	SELECT `U`.`user` as `userUUID`, `UH`.`name`, `UH`.`x`, `UH`.`y`, `UH`.`z`, `UH`.`picth`, `UH`.`yaw`
     FROM `{prefix}users` `U`
 		INNER JOIN `{prefix}user_homes` `UH` ON `UH`.`userUUID` = `U`.`uuid`;
 
 DROP VIEW IF EXISTS `{prefix}view_ignored_users`;
 CREATE VIEW `{prefix}view_ignored_users` AS
-	SELECT `U`.`uuid`, `U`.`username`, `IU`.`ignoredUUID`, `U1`.`username` AS `ignoredUsername`
+	SELECT `U`.`uuid` as `userUUID`, `U`.`username`, `IU`.`ignoredUUID`, `U1`.`username` AS `ignoredUsername`
     FROM `{prefix}users` `U`
 		INNER JOIN `{prefix}ignored_users` `IU` ON `IU`.`userUUID` = `U`.`uuid`
 		INNER JOIN `{prefix}users` `U1` ON `U1`.`uuid` = `IU`.`ignoredUUID`;
