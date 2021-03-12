@@ -1,5 +1,6 @@
 package me.stefan923.supercore;
 
+import me.stefan923.supercore.command.CommandManager;
 import me.stefan923.supercore.configuration.setting.SettingsManager;
 import me.stefan923.supercore.database.DatabaseManager;
 import me.stefan923.supercore.configuration.language.LanguageManager;
@@ -16,6 +17,7 @@ public class SuperCore extends JavaPlugin {
     private SettingsManager settingsManager;
     private LanguageManager languageManager;
     private DatabaseManager databaseManager;
+    private CommandManager commandManager;
 
     private IUserRepository userRepository;
 
@@ -31,6 +33,9 @@ public class SuperCore extends JavaPlugin {
 
         databaseManager = new DatabaseManager();
         databaseManager.getDatabase().init();
+
+        commandManager = new CommandManager();
+        commandManager.setUp();
 
         userRepository = new UserRepository(databaseManager.getDatabase());
 
@@ -58,6 +63,10 @@ public class SuperCore extends JavaPlugin {
 
     public DatabaseManager getDatabaseManager() {
         return databaseManager;
+    }
+
+    public CommandManager getCommandManager() {
+        return commandManager;
     }
 
     public IUserRepository getUserRepository() {
