@@ -118,7 +118,7 @@ public abstract class SQLDatabase implements IDatabase {
         ResultSet resultSet = null;
         try {
             preparedStatement = getConnection()
-                    .prepareStatement(SQLStatement.GET_USER_BY_UUID.replace("{prefix}", tablePrefix));
+                    .prepareStatement(SQLStatement.GET_USER_BY_NAME.replace("{prefix}", tablePrefix));
             preparedStatement.setString(1, playerName);
 
             resultSet = preparedStatement.executeQuery();
